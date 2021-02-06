@@ -9,7 +9,7 @@ export default function Spike() {
         { id: 2, title: 'Chicken Abobo', calories: 250, carbs: 20 },
         { id: 3, title: 'Steak', calories: 500, carbs: 1 }
     ])
-
+    const dailyTotalCal = useSelector(state => state.dailyNutritionCalc)
     const [meals, setMeals] = useState([{ id: 1, meal: 'Breakfast' }, { id: 2, meal: 'Lunch' }, { id: 3, meal: 'Dinner' }])
 
     return (
@@ -30,6 +30,8 @@ export default function Spike() {
             {meals?.map((meal) => (
                 < MealItem meal={meal} recipes={recipes} />
             ))}
+
+            <div>Daily Total Calories: {dailyTotalCal.reduce((x, y) => x + y)}</div>
         </div >
     )
 }

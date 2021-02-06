@@ -5,12 +5,18 @@ import RecipeItem from "../RecipeItem/RecipeItem.js"
 
 export default function Spike() {
     const [recipes, setRecipes] = useState([
-        { id: 1, title: 'Chicken Adobo', calories: 200, carbs: 40 },
-        { id: 2, title: 'Chicken Abobo', calories: 250, carbs: 20 },
-        { id: 3, title: 'Steak', calories: 500, carbs: 1 }
+        { id: 1, title: 'Soondubu', calories: 200, carbs: 40 },
+        { id: 2, title: 'Big Pork Friday', calories: 250, carbs: 20 },
+        { id: 3, title: 'New York Strip', calories: 500, carbs: 1 }
     ])
     const dailyTotalCal = useSelector(state => state.dailyNutritionCalc)
     const [meals, setMeals] = useState([{ id: 1, meal: 'Breakfast' }, { id: 2, meal: 'Lunch' }, { id: 3, meal: 'Dinner' }])
+
+    const nutritionTotal = [
+        dailyTotalCal.reduce((x, y) => ({ calories: x.calories + y.calories })),
+        dailyTotalCal.reduce((x, y) => ({ carbs: x.carbs + y.carbs }))
+    ]
+
 
     return (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -31,7 +37,11 @@ export default function Spike() {
                 < MealItem meal={meal} recipes={recipes} />
             ))}
 
-            <div>Daily Total Calories: {dailyTotalCal.reduce((x, y) => x + y)}</div>
+            <div>
+                Daily Total Calories: {nutritionTotal[0].calories}
+                <br />
+                Daily Total Carbs: {nutritionTotal[1].carbs}
+            </div>
         </div >
     )
 }

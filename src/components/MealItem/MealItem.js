@@ -26,6 +26,12 @@ export default function MealItem({ meal, recipes }) {
         })
     })
 
+    const handleClick = () => {
+        dispatch({ type: 'REMOVE_NUTRITION', payload: meal.id - 1 })
+        setMealRecipe([])
+
+    }
+
     return (
         <div
             className={meal.meal}
@@ -42,6 +48,7 @@ export default function MealItem({ meal, recipes }) {
             {mealRecipe.map((meal, index) => (
                 <RecipeItem recipe={meal} key={index} />
             ))}
+            {mealRecipe.length > 0 && <button onClick={handleClick}>Remove Recipe</button>}
         </div>
     )
 }

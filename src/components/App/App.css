@@ -4,6 +4,10 @@ body,
   height: 100%;
 }
 
+p {
+  white-space: pre-wrap;
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;

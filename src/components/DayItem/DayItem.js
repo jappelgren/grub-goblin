@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 import MealItem from '../MealItem/MealItem.js'
 
-export default function DayItem({ recipes, index }) {
+export default function DayItem({ recipes, day, index }) {
     const dailyTotalCal = useSelector(state => state.dailyNutritionCalc)
     const meals = [{ id: 1, meal: 'Breakfast' }, { id: 2, meal: 'Lunch' }, { id: 3, meal: 'Dinner' }]
 
@@ -12,6 +12,7 @@ export default function DayItem({ recipes, index }) {
 
     return (
         <div>
+            <div style={{border: '2px solid black', textAlign: 'center'}}>{day}</div>
             {meals?.map((meal) => (
                 < MealItem meal={meal} recipes={recipes} dayIndex={index} key={meal.id} />
             ))}

@@ -12,13 +12,13 @@ export default function RecipeItem({ recipe, index }) {
     })
     //handleMouseDown sends the index of the recipe selected in drag to a reducer
     const handleMouseDown = () => {
-        dispatch({ type: 'SET_MON_BREAKFAST', payload: index })
+        dispatch({ type: 'SET_MON_BREAKFAST', payload: recipe.id - 1 })
     }
 
     return (
 
         <div
-        // ref={drag} initiates the div as draggable.
+            // ref={drag} initiates the div as draggable.
             ref={drag}
             style={{ border: '1px solid black', width: '200px', backgroundColor: 'white' }}
             onMouseDown={handleMouseDown}

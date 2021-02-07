@@ -13,7 +13,7 @@ export default function DayItem({ recipes, index }) {
     return (
         <div>
             {meals?.map((meal) => (
-                < MealItem meal={meal} recipes={recipes} dayIndex={index} />
+                < MealItem meal={meal} recipes={recipes} dayIndex={index} key={meal.id} />
             ))}
 
             <div>

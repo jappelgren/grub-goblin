@@ -36,7 +36,7 @@ export default function Spike() {
             {/* This map iterates over the days of the week and sets them next to the recipe container */}
             {week.map((day, index) => (
                 // Passing the recipes, day of the week and index of the day of the week
-                <DayItem recipes={recipes} day={day} index={index} />
+                <DayItem recipes={recipes} day={day} index={index} key={index} />
             ))}
 
         </div >

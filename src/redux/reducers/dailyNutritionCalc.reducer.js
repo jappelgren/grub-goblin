@@ -4,7 +4,6 @@ const dailyNutritionCalc = (state = defaultState, action) => {
 
     switch (action.type) {
         case 'UPDATE_NUTRITION':
-            console.log(action?.payload[1], 1, action?.payload[0]?.calories)
 
             const stateCopyAdd = [...state]
             //stateCopyAdd at the index of the day(Mon, Tue, etc), splice at the index of the meal (breakfast, lunch, dinner)

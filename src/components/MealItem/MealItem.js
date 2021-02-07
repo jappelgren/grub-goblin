@@ -12,7 +12,7 @@ export default function MealItem({ meal, recipes, dayIndex }) {
     const [mealRecipe, setMealRecipe] = useState([])
 
     //What happens when a recipe is dropped on a meal.  setMealRecipe is called and stores the dropped recipe,
-    //a dispatch is made to a reducer which calculates the daily total,  The array sent to the reducer is
+    //a dispatch is made to a reducer which stores the daily total,  The array sent to the reducer is
     //the recipe at the index that matches the dropped recipe, meal.id signifies which meal was dropped onto
     //dayIndex is the index of the day that the meal resides in.
     const moveRecipe = (index) => {

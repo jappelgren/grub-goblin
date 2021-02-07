@@ -1,23 +1,24 @@
 import { useDrag } from "react-dnd"
 import { useDispatch } from "react-redux"
 
-export default function RecipeItem({ recipe }) {
+export default function RecipeItem({ recipe, index }) {
+    const dispatch = useDispatch()
+    //Sets the recipe as a draggable item, gives it a type of recipe
     const [{ isDragging }, drag] = useDrag({
         item: { type: 'recipe' },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging()
         })
     })
-
-    const dispatch = useDispatch()
-
+    //handleMouseDown sends the index of the recipe selected in drag to a reducer
     const handleMouseDown = () => {
-        dispatch({ type: 'SET_MON_BREAKFAST', payload: recipe.id - 1 })
+        dispatch({ type: 'SET_MON_BREAKFAST', payload: index })
     }
 
     return (
 
         <div
+        // ref={drag} initiates the div as draggable.
             ref={drag}
             style={{ border: '1px solid black', width: '200px', backgroundColor: 'white' }}
             onMouseDown={handleMouseDown}

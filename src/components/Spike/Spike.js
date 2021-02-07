@@ -2,46 +2,43 @@ import { useState } from "react"
 import { useSelector } from "react-redux"
 import MealItem from "../MealItem/MealItem.js"
 import RecipeItem from "../RecipeItem/RecipeItem.js"
+import DayItem from "../DayItem/DayItem"
 
 export default function Spike() {
-    const [recipes, setRecipes] = useState([
+
+    //This data will come from database
+    const recipes = [
         { id: 1, title: 'Soondubu', calories: 200, carbs: 40 },
         { id: 2, title: 'Big Pork Friday', calories: 250, carbs: 20 },
-        { id: 3, title: 'New York Strip', calories: 500, carbs: 1 }
-    ])
-    const dailyTotalCal = useSelector(state => state.dailyNutritionCalc)
-    const [meals, setMeals] = useState([{ id: 1, meal: 'Breakfast' }, { id: 2, meal: 'Lunch' }, { id: 3, meal: 'Dinner' }])
-
-    const nutritionTotal = [
-        dailyTotalCal.reduce((x, y) => ({ calories: x.calories + y.calories })),
-        dailyTotalCal.reduce((x, y) => ({ carbs: x.carbs + y.carbs }))
+        { id: 3, title: 'New York Strip', calories: 500, carbs: 1 },
+        { id: 4, title: 'Donkey Burger', calories: 343, carbs: 89 }
     ]
+    //This data will come from database
+    const week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
 
 
     return (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ display: 'flex' }}>
             <div
-
                 style={{
                     border: '2px solid black',
-                    width: '300px',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center'
                 }}>
+                {/* This map iterates over the recipes and puts them into a container */}
                 {recipes?.map((recipe, index) => (
-                    <RecipeItem recipe={recipe} index={index} key={recipe.id} />
+                    // Passing recipe from recipes, index of the recipe
+                    <RecipeItem recipe={recipe} index={index} key={recipe.id} style={{ display: 'flex', flexDirection: 'column' }} />
                 ))}
             </div>
-            {meals?.map((meal) => (
-                < MealItem meal={meal} recipes={recipes} />
+            {/* This map iterates over the days of the week and sets them next to the recipe container */}
+            {week.map((day, index) => (
+                // Passing the recipes, day of the week and index of the day of the week
+                <DayItem recipes={recipes} day={day} index={index} />
             ))}
 
-            <div>
-                Daily Total Calories: {nutritionTotal[0].calories}
-                <br />
-                Daily Total Carbs: {nutritionTotal[1].carbs}
-            </div>
         </div >
     )
 }

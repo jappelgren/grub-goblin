@@ -1,4 +1,4 @@
-const mondayBreakfastReducer = (state = null, action) => {
+const recipeSelectedIndex = (state = null, action) => {
     switch (action.type) {
         case 'SET_MON_BREAKFAST':
             return action.payload
@@ -7,4 +7,4 @@ const mondayBreakfastReducer = (state = null, action) => {
     }
 }
 
-export default mondayBreakfastReducer
+export default recipeSelectedIndex

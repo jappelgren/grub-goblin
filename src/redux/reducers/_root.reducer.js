@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import errors from './errors.reducer';
 import user from './user.reducer';
-import mondayBreakfast from '../reducers/mondayBreakfast.reducer'
+import recipeSelectedIndex from './recipeSelectedIndex.reducer'
 import dailyNutritionCalc from '../reducers/dailyNutritionCalc.reducer'
 
 // rootReducer is the primary reducer for our entire project
@@ -13,7 +13,7 @@ import dailyNutritionCalc from '../reducers/dailyNutritionCalc.reducer'
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  mondayBreakfast,
+  recipeSelectedIndex,
   dailyNutritionCalc,
 });
 

@@ -8,10 +8,11 @@ const sessionMiddleware = require('./modules/session-middleware');
 const passport = require('./strategies/user.strategy');
 
 // Route includes
-const userRouter = require('./routes/user.router');
+const userRouter = require('./routes/user.router.js');
 const recipeRouter = require('./routes/recipe.router.js')
 const nutritionRouter = require('./routes/nutrition.router.js')
-const mealPlan = require('./routes/mealPlan.router.js')
+const mealPlanRouter = require('./routes/mealPlan.router.js')
+const clearMealPlanRouter = require('./routes/clearMealPlan.router.js')
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -28,7 +29,8 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/recipes', recipeRouter)
 app.use('/api/nutrition', nutritionRouter)
-app.use('/api/plan', mealPlan)
+app.use('/api/plan', mealPlanRouter)
+app.use('/api/clearweek', clearMealPlanRouter)
 
 // Serve static files
 app.use(express.static('build'));

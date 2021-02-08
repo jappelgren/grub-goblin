@@ -48,8 +48,19 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
     const id = req.params.id
 
     const queryText = `
-        
+        UPDATE "week"
+        SET "recipe_id" = $1
+        WHERE "id" = $2
     `
+
+    pool.query(queryText, [req.body.recipe_id, id])
+        .then((result) => {
+            res.sendStatus(200)
+        })
+        .catch((err) => {
+            console.log(err)
+            res.sendStatus(500)
+        })
 
 });
 

@@ -1,6 +1,6 @@
 const recipeSelectedIndex = (state = null, action) => {
     switch (action.type) {
-        case 'SET_MON_BREAKFAST':
+        case 'SET_MEAL_INDEX':
             return action.payload
         default:
             return state

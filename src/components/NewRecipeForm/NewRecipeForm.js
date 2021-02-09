@@ -1,8 +1,10 @@
 import { useState } from "react"
 
 export default function NewRecipeForm({ closeModal }) {
-    const newRecipeDefaultState = { recipe_name: '', photo: '', directions: '', servings: '', meal: '', ingredients: [] }
+    const [ingredientArr, setIngredientArr] = useState(['', ''])
+    const newRecipeDefaultState = { recipe_name: '', photo: '', directions: '', servings: '', meal: '', ingredients: ingredientArr }
     const [newRecipe, setNewRecipe] = useState(newRecipeDefaultState)
+
 
     const handleChange = (event) => {
         if (event.target.name === 'servings') {
@@ -10,7 +12,28 @@ export default function NewRecipeForm({ closeModal }) {
         } else {
             setNewRecipe({ ...newRecipe, [event.target.name]: event.target.value })
         }
+    }
 
+    const handleIngredient = index => event => {
+        console.log('index', index, 'event', event.target.value)
+
+        let tempArr = [...ingredientArr];
+        tempArr[index] = event.target.value
+        setIngredientArr(tempArr)
+        setNewRecipe({ ...newRecipe, ingredients: tempArr })
+
+    }
+
+    const addRemoveIngredient = index => event => {
+        let tempArr = [...ingredientArr];
+        if (event.target.name === 'remove') {
+            tempArr.splice(index, 1)
+        } else if (event.target.name === 'add') {
+            tempArr.push('')
+        }
+
+        setIngredientArr(tempArr)
+        setNewRecipe({ ...newRecipe, ingredients: tempArr })
     }
 
     const handleSubmit = (event) => {
@@ -41,11 +64,19 @@ export default function NewRecipeForm({ closeModal }) {
                     onChange={handleChange}
                     value={newRecipe.recipe_name}
                     placeholder="Recipe Name" />
-                <input
-                    required
-                    type="text"
-                    placeholder="Ingredient" />
-                <button>+</button>
+                {newRecipe.ingredients.map((ingr, i) => (
+                    <>
+                        <input
+                            required
+                            type="text"
+                            name="ingredients"
+                            value={ingredientArr[i]}
+                            onChange={handleIngredient(i)}
+                            placeholder="Ingredient" />
+                        {i === newRecipe.ingredients.length - 1 ? <button name="add" onClick={addRemoveIngredient(i)} type="button">+</button> : <button name="remove" onClick={addRemoveIngredient(i)} type="button">-</button>}
+
+                    </>
+                ))}
                 <input
                     name="photo"
                     value={newRecipe.photo}
@@ -80,7 +111,7 @@ export default function NewRecipeForm({ closeModal }) {
                     cols="30"
                     rows="10"
                 />
-                <button type="reset" onClick={recipeCancel}>Cancel</button>
+                <button type="button" onClick={recipeCancel}>Cancel</button>
                 <button type="submit" >Complete</button>
             </form>
         </div>

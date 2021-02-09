@@ -21,6 +21,9 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
+import Dashboard from '../Dashboard/Dashboard';
+
+Nav.setAppElement;
 
 function App() {
   const dispatch = useDispatch();
@@ -31,7 +34,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div id="root">
         <Nav />
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
@@ -91,7 +94,7 @@ function App() {
             <RegisterPage />
           </ProtectedRoute>
 
-          <ProtectedRoute
+          {/* <ProtectedRoute
             // with authRedirect:
             // - if logged in, redirects to "/user"
             // - else shows LandingPage at "/home"
@@ -100,13 +103,18 @@ function App() {
             authRedirect="/user"
           >
             <LandingPage />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
+          {/* 
+          <ProtectedRoute exact path="/login" authRedirect="/home">
+            
+          </ProtectedRoute> */}
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
           </Route>
         </Switch>
+        <Dashboard />
         <Footer />
       </div>
     </Router>

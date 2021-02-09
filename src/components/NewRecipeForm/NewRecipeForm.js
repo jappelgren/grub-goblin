@@ -15,21 +15,13 @@ export default function NewRecipeForm({ closeModal }) {
     }
 
     const handleIngredient = index => event => {
-        console.log('index', index, 'event', event.target.value)
-
-        let tempArr = [...ingredientArr];
-        tempArr[index] = event.target.value
-        setIngredientArr(tempArr)
-        setNewRecipe({ ...newRecipe, ingredients: tempArr })
-
-    }
-
-    const addRemoveIngredient = index => event => {
         let tempArr = [...ingredientArr];
         if (event.target.name === 'remove') {
             tempArr.splice(index, 1)
         } else if (event.target.name === 'add') {
             tempArr.push('')
+        } else if (event.target.name === 'ingredients') {
+            tempArr[index] = event.target.value
         }
 
         setIngredientArr(tempArr)
@@ -70,10 +62,10 @@ export default function NewRecipeForm({ closeModal }) {
                             required
                             type="text"
                             name="ingredients"
-                            value={ingredientArr[i]}
+                            value={ingr}
                             onChange={handleIngredient(i)}
                             placeholder="Ingredient" />
-                        {i === newRecipe.ingredients.length - 1 ? <button name="add" onClick={addRemoveIngredient(i)} type="button">+</button> : <button name="remove" onClick={addRemoveIngredient(i)} type="button">-</button>}
+                        {i === newRecipe.ingredients.length - 1 ? <button name="add" onClick={handleIngredient(i)} type="button">+</button> : <button name="remove" onClick={handleIngredient(i)} type="button">-</button>}
 
                     </>
                 ))}

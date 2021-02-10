@@ -1,16 +1,17 @@
 import { useState } from "react"
+import { useDispatch } from "react-redux"
 
 export default function NewRecipeForm({ closeModal }) {
-    const [ingredientArr, setIngredientArr] = useState(['', ''])
-    const newRecipeDefaultState = { recipe_name: '', photo: '', directions: '', servings: '', meal: '', ingredients: ingredientArr }
-    const [newRecipe, setNewRecipe] = useState(newRecipeDefaultState)
-
+    const [ingredientArr, setIngredientArr] = useState(['']);
+    const newRecipeDefaultState = { recipe_name: '', photo: '', directions: '', servings: '', meal: '', ingredients: ingredientArr };
+    const [newRecipe, setNewRecipe] = useState(newRecipeDefaultState);
+    const dispatch = useDispatch();
 
     const handleChange = (event) => {
         if (event.target.name === 'servings') {
-            setNewRecipe({ ...newRecipe, [event.target.name]: Number(event.target.value) })
+            setNewRecipe({ ...newRecipe, [event.target.name]: Number(event.target.value) });
         } else {
-            setNewRecipe({ ...newRecipe, [event.target.name]: event.target.value })
+            setNewRecipe({ ...newRecipe, [event.target.name]: event.target.value });
         }
     }
 
@@ -30,8 +31,9 @@ export default function NewRecipeForm({ closeModal }) {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        closeModal();
-        setNewRecipe(newRecipeDefaultState);
+        dispatch({ type: 'ADD_RECIPE', payload: newRecipe })
+        // closeModal();
+        // setNewRecipe(newRecipeDefaultState);
     }
 
     const recipeCancel = () => {
@@ -78,13 +80,13 @@ export default function NewRecipeForm({ closeModal }) {
                 <input
                     required
                     name="servings"
-                    value={newRecipe.serving}
+                    value={newRecipe.quantity}
                     onChange={handleChange}
                     type="number"
                     placeholder="Servings" />
                 <select
                     required
-                    name="Meal"
+                    name="meal"
                     // value={newRecipe.meal}
                     onChange={handleChange}
                     defaultValue={''}

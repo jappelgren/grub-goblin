@@ -111,39 +111,70 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
                   $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, 
                   $21, $22, $23, $24, $25, $26, $27, $28, $29, $30)
       `
-    const sanitizedNutrition = [
-      Math.floor(nutritionMacros.ENERC_KCAL.quantity),
-      Math.floor(nutritionMacros.FAT.quantity),
-      Math.floor(nutritionMacros.FASAT.quantity),
-      Math.floor(nutritionMacros.FATRN.quantity),
-      Math.floor(nutritionMacros.FAMS.quantity),
-      Math.floor(nutritionMacros.FAPU.quantity),
-      Math.floor(nutritionMacros.CHOCDF.quantity),
-      Math.floor(nutritionMacros.FIBTG.quantity),
-      Math.floor(nutritionMacros.SUGAR.quantity),
-      Math.floor(nutritionMacros.PROCNT.quantity),
-      Math.floor(nutritionMacros.CHOLE.quantity),
-      Math.floor(nutritionMacros.NA.quantity),
-      Math.floor(nutritionMacros.CA.quantity),
-      Math.floor(nutritionMacros.MG.quantity),
-      Math.floor(nutritionMacros.K.quantity),
-      Math.floor(nutritionMacros.FE.quantity),
-      Math.floor(nutritionMacros.ZN.quantity),
-      Math.floor(nutritionMacros.P.quantity),
-      Math.floor(nutritionMacros.VITA_RAE.quantity),
-      Math.floor(nutritionMacros.VITC.quantity),
-      Math.floor(nutritionMacros.THIA.quantity),
-      Math.floor(nutritionMacros.RIBF.quantity),
-      Math.floor(nutritionMacros.NIA.quantity),
-      Math.floor(nutritionMacros.VITB6A.quantity),
-      Math.floor(nutritionMacros.FOLAC.quantity),
-      Math.floor(nutritionMacros.VITB12.quantity),
-      Math.floor(nutritionMacros.VITD.quantity),
-      Math.floor(nutritionMacros.TOCPHA.quantity),
-      Math.floor(nutritionMacros.VITK1.quantity),
-      newRecipeId
 
+    const calories = await Math.floor(nutritionMacros?.ENERC_KCAL?.quantity) || 0
+    const fat = await Math.floor(nutritionMacros?.FAT?.quantity) || 0
+    const satFat = Math.floor(nutritionMacros?.FASAT?.quantity) || 0
+    const transFat = await Math.floor(nutritionMacros?.FATRN?.quantity) || 0
+    const fatMono = await Math.floor(nutritionMacros.FAMS.quantity) || 0
+    const fatPoly = await Math.floor(nutritionMacros.FAPU.quantity) || 0
+    const carbs = await Math.floor(nutritionMacros.CHOCDF.quantity) || 0
+    const fiber = await Math.floor(nutritionMacros.FIBTG.quantity) || 0
+    const sugar = await Math.floor(nutritionMacros.SUGAR.quantity) || 0
+    const protein = await Math.floor(nutritionMacros.PROCNT.quantity) || 0
+    const cholesterol = await Math.floor(nutritionMacros?.CHOLE?.quantity) || 0
+    const sodium = await Math.floor(nutritionMacros.NA.quantity) || 0
+    const calcium = await Math.floor(nutritionMacros.CA.quantity) || 0
+    const magnesium = await Math.floor(nutritionMacros.MG.quantity) || 0
+    const potassium = await Math.floor(nutritionMacros.K.quantity) || 0
+    const iron = await Math.floor(nutritionMacros.FE.quantity) || 0
+    const zinc = Math.floor(nutritionMacros.ZN.quantity) || 0
+    const phosphorus = await Math.floor(nutritionMacros.P.quantity) || 0
+    const vitA = await Math.floor(nutritionMacros?.VITA_RAE?.quantity) || 0
+    const vitC = await Math.floor(nutritionMacros?.VITC?.quantity) || 0
+    const vitB1 = await Math.floor(nutritionMacros?.THIA?.quantity) || 0
+    const vitB2 = await Math.floor(nutritionMacros?.RIBF?.quantity) || 0
+    const vitB3 = await Math.floor(nutritionMacros?.NIA?.quantity) || 0
+    const vitB6 = await Math.floor(nutritionMacros?.VITB6A?.quantity) || 0
+    const vitB9 = await Math.floor(nutritionMacros?.FOLAC?.quantity) || 0
+    const vitB12 = await Math.floor(nutritionMacros?.VITB12?.quantity) || 0
+    const vitD = await Math.floor(nutritionMacros?.VITD?.quantity) || 0
+    const vitE = await Math.floor(nutritionMacros?.TOCPHA?.quantity) || 0
+    const vitK = await Math.floor(nutritionMacros?.VITK1?.quantity) || 0
+
+    const sanitizedNutrition = [
+      calories,
+      fat,
+      satFat,
+      transFat,
+      fatMono,
+      fatPoly,
+      carbs,
+      fiber,
+      sugar,
+      protein,
+      cholesterol,
+      sodium,
+      calcium,
+      magnesium,
+      potassium,
+      iron,
+      zinc,
+      phosphorus,
+      vitA,
+      vitC,
+      vitB1,
+      vitB2,
+      vitB3,
+      vitB6,
+      vitB9,
+      vitB12,
+      vitD,
+      vitE,
+      vitK,
+      newRecipeId
     ]
+
 
     const nutritionPostResult = await pool.query(queryText, sanitizedNutrition)
 
@@ -151,8 +182,13 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
 
   } catch (err) {
-    console.log(err)
-    res.sendStatus(500)
+    console.log(err.response.status)
+    if (err.response.status) {
+      res.send(err)
+    } else {
+      res.sendStatus(500)
+    }
+
   }
 
 

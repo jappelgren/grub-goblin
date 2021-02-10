@@ -43,6 +43,7 @@ export default function Dashboard() {
             >
                 <NewRecipeForm closeModal={closeModal} />
             </Modal>
+            
         </div>
     )
 }

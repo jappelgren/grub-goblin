@@ -6,8 +6,10 @@ const axios = require('axios')
 const scraper = require('../modules/recipeScraper')
 
 router.get('/', rejectUnauthenticated, async (req, res) => {
+    console.log(req.query)
+
     try {
-        const result = await scraper(req.body.url);
+        const result = await scraper(req.query.url);
         await res.send(result);
     } catch (err) {
         console.log(err)

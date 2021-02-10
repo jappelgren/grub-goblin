@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Modal from 'react-modal'
 import NewRecipeForm from '../NewRecipeForm/NewRecipeForm.js'
+import RecipeImportForm from '../RecipeImportForm/RecipeImportForm.js'
 
 const customStyles = {
     overlay: {
@@ -68,7 +69,7 @@ export default function Dashboard() {
                 style={customStyles}
                 contentLabel="Import New Recipe"
             >
-                <input type="text" placeholder="Hi" />
+                <RecipeImportForm closeModal={closeImportModal}/>
             </Modal>
 
         </div>

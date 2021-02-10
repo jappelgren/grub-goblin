@@ -15,6 +15,17 @@ function* addRecipe(action) {
     }
 }
 
+function* importRecipe(action) {
+    try {
+        const response = yield axios.get(`/api/scrape?url=${action.payload}`,)
+        console.log(response.data[1])
+    } catch (err) {
+        console.log(err)
+        alert('Unable to auto import recipe.  Time to click on add recipe and flex your copy and past skills')
+    }
+}
+
 export default function* recipeSaga() {
     yield takeLatest('ADD_RECIPE', addRecipe)
+    yield takeLatest('IMPORT_RECIPE', importRecipe)
 }

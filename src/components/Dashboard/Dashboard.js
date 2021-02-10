@@ -17,33 +17,60 @@ const customStyles = {
 };
 
 export default function Dashboard() {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [recipeModalIsOpen, setRecipeModalIsOpen] = useState(false);
 
-    const openModal = () => {
-        setModalIsOpen(true);
+    const openRecipeModal = () => {
+        setRecipeModalIsOpen(true);
     }
 
-    const afterOpenModal = () => {
+    const afterRecipeOpenModal = () => {
 
     }
 
-    const closeModal = () => {
-        setModalIsOpen(false)
+    const closeRecipeModal = () => {
+        setRecipeModalIsOpen(false)
     }
+
+    const [importModalIsOpen, setImportModalIsOpen] = useState(false);
+
+    const openImportModal = () => {
+        setImportModalIsOpen(true);
+    }
+
+    const afterImportOpenModal = () => {
+
+    }
+
+    const closeImportModal = () => {
+        setImportModalIsOpen(false)
+    }
+
     return (
         <div>
-            <button onClick={openModal}>recipe entry</button>
+            <button onClick={openRecipeModal}>Recipe Entry</button>
+            <button onClick={openImportModal}>Import Recipe</button>
             <Modal
                 ariaHideApp={false}
-                isOpen={modalIsOpen}
-                onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal}
+                isOpen={recipeModalIsOpen}
+                onAfterOpen={afterRecipeOpenModal}
+                onRequestClose={closeRecipeModal}
                 style={customStyles}
                 contentLabel="New Recipe"
             >
-                <NewRecipeForm closeModal={closeModal} />
+                <NewRecipeForm closeModal={closeRecipeModal} />
             </Modal>
-            
+
+            <Modal
+                ariaHideApp={false}
+                isOpen={importModalIsOpen}
+                onAfterOpen={afterImportOpenModal}
+                onRequestClose={closeImportModal}
+                style={customStyles}
+                contentLabel="Import New Recipe"
+            >
+                <input type="text" placeholder="Hi" />
+            </Modal>
+
         </div>
     )
 }

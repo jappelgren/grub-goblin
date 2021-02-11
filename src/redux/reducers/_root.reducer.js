@@ -3,6 +3,8 @@ import errors from './errors.reducer';
 import user from './user.reducer';
 import recipeSelectedIndex from './recipeSelectedIndex.reducer'
 import dailyNutritionCalc from '../reducers/dailyNutritionCalc.reducer'
+import recipeReducer from './recipe.reducer'
+import modalReducer from './modal.reducer.js'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   recipeSelectedIndex,
   dailyNutritionCalc,
+  recipeReducer,
+  modalReducer
 });
 
 export default rootReducer;

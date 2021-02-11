@@ -191,14 +191,16 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
   const id = req.params.id
+  console.log(req.params.id)
 
   const queryText = `
     DELETE FROM "recipes"
     WHERE "id" = $1 AND "user_id" = $2
   `
-  pool.query(queryText, [id, req.user.id])
+  pool.query(queryText, [req.params.id, req.user.id])
     .then((result) => {
       res.sendStatus(200)
+      console.log(result)
     })
     .catch((err) => {
       console.log(err)

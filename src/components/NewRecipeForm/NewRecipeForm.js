@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 
-export default function NewRecipeForm({ closeModal }) {
+export default function NewRecipeForm() {
     const [ingredientArr, setIngredientArr] = useState(['']);
     const newRecipeDefaultState = { recipe_name: '', photo: '', directions: '', servings: '', meal: '', ingredients: ingredientArr };
     const [newRecipe, setNewRecipe] = useState(newRecipeDefaultState);
@@ -32,12 +32,12 @@ export default function NewRecipeForm({ closeModal }) {
     const handleSubmit = (event) => {
         event.preventDefault()
         dispatch({ type: 'ADD_RECIPE', payload: newRecipe })
-        // closeModal();
-        // setNewRecipe(newRecipeDefaultState);
+        recipeCancel()
+        setNewRecipe(newRecipeDefaultState);
     }
 
     const recipeCancel = () => {
-        closeModal()
+        dispatch({ type: 'CLOSE_RECIPE_ENTRY' })
         setNewRecipe(newRecipeDefaultState);
     }
 

@@ -5,6 +5,7 @@ import RecipeItem from '../RecipeItem/RecipeItem.js'
 
 export default function MealItem({ meal, recipes, dayIndex }) {
 
+
     const dispatch = useDispatch()
     //The index of the recipe most recently dragged and dropped
     const selectedIndex = useSelector(state => state.recipeSelectedIndex)
@@ -51,7 +52,7 @@ export default function MealItem({ meal, recipes, dayIndex }) {
             }}>
             <h4>{meal.meal}</h4>
             {mealRecipe.map((meal, index) => (
-        // RecipeItem is passed meal (breakfast, lunch, dinner) as recipe, so recipeItem can be reused.
+                // RecipeItem is passed meal (breakfast, lunch, dinner) as recipe, so recipeItem can be reused.
                 <RecipeItem onMouseDown={handleClick} recipe={meal} key={index} />
             ))}
             {mealRecipe.length > 0 && <button onClick={handleClick}>Remove Recipe</button>}

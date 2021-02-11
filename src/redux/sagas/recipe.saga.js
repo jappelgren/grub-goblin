@@ -26,7 +26,27 @@ function* importRecipe(action) {
     }
 }
 
+function* fetchRecipes() {
+    try {
+        const response = yield axios.get('/api/recipes')
+        console.log(response.data.rows)
+        yield put({ type: 'SET_RECIPES', payload: response.data.rows })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+function* deleteRecipe(action) {
+    console.log(action.payload)
+    yield axios.delete(`/api/recipes/${action.payload}`)
+    yield put({ type: 'FETCH_RECIPES' })
+}
+
+
+
 export default function* recipeSaga() {
     yield takeLatest('ADD_RECIPE', addRecipe)
     yield takeLatest('IMPORT_RECIPE', importRecipe)
+    yield takeLatest('FETCH_RECIPES', fetchRecipes)
+    yield takeLatest('DELETE_RECIPE', deleteRecipe)
 }

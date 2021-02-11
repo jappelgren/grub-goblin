@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from 'react-modal'
+import { useDispatch, useSelector } from 'react-redux';
 import NewRecipeForm from '../NewRecipeForm/NewRecipeForm.js'
 import RecipeImportForm from '../RecipeImportForm/RecipeImportForm.js'
+import RecipeViewModal from '../RecipeViewModal/RecipeViewModal.js';
 
 const customStyles = {
     overlay: {
@@ -18,58 +20,48 @@ const customStyles = {
 };
 
 export default function Dashboard() {
-    const [recipeModalIsOpen, setRecipeModalIsOpen] = useState(false);
+    const dispatch = useDispatch()
+    const modalState = useSelector(state => state?.modalReducer)
 
-    const openRecipeModal = () => {
-        setRecipeModalIsOpen(true);
-    }
 
-    const afterRecipeOpenModal = () => {
 
-    }
 
-    const closeRecipeModal = () => {
-        setRecipeModalIsOpen(false)
-    }
-
-    const [importModalIsOpen, setImportModalIsOpen] = useState(false);
-
-    const openImportModal = () => {
-        setImportModalIsOpen(true);
-    }
-
-    const afterImportOpenModal = () => {
-
-    }
-
-    const closeImportModal = () => {
-        setImportModalIsOpen(false)
-    }
 
     return (
         <div>
-            <button onClick={openRecipeModal}>Recipe Entry</button>
-            <button onClick={openImportModal}>Import Recipe</button>
+            <button onClick={() => dispatch({ type: 'OPEN_RECIPE_ENTRY' })}>Recipe Entry</button>
+            <button onClick={() => dispatch({ type: 'OPEN_RECIPE_IMPORT' })}>Import Recipe</button>
             <Modal
                 ariaHideApp={false}
-                isOpen={recipeModalIsOpen}
-                onAfterOpen={afterRecipeOpenModal}
-                onRequestClose={closeRecipeModal}
+                isOpen={modalState.recipeEntry}
+                // onAfterOpen={afterRecipeOpenModal}
+                onRequestClose={() => dispatch({ type: 'CLOSE_RECIPE_ENTRY' })}
                 style={customStyles}
                 contentLabel="New Recipe"
             >
-                <NewRecipeForm closeModal={closeRecipeModal} />
+                <NewRecipeForm />
             </Modal>
 
             <Modal
                 ariaHideApp={false}
-                isOpen={importModalIsOpen}
-                onAfterOpen={afterImportOpenModal}
-                onRequestClose={closeImportModal}
+                isOpen={modalState.recipeImport}
+                // onAfterOpen={afterImportOpenModal}
+                onRequestClose={() => dispatch({ type: 'CLOSE_RECIPE_IMPORT' })}
                 style={customStyles}
                 contentLabel="Import New Recipe"
             >
-                <RecipeImportForm closeModal={closeImportModal}/>
+                <RecipeImportForm />
+            </Modal>
+
+            <Modal
+                ariaHideApp={false}
+                isOpen={modalState.recipeView}
+                // onAfterOpen={afterImportOpenModal}
+                onRequestClose={() => dispatch({ type: 'CLOSE_RECIPE_VIEW' })}
+                style={customStyles}
+                contentLabel="Import New Recipe"
+            >
+                <RecipeViewModal />
             </Modal>
 
         </div>

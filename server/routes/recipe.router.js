@@ -59,6 +59,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
     req.body.ingredients.forEach(async (ingredient) => {
       const ingredientResult = await pool.query(ingredientQueryText, [ingredient, newRecipeId])
+
     })
 
     const recipeToAnalyze = {
@@ -71,8 +72,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       `https://api.edamam.com/api/nutrition-details?app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`,
       recipeToAnalyze
     )
-    // console.log(JSON.parse(nutritionResult))
-    // await res.send(nutritionResult)
+
 
     const nutritionMacros = nutritionResult.data.totalNutrients
     const queryText = `
@@ -114,7 +114,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
     const calories = await Math.floor(nutritionMacros?.ENERC_KCAL?.quantity) || 0
     const fat = await Math.floor(nutritionMacros?.FAT?.quantity) || 0
-    const satFat = Math.floor(nutritionMacros?.FASAT?.quantity) || 0
+    const satFat = await Math.floor(nutritionMacros?.FASAT?.quantity) || 0
     const transFat = await Math.floor(nutritionMacros?.FATRN?.quantity) || 0
     const fatMono = await Math.floor(nutritionMacros.FAMS.quantity) || 0
     const fatPoly = await Math.floor(nutritionMacros.FAPU.quantity) || 0
@@ -128,7 +128,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     const magnesium = await Math.floor(nutritionMacros.MG.quantity) || 0
     const potassium = await Math.floor(nutritionMacros.K.quantity) || 0
     const iron = await Math.floor(nutritionMacros.FE.quantity) || 0
-    const zinc = Math.floor(nutritionMacros.ZN.quantity) || 0
+    const zinc = await Math.floor(nutritionMacros.ZN.quantity) || 0
     const phosphorus = await Math.floor(nutritionMacros.P.quantity) || 0
     const vitA = await Math.floor(nutritionMacros?.VITA_RAE?.quantity) || 0
     const vitC = await Math.floor(nutritionMacros?.VITC?.quantity) || 0
@@ -182,13 +182,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
 
   } catch (err) {
-    console.log(err.response.status)
-    if (err.response.status) {
-      res.send(err)
-    } else {
-      res.sendStatus(500)
-    }
-
+    console.log(err)
+    res.sendStatus(500)
   }
 
 

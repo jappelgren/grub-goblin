@@ -17,8 +17,9 @@ function* addRecipe(action) {
 
 function* importRecipe(action) {
     try {
-        const response = yield axios.get(`/api/scrape?url=${action.payload}`,)
-        console.log(response.data[1])
+        const response = yield axios.get(`/api/scrape?url=${action.payload}`)
+        console.log(response)
+        yield axios.post('/api/recipes', response.data)
     } catch (err) {
         console.log(err)
         alert('Unable to auto import recipe.  Time to click on add recipe and flex your copy and past skills')

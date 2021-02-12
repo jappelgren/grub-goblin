@@ -4,6 +4,7 @@ import axios from 'axios';
 function* addRecipe(action) {
     try {
         yield axios.post('/api/recipes', action.payload)
+        yield put({ type: 'FETCH_RECIPES' })
     } catch (err) {
         if (err == 500) {
             console.log(err)
@@ -20,6 +21,7 @@ function* importRecipe(action) {
         const response = yield axios.get(`/api/scrape?url=${action.payload}`)
         console.log(response)
         yield axios.post('/api/recipes', response.data)
+        yield put({ type: 'FETCH_RECIPES' })
     } catch (err) {
         console.log(err)
         alert('Unable to auto import recipe.  Time to click on add recipe and flex your copy and past skills')
@@ -31,6 +33,15 @@ function* fetchRecipes() {
         const response = yield axios.get('/api/recipes')
         console.log(response.data.rows)
         yield put({ type: 'SET_RECIPES', payload: response.data.rows })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+function* favRecipe(action) {
+    try {
+        yield axios.put(`/api/fav/${action.payload}`, action.payload)
+        yield put({ type: 'FETCH_RECIPES' })
     } catch (err) {
         console.log(err)
     }
@@ -49,4 +60,5 @@ export default function* recipeSaga() {
     yield takeLatest('IMPORT_RECIPE', importRecipe)
     yield takeLatest('FETCH_RECIPES', fetchRecipes)
     yield takeLatest('DELETE_RECIPE', deleteRecipe)
+    yield takeLatest('FAV_RECIPE', favRecipe)
 }

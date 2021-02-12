@@ -7,14 +7,7 @@ import DayItem from "../DayItem/DayItem"
 export default function Spike() {
     const dispatch = useDispatch()
     const recipes = useSelector(state => state.recipeReducer)
-    //This data will come from database
-    // const recipes = [
-    //     { id: 1, title: 'Soondubu', calories: 200, carbs: 40 },
-    //     { id: 2, title: 'Big Pork Friday', calories: 250, carbs: 20 },
-    //     { id: 3, title: 'New York Strip', calories: 500, carbs: 1 },
-    //     { id: 4, title: 'Donkey Burger', calories: 343, carbs: 89 }
-    // ]
-    //This data will come from database
+
     const week = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
     useEffect(() => {

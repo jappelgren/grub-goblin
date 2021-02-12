@@ -15,16 +15,17 @@ const customStyles = {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
+        transform: 'translate(-50%, -50%)',
+        borderRadius: '20px',
+        margin: '0',
+        padding: '0',
+        border: 'none'
     }
 };
 
 export default function Dashboard() {
     const dispatch = useDispatch()
     const modalState = useSelector(state => state?.modalReducer)
-
-
-
 
 
     return (

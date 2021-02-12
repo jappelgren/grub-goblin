@@ -5,6 +5,7 @@ import recipeSelectedIndex from './recipeSelectedIndex.reducer'
 import dailyNutritionCalc from '../reducers/dailyNutritionCalc.reducer'
 import recipeReducer from './recipe.reducer'
 import modalReducer from './modal.reducer.js'
+import viewRecipeReducer from './viewRecipe.reducer.js'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   recipeSelectedIndex,
   dailyNutritionCalc,
   recipeReducer,
-  modalReducer
+  modalReducer,
+  viewRecipeReducer
 });
 
 export default rootReducer;

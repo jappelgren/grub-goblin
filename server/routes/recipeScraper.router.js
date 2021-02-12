@@ -20,7 +20,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
                 photo: scrapeResult[scrapeResult.length - 1]?.image?.url,
                 directions: scrapeResult[scrapeResult.length - 1]?.recipeInstructions?.map((direction) => {
                     return direction.text
-                }).join('\n\n'),
+                }).join('\n'),
                 servings: (scrapeResult[scrapeResult.length - 1]?.recipeYield)?.replace(/\D/gm, '') || 4,
                 meal: 'Dinner',
                 ingredients: scrapeResult[scrapeResult.length - 1]?.recipeIngredient
@@ -31,7 +31,7 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
                 photo: scrapeResult?.image?.url,
                 directions: scrapeResult?.recipeInstructions?.map((direction) => {
                     return direction.text
-                }).join('\n\n'),
+                }).join('\n'),
                 servings: (scrapeResult?.recipeYield)?.replace(/\D/gm, '') || 4,
                 meal: 'Dinner',
                 ingredients: scrapeResult?.recipeIngredient

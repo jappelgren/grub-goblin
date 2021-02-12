@@ -22,7 +22,8 @@ export default function RecipeItem({ recipe, index }) {
     }
 
     const handleClick = () => {
-        console.log(recipe)
+        dispatch({ type: 'VIEW_SELECTED_RECIPE', payload: recipe })
+        dispatch({ type: 'OPEN_RECIPE_VIEW' })
     }
 
     return (
@@ -32,9 +33,8 @@ export default function RecipeItem({ recipe, index }) {
             ref={drag}
             style={{ border: '1px solid black', width: '200px', backgroundColor: 'white' }}
             onMouseDown={handleMouseDown}
-            onClick={handleClick}
         >
-            <h3>{recipe?.recipe_name}</h3>
+            <h3 onClick={handleClick}>{recipe?.recipe_name}</h3>
             <p>Calories: {Math.round(recipe?.cal / recipe?.servings)}</p>
             <p>Carbs: {recipe?.carb}</p>
 

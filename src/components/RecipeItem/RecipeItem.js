@@ -36,7 +36,7 @@ export default function RecipeItem({ recipe, index }) {
         >
             <h3 onClick={handleClick}>{recipe?.recipe_name}</h3>
             <p>Calories: {Math.round(recipe?.cal / recipe?.servings)}</p>
-            <p>Carbs: {recipe?.carb}</p>
+            <p>Carbs: {Math.round(recipe?.carb / recipe?.servings)}</p>
 
             <button onClick={() => handleDelete(recipe.recipes_id)}>Delete recipe</button>
         </div>

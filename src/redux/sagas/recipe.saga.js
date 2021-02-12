@@ -39,8 +39,9 @@ function* fetchRecipes() {
 }
 
 function* favRecipe(action) {
+    console.log(action.payload.fav)
     try {
-        yield axios.put(`/api/fav/${action.payload}`, action.payload)
+        yield axios.put(`/api/fav/${action.payload.recipes_id}`, { fav: action.payload.fav })
         yield put({ type: 'FETCH_RECIPES' })
     } catch (err) {
         console.log(err)

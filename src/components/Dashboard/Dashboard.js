@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import { useDispatch, useSelector } from 'react-redux';
 import NewRecipeForm from '../NewRecipeForm/NewRecipeForm.js'
 import RecipeImportForm from '../RecipeImportForm/RecipeImportForm.js'
-import RecipeViewModal from '../RecipeViewModal/RecipeViewModal.js';
+import RecipeViewModal from '../RecipeViewModal/ViewEditNutrition.js';
 
 const customStyles = {
     overlay: {

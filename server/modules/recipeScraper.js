@@ -9,6 +9,7 @@ async function scraper(url) {
     const text = await page.evaluate((element) => element.innerText, element);
     const JSONparsedText = JSON.parse(text);
     console.log(JSONparsedText)
+    await browser.close();
     return JSONparsedText;
 }
 

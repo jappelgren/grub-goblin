@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import IngredientItem from '../IngredientItem/IngredientItem.js'
+import EditRecipe from "../EditRecipe/EditRecipe.js"
+import RecipeNutrition from "../RecipeNutrition/RecipeNutrition.js"
 import ViewRecipe from "../ViewRecipe/ViewRecipe.js"
 
 export default function RecipeViewModal() {
@@ -27,21 +28,29 @@ export default function RecipeViewModal() {
     return (
 
         <div className="recipe-view-modal">
-            {editMode ? <p>edit</p> : (
-                nutritionMode ? <p>nutrition</p> :
-                    <ViewRecipe
-                        selectedRecipe={selectedRecipe}
-                        faved={faved}
-                        setfaved={setfaved}
-                        handleFav={handleFav}
-                        handleDelete={handleDelete}
-                        nutritionMode={nutritionMode}
-                        setNutritionMode={setNutritionMode}
-                    />)}
+            {editMode ? <EditRecipe
+                selectedRecipe={selectedRecipe}
+                setEditMode={setEditMode}
+                editMode={editMode}
+            /> : (
+                    nutritionMode ? <RecipeNutrition /> :
+                        <ViewRecipe
+                            selectedRecipe={selectedRecipe}
+                            faved={faved}
+                            setfaved={setfaved}
+                            handleFav={handleFav}
+                            handleDelete={handleDelete}
+                            nutritionMode={nutritionMode}
+                            setNutritionMode={setNutritionMode}
+                        />)}
 
             <div className="modal-button-container">
-                <button onClick={() => dispatch({ type: 'CLOSE_RECIPE_VIEW' })}>DONE</button>
-                <button onClick={() => setEditMode(true)}>EDIT</button>
+                {nutritionMode ? <button onClick={() => setNutritionMode(!nutritionMode)}>BACK</button> :
+                    <div>
+                        <button onClick={() => dispatch({ type: 'CLOSE_RECIPE_VIEW' })}>DONE</button>
+                        <button onClick={() => setEditMode(!editMode)}>EDIT</button>
+                    </div>
+                }
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 export default function IngredientItem({ ingredient }) {
     return (
-        <li>{ingredient}</li>
+        <li>{ingredient.ingredient}</li>
     )
 }

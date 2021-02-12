@@ -10,8 +10,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT "recipes".*, 
     "nutrition_info".*,
-      ARRAY_AGG("ingredients".id) ingredient_id,
-      ARRAY_AGG("ingredients".ingredient) ingredient
+    JSON_AGG("ingredients") ingredient
     FROM "recipes"
     JOIN "ingredients" ON "recipes".id = "ingredients".recipe_id
     JOIN "nutrition_info" ON "recipes".id = "nutrition_info".recipes_id 

@@ -13,7 +13,7 @@ export default function RecipeItem({ recipe, index }) {
     })
     //handleMouseDown sends the index of the recipe selected in drag to a reducer
     const handleMouseDown = () => {
-        dispatch({ type: 'SET_MEAL_INDEX', payload: index })
+        dispatch({ type: 'SET_MEAL_ID', payload: recipe.recipes_id })
     }
 
     const handleDelete = (id) => {

@@ -5,10 +5,11 @@ import RecipeItem from '../RecipeItem/RecipeItem.js'
 
 export default function MealItem({ meal, recipes, dayIndex, mealIndex }) {
 
-
+    const weekReducer = useSelector(state => state.weekReducer)
+    const recipeSelectedId = useSelector(state => state.recipeSelectedId)
     const dispatch = useDispatch()
     //The index of the recipe most recently dragged and dropped
-    const selectedIndex = useSelector(state => state.recipeSelectedIndex)
+
     //mealRecipe stores the recipe object which was dropped on to the corresponding meal.
     const [mealRecipe, setMealRecipe] = useState([])
 
@@ -16,15 +17,14 @@ export default function MealItem({ meal, recipes, dayIndex, mealIndex }) {
     //a dispatch is made to a reducer which stores the daily total,  The array sent to the reducer is
     //the recipe at the index that matches the dropped recipe, meal.id signifies which meal was dropped onto
     //dayIndex is the index of the day that the meal resides in.
-    const moveRecipe = (index) => {
-        setMealRecipe([recipes[index]])
-        dispatch({ type: 'UPDATE_NUTRITION', payload: [recipes[index], meal.id - 1, dayIndex] })
+    const moveRecipe = () => {
+        dispatch({ type: 'SET_MEAL', payload: { meal_index: mealIndex, day_index: dayIndex, recipe_id: recipeSelectedId } })
     }
 
     //called when a recipe is dropped.  Calls moveRecipe above
     const [{ isOver }, drop] = useDrop({
         accept: 'recipe',
-        drop: () => moveRecipe(selectedIndex),
+        drop: () => moveRecipe(),
         collect: (monitor) => ({
             isOver: !!monitor.isOver()
         })
@@ -33,7 +33,7 @@ export default function MealItem({ meal, recipes, dayIndex, mealIndex }) {
     //Deleting the recipe resets setMealRecipe to an empty array, dispatch removes the recipe object from the reducer
     //that calculates daily nutrition values.
     const handleClick = () => {
-        dispatch({ type: 'REMOVE_NUTRITION', payload: [meal.id - 1, dayIndex] })
+
         setMealRecipe([])
 
     }
@@ -53,11 +53,17 @@ export default function MealItem({ meal, recipes, dayIndex, mealIndex }) {
             <h4>{meal.meal}</h4>
             <h4>Day Index: {dayIndex}</h4>
             <h4>Day Index: {mealIndex}</h4>
-            {mealRecipe.map((meal, index) => (
+            {weekReducer.map((meal, index) => {
                 // RecipeItem is passed meal (breakfast, lunch, dinner) as recipe, so recipeItem can be reused.
-                <RecipeItem onMouseDown={handleClick} recipe={meal} key={index} />
-            ))}
-            {mealRecipe.length > 0 && <button onClick={handleClick}>Remove Recipe</button>}
+                if (dayIndex == meal.day_index && mealIndex == meal.meal_index) {
+                    return (
+                        <div key={index}>
+                            <RecipeItem onMouseDown={handleClick} recipe={meal} />
+                            <button onClick={handleClick}>Remove Recipe</button>
+                        </div>
+                    )
+                }
+            })}
         </div>
     )
 }

@@ -2,13 +2,8 @@ import { useSelector } from "react-redux"
 import MealItem from '../MealItem/MealItem.js'
 
 export default function DayItem({ recipes, day, index }) {
-    const dailyTotalCal = useSelector(state => state.dailyNutritionCalc)
     const meals = [{ id: 1, meal: 'Breakfast' }, { id: 2, meal: 'Lunch' }, { id: 3, meal: 'Dinner' }]
 
-    const nutritionTotal = [
-        dailyTotalCal[index].reduce((x, y) => ({ calories: x.calories + y.calories })),
-        dailyTotalCal[index].reduce((x, y) => ({ carbs: x.carbs + y.carbs }))
-    ]
 
     return (
         <div>
@@ -18,9 +13,9 @@ export default function DayItem({ recipes, day, index }) {
             ))}
 
             <div>
-                Daily Total Calories: {nutritionTotal[0].calories}
+                Daily Total Calories: 0
                 <br />
-            Daily Total Carbs: {nutritionTotal[1].carbs}
+            Daily Total Carbs: 0
             </div>
         </div>
     )

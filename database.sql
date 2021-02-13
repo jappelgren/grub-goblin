@@ -15,7 +15,7 @@ CREATE TABLE "recipes" (
 	"directions" TEXT NOT NULL,
     "servings" INT,
 	"meal" varchar(50),
-	"user_id" int REFERENCES "user" NOT NULL
+	"user_id" int REFERENCES "user" ON DELETE CASCADE NOT NULL
 
 );
 
@@ -27,7 +27,8 @@ CREATE TABLE "ingredients" (
 	"measure" VARCHAR(100),
 	"ingredient" TEXT NOT NULL,
 	"need" BOOLEAN NOT NULL DEFAULT 'true',
-	"recipe_id" INT REFERENCES "recipes" NOT NULL
+	"recipe_id" INT REFERENCES "recipes" ON DELETE CASCADE NOT NULL
+
 
 );
 
@@ -64,15 +65,16 @@ CREATE TABLE "nutrition_info" (
 	"vit_d" INT DEFAULT 0,
 	"vit_e" INT DEFAULT 0,
 	"vit_k" INT DEFAULT 0,
-	"recipes_id" INT REFERENCES "recipes" NOT NULL
+	"recipes_id" INT REFERENCES "recipes" ON DELETE CASCADE NOT NULL
 );
 
 
 CREATE TABLE "week" (
 	"id" SERIAL PRIMARY KEY,
-	"meal" varchar NOT NULL,
-	"day" varchar NOT NULL,
-	"recipe_id" int REFERENCES "recipes" NOT NULL
+	"meal_index" INT NOT NULL,
+	"day_index" INT NOT NULL,
+	"recipe_id" int REFERENCES "recipes" ON DELETE CASCADE  NOT NULL,
+	"user_id" int REFERENCES "user" ON DELETE CASCADE NOT NULL
 );
 
 
@@ -82,25 +84,24 @@ CREATE TABLE "user_settings" (
 	"nutrient" varchar(50) NOT NULL,
 	"limit" int NOT NULL,
 	"tracked" BOOLEAN NOT NULL DEFAULT 'false',
-	"user_id" int REFERENCES "user" NOT NULL
+	"user_id" int REFERENCES "user" ON DELETE CASCADE NOT NULL
 );
 
-INSERT INTO "recipes" ("recipe_name", "photo", "directions", "meal", "user_id")
+INSERT INTO "recipes" ("recipe_name", "photo", "directions", "meal", "servings", "user_id")
 VALUES ('Coconut Chicken Adobo', 'images/chicken_adobo.jpeg', '
 Whisk together coconut milk, soy sauce, and vinegar in a high-sided non-reactive Dutch oven. Stir in bay leaves, chiles, garlic, and black pepper. Nestle chicken leg quarters in mixture; add a splash of water, if needed, to submerge chicken. Bring to a gentle simmer over medium. Cover and reduce heat to low to maintain a gentle simmer; cook until chicken is very tender, about 1 hour. Remove from heat; let stand 15 minutes.
-<br/><br/>
+\n
 Remove chicken from Dutch oven; arrange chicken, skin side up, on a broiler-safe rimmed baking sheet lined with aluminum foil. Pour sauce through a fine wire-mesh strainer into a bowl. Reserve bay leaves and chiles; discard solids, and return sauce, bay leaves, and chiles to Dutch oven. Bring sauce to a simmer over medium-low. Simmer, stirring occasionally, until sauce is thickened and coats the back of a spoon, 12 to 15 minutes. Season with salt to taste. Remove from heat.
-<br/><br/>
-Preheat oven to broil with oven rack 6 inches from heat source. Pat chicken dry with paper towels; sprinkle all over with 1/2 teaspoon salt. Broil in preheated oven until chicken skin is sizzling and dark brown, 4 to 5 minutes. Serve with steamed rice, sliced scallions, and sauce.', 'Dinner', 1),
+\n
+Preheat oven to broil with oven rack 6 inches from heat source. Pat chicken dry with paper towels; sprinkle all over with 1/2 teaspoon salt. Broil in preheated oven until chicken skin is sizzling and dark brown, 4 to 5 minutes. Serve with steamed rice, sliced scallions, and sauce.', 'Dinner', 4, 1),
 
 ('Roasted Cauliflower Soup with Cumin', 'images/cauliflower_soup.jpeg', '
 Preheat the oven to 375º. On a large rimmed baking sheet, toss the cauliflower with the cumin seeds, curry powder and 3 tablespoons of the oil. Season with salt and pepper and roast for about 25 minutes, turning occasionally, until the cauliflower is just tender.
-<br/><br/>
+\n
 In a large saucepan, heat the remaining 1 tablespoon of oil. Add the onion and cook over moderate heat, stirring occasionally, until softened but not browned, about 5 minutes. Add the roasted cauliflower, butter, bay leaf and water and bring to a simmer. Cook over moderate heat until the liquid is reduced and the cauliflower is very soft, about 15 minutes. Pick out and discard the bay leaf.
-<br/><br/>
-In a blender, puree the soup in two batches until very smooth. Return the soup to the saucepan and stir in the milk. Rewarm it over moderate heat, adding more water for a thinner consistency, if desired. Season the soup with salt and pepper and serve hot.', 'Dinner', 1),
+\n
+In a blender, puree the soup in two batches until very smooth. Return the soup to the saucepan and stir in the milk. Rewarm it over moderate heat, adding more water for a thinner consistency, if desired. Season the soup with salt and pepper and serve hot.', 'Dinner', 4, 1)
 
-()
 ;
 
 INSERT INTO "ingredients"("quantity", "measure", "ingredient", "recipe_id")
@@ -124,5 +125,4 @@ VALUES (1, 'CAN', '1 (13 1/2-ounces) can coconut milk, well shaken and stirred',
 (3, 'tbsp', '3 tablespoons unsalted butter', 2),
 (1, 'leaf', '1 bay leaf', 2),
 (4, 'cups', '4 cups water', 2),
-(.25, 'cups', '1/4 cup whole milk', 2)
-
+(.25, 'cups', '1/4 cup whole milk', 2);

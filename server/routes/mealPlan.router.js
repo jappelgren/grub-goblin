@@ -7,11 +7,14 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware.
 router.get('/', rejectUnauthenticated, (req, res) => {
 
     const queryText = `
-        SELECT * FROM "week"
+        SELECT week.*, recipes.*, nutrition_info.*, JSON_AGG("ingredients") ingredient FROM "week"
         JOIN "recipes" ON "week".recipe_id = "recipes".id
         JOIN "nutrition_info" ON "recipes".id = "nutrition_info".recipes_id
-        WHERE "recipes".user_id = $1;
+        JOIN "ingredients" ON "recipes".id = "ingredients".recipe_id
+        WHERE "recipes".user_id = $1
+        GROUP BY "week".id, nutrition_info.id, recipes.id;
   `
+
 
     pool.query(queryText, [req.user.id])
         .then((result) => {
@@ -28,11 +31,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/', rejectUnauthenticated, (req, res) => {
 
     const queryText = `
-        INSERT INTO "week"("meal", "day", "recipe_id", "user_id")
+        INSERT INTO "week"("meal_index", "day_index", "recipe_id", "user_id")
         VALUES ($1, $2, $3, $4)
     `
 
-    pool.query(queryText, [req.body.meal, req.body.day, req.body.recipe_id, req.user.id])
+    pool.query(queryText, [req.body.meal_index, req.body.day_index, req.body.recipe_id, req.user.id])
         .then((result) => {
             res.sendStatus(201)
         })

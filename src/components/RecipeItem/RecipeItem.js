@@ -31,8 +31,9 @@ export default function RecipeItem({ recipe, index }) {
         <div
             // ref={drag} initiates the div as draggable.
             ref={drag}
-            style={{ border: '1px solid black', width: '200px', backgroundColor: 'white' }}
+            style={{ border: '1px solid black', backgroundColor: 'white' }}
             onMouseDown={handleMouseDown}
+            className="recipe-card"
         >
             <h3 onClick={handleClick}>{recipe?.recipe_name}</h3>
             <p>Calories: {Math.round(recipe?.cal / recipe?.servings)}</p>

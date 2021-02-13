@@ -7,12 +7,12 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware.
 router.get('/', rejectUnauthenticated, (req, res) => {
 
     const queryText = `
-        SELECT week.*, recipes.*, nutrition_info.*, JSON_AGG("ingredients") ingredient FROM "week"
+        SELECT "week".id as week_id, week.*, recipes.*, nutrition_info.*, JSON_AGG("ingredients") ingredient FROM "week"
         JOIN "recipes" ON "week".recipe_id = "recipes".id
         JOIN "nutrition_info" ON "recipes".id = "nutrition_info".recipes_id
         JOIN "ingredients" ON "recipes".id = "ingredients".recipe_id
         WHERE "recipes".user_id = $1
-        GROUP BY "week".id, nutrition_info.id, recipes.id;
+        GROUP BY "week".id, "nutrition_info".id, "recipes".id;
   `
 
 
@@ -72,7 +72,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 
     const queryText = `
         DELETE FROM "week"
-        WHERE "id" = $1 AND "user_id" =$2
+        WHERE "id" = $1 AND "user_id" = $2
         ;
     `
 

@@ -5,6 +5,7 @@ function* addRecipe(action) {
     try {
         yield axios.post('/api/recipes', action.payload)
         yield put({ type: 'FETCH_RECIPES' })
+        yield put({ type: 'FETCH_WEEK' })
     } catch (err) {
         if (err == 500) {
             console.log(err)
@@ -43,6 +44,7 @@ function* favRecipe(action) {
     try {
         yield axios.put(`/api/fav/${action.payload.recipes_id}`, { fav: action.payload.fav })
         yield put({ type: 'FETCH_RECIPES' })
+        yield put({ type: 'FETCH_WEEK' })
     } catch (err) {
         console.log(err)
     }
@@ -52,12 +54,14 @@ function* deleteRecipe(action) {
     console.log(action.payload)
     yield axios.delete(`/api/recipes/${action.payload}`)
     yield put({ type: 'FETCH_RECIPES' })
+    yield put({ type: 'FETCH_WEEK' })
 }
 
 function* editRecipe(action) {
     console.log(action.payload)
     yield axios.put(`/api/recipes/${action.payload.recipes_id}`, action.payload)
     yield put({ type: 'FETCH_RECIPES' })
+    yield put({ type: 'FETCH_WEEK' })
 }
 
 

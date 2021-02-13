@@ -5,6 +5,7 @@ function* fetchWeek() {
     try {
         const weekResult = yield axios.get('/api/plan')
         yield put({ type: 'SET_WEEK', payload: weekResult.data.rows })
+        yield put({ type: 'UPDATE_NUTRITION', payload: weekResult.data.rows })
     } catch (err) {
         console.log(err)
     }
@@ -19,9 +20,20 @@ function* setMeal(action) {
     }
 }
 
+function* removeMeal(action) {
+    try {
+        yield axios.delete(`/api/plan/${action.payload.id}`)
+        yield put({ type: 'REMOVE_NUTRITION', payload: action.payload })
+        yield put({ type: 'FETCH_WEEK' })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 function* weekSaga() {
     yield takeLatest('FETCH_WEEK', fetchWeek)
     yield takeLatest('SET_MEAL', setMeal)
+    yield takeLatest('REMOVE_MEAL', removeMeal)
 }
 
 export default weekSaga;

@@ -219,3 +219,14 @@ ul {
   height: 50px;
   width: 50px;
 }
+
+.recipe-card {
+  height: 150px;
+  width: 150px;
+  transition: 0.2s ease-in-out;
+}
+
+.recipe-card:active {
+  width: 160px;
+  height: 160px;
+}

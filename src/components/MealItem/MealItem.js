@@ -3,7 +3,7 @@ import { useDrop } from "react-dnd"
 import { useSelector, useDispatch } from "react-redux"
 import RecipeItem from '../RecipeItem/RecipeItem.js'
 
-export default function MealItem({ meal, recipes, dayIndex }) {
+export default function MealItem({ meal, recipes, dayIndex, mealIndex }) {
 
 
     const dispatch = useDispatch()
@@ -51,6 +51,8 @@ export default function MealItem({ meal, recipes, dayIndex }) {
                 alignItems: 'center'
             }}>
             <h4>{meal.meal}</h4>
+            <h4>Day Index: {dayIndex}</h4>
+            <h4>Day Index: {mealIndex}</h4>
             {mealRecipe.map((meal, index) => (
                 // RecipeItem is passed meal (breakfast, lunch, dinner) as recipe, so recipeItem can be reused.
                 <RecipeItem onMouseDown={handleClick} recipe={meal} key={index} />

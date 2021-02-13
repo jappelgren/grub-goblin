@@ -1,7 +1,9 @@
 
+import { useSelector } from 'react-redux'
 import IngredientItem from '../IngredientItem/IngredientItem.js'
 
-export default function ViewRecipe({ selectedRecipe, faved, handleFav, handleDelete, nutritionMode, setNutritionMode }) {
+export default function ViewRecipe({ faved, handleFav, handleDelete, nutritionMode, setNutritionMode }) {
+    const selectedRecipe = useSelector(state => state.viewRecipeReducer)
     return (
         <div>
             <header className="recipe-header">

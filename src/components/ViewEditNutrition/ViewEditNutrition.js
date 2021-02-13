@@ -29,7 +29,6 @@ export default function RecipeViewModal() {
 
         <div className="recipe-view-modal">
             {editMode ? <EditRecipe
-                selectedRecipe={selectedRecipe}
                 setEditMode={setEditMode}
                 editMode={editMode}
                 handleFav={handleFav}
@@ -38,7 +37,6 @@ export default function RecipeViewModal() {
             /> : (
                     nutritionMode ? <RecipeNutrition /> :
                         <ViewRecipe
-                            selectedRecipe={selectedRecipe}
                             faved={faved}
                             setfaved={setfaved}
                             handleFav={handleFav}

@@ -1,7 +1,8 @@
 import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
-export default function EditRecipe({ selectedRecipe, setEditMode, editMode, handleFav, handleDelete, faved }) {
+export default function EditRecipe({ setEditMode, editMode, handleFav, handleDelete, faved }) {
+    const selectedRecipe = useSelector(state => state.viewRecipeReducer)
     const [ingredientArr, setIngredientArr] = useState(selectedRecipe.ingredient);
     const [newRecipe, setNewRecipe] = useState(selectedRecipe);
     const [addBtnPosition, setAddBtnPosition] = useState(selectedRecipe.ingredient.length - 1)

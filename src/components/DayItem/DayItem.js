@@ -12,9 +12,9 @@ export default function DayItem({ recipes, day, index }) {
 
     return (
         <div>
-            <div style={{border: '2px solid black', textAlign: 'center'}}>{day}</div>
-            {meals?.map((meal) => (
-                < MealItem meal={meal} recipes={recipes} dayIndex={index} key={meal.id} />
+            <div style={{ border: '2px solid black', textAlign: 'center' }}>{day}</div>
+            {meals?.map((meal, mealIndex) => (
+                < MealItem meal={meal} recipes={recipes} dayIndex={index} mealIndex={mealIndex} key={meal.id} />
             ))}
 
             <div>

@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import MealItem from "../MealItem/MealItem.js"
-import RecipeItem from "../RecipeItem/RecipeItem.js"
 import DayItem from "../DayItem/DayItem"
+import RecipeItem from "../RecipeItem/RecipeItem.js"
 
 export default function Spike() {
     const dispatch = useDispatch()
@@ -12,6 +11,7 @@ export default function Spike() {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_RECIPES' })
+        dispatch({ type: 'FETCH_WEEK' })
     }, [])
 
     return (

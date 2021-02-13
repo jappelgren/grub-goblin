@@ -57,6 +57,7 @@ function* deleteRecipe(action) {
 function* editRecipe(action) {
     console.log(action.payload)
     yield axios.put(`/api/recipes/${action.payload.recipes_id}`, action.payload)
+    yield put({ type: 'FETCH_RECIPES' })
 }
 
 

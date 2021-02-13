@@ -1,3 +1,6 @@
+:root {
+  --gob-green: #3bb54a;
+}
 * {
   box-sizing: border-box;
   margin: 0;
@@ -17,78 +20,6 @@ p {
 
 a {
   cursor: pointer;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0px;
-}
-
-img {
-  /* display: inline-block; */
-  max-width: 100%;
-}
-
-/* --------------------------------------------------------------------------------
-Container
--------------------------------------------------------------------------------- */
-
-.container {
-  padding: 20px;
-}
-
-/* --------------------------------------------------------------------------------
-Button
--------------------------------------------------------------------------------- */
-
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
-  border-color: #014041;
-  border-width: 1px 1px 3px;
-  border-radius: 4px;
-  background-color: #00acb0;
-  color: #f8f8f8;
-  font-size: 1.1rem;
-  outline: 0;
-  cursor: pointer;
-}
-
-.btn_sizeMin {
-  min-height: 50px;
-  min-width: 100px;
-}
-
-.btn_sizeSm {
-  padding: 10px 15px;
-  font-size: 0.8rem;
-}
-
-.btn_sizeFull {
-  display: block;
-  width: 100%;
-}
-
-.btn:hover {
-  background-color: #008183;
-  text-decoration: none;
-}
-
-/* This line makes the "Register" and "Login" buttons look like links */
-.btn_asLink {
-  padding: 0;
-  border-width: 0;
-  border-bottom: 1px solid #444;
-  border-radius: 0;
-  background: none;
-  font: inherit;
-  color: #444;
-}
-
-.btn_asLink:hover {
-  background-color: transparent;
-  border-color: #008183;
-  color: #008183;
 }
 
 /* --------------------------------------------------------------------------------
@@ -155,7 +86,7 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #3bb54a;
+  background-color: var(--gob-green);
   color: white;
   height: 71px;
   font-size: 0.75vw;
@@ -166,7 +97,7 @@ ul {
 .chip {
   height: 39px;
   width: 157px;
-  background-color: #3bb54a;
+  background-color: var(--gob-green);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -185,10 +116,10 @@ ul {
   font-size: 20px;
 }
 
-button {
+.goblin-button {
   width: 180px;
   height: 54px;
-  background-color: #3bb54a;
+  background-color: var(--gob-green);
   border: none;
   border-radius: 13px;
   color: white;
@@ -228,13 +159,14 @@ button {
   overflow: hidden;
 }
 
-.recipe-modal-photo-nutrition > img {
+.recipe-img {
   position: absolute;
   top: -9999px;
   left: -9999px;
   right: -9999px;
   bottom: -9999px;
   margin: auto;
+  width: 150%;
 }
 
 .nutrition-banner {
@@ -273,4 +205,17 @@ button {
 
 .icon-container {
   margin-right: 1rem;
+}
+
+.edit-fav-trash {
+  position: absolute;
+}
+
+.edit-header {
+  justify-content: center;
+}
+
+.plus-minus-icon {
+  height: 50px;
+  width: 50px;
 }

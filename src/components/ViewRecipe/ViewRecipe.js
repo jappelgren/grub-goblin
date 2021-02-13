@@ -51,7 +51,7 @@ export default function ViewRecipe({ selectedRecipe, faved, handleFav, handleDel
 
                     <div className="recipe-modal-photo-nutrition">
                         <div className="photo-nutrition-container">
-                            <img src={selectedRecipe.photo} alt="" />
+                            <img className="recipe-img" src={selectedRecipe.photo} alt="" />
 
                             <div onClick={() => setNutritionMode(!nutritionMode)} className="nutrition-banner">NUTRITION</div>
                         </div>

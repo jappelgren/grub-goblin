@@ -261,22 +261,23 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
 
     })
 
-    const recipeToAnalyze = {
-      title: req.body.recipe_name,
-      yield: req.body.servings,
-      ingr: req.body.ingredient.map((ingredient) => {
-        return ingredient.ingredient
-      })
-    }
+    if (await req.body.update) {
+      const recipeToAnalyze = {
+        title: req.body.recipe_name,
+        yield: req.body.servings,
+        ingr: req.body.ingredient.map((ingredient) => {
+          return ingredient.ingredient
+        })
+      }
 
-    const nutritionResult = await axios.post(
-      `https://api.edamam.com/api/nutrition-details?app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`,
-      recipeToAnalyze
-    )
+      const nutritionResult = await axios.post(
+        `https://api.edamam.com/api/nutrition-details?app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`,
+        recipeToAnalyze
+      )
 
 
-    const nutritionMacros = nutritionResult.data.totalNutrients
-    const queryText = `
+      const nutritionMacros = nutritionResult.data.totalNutrients
+      const queryText = `
         UPDATE "nutrition_info"
         SET "cal" = $1,
             "fat" = $2,
@@ -311,72 +312,77 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
 
     `
 
-    const calories = await Math.floor(nutritionMacros?.ENERC_KCAL?.quantity) || 0
-    const fat = await Math.floor(nutritionMacros?.FAT?.quantity) || 0
-    const satFat = await Math.floor(nutritionMacros?.FASAT?.quantity) || 0
-    const transFat = await Math.floor(nutritionMacros?.FATRN?.quantity) || 0
-    const fatMono = await Math.floor(nutritionMacros.FAMS.quantity) || 0
-    const fatPoly = await Math.floor(nutritionMacros.FAPU.quantity) || 0
-    const carbs = await Math.floor(nutritionMacros.CHOCDF.quantity) || 0
-    const fiber = await Math.floor(nutritionMacros.FIBTG.quantity) || 0
-    const sugar = await Math.floor(nutritionMacros.SUGAR.quantity) || 0
-    const protein = await Math.floor(nutritionMacros.PROCNT.quantity) || 0
-    const cholesterol = await Math.floor(nutritionMacros?.CHOLE?.quantity) || 0
-    const sodium = await Math.floor(nutritionMacros.NA.quantity) || 0
-    const calcium = await Math.floor(nutritionMacros.CA.quantity) || 0
-    const magnesium = await Math.floor(nutritionMacros.MG.quantity) || 0
-    const potassium = await Math.floor(nutritionMacros.K.quantity) || 0
-    const iron = await Math.floor(nutritionMacros.FE.quantity) || 0
-    const zinc = await Math.floor(nutritionMacros.ZN.quantity) || 0
-    const phosphorus = await Math.floor(nutritionMacros.P.quantity) || 0
-    const vitA = await Math.floor(nutritionMacros?.VITA_RAE?.quantity) || 0
-    const vitC = await Math.floor(nutritionMacros?.VITC?.quantity) || 0
-    const vitB1 = await Math.floor(nutritionMacros?.THIA?.quantity) || 0
-    const vitB2 = await Math.floor(nutritionMacros?.RIBF?.quantity) || 0
-    const vitB3 = await Math.floor(nutritionMacros?.NIA?.quantity) || 0
-    const vitB6 = await Math.floor(nutritionMacros?.VITB6A?.quantity) || 0
-    const vitB9 = await Math.floor(nutritionMacros?.FOLAC?.quantity) || 0
-    const vitB12 = await Math.floor(nutritionMacros?.VITB12?.quantity) || 0
-    const vitD = await Math.floor(nutritionMacros?.VITD?.quantity) || 0
-    const vitE = await Math.floor(nutritionMacros?.TOCPHA?.quantity) || 0
-    const vitK = await Math.floor(nutritionMacros?.VITK1?.quantity) || 0
+      const calories = await Math.floor(nutritionMacros?.ENERC_KCAL?.quantity) || 0
+      const fat = await Math.floor(nutritionMacros?.FAT?.quantity) || 0
+      const satFat = await Math.floor(nutritionMacros?.FASAT?.quantity) || 0
+      const transFat = await Math.floor(nutritionMacros?.FATRN?.quantity) || 0
+      const fatMono = await Math.floor(nutritionMacros.FAMS.quantity) || 0
+      const fatPoly = await Math.floor(nutritionMacros.FAPU.quantity) || 0
+      const carbs = await Math.floor(nutritionMacros.CHOCDF.quantity) || 0
+      const fiber = await Math.floor(nutritionMacros.FIBTG.quantity) || 0
+      const sugar = await Math.floor(nutritionMacros.SUGAR.quantity) || 0
+      const protein = await Math.floor(nutritionMacros.PROCNT.quantity) || 0
+      const cholesterol = await Math.floor(nutritionMacros?.CHOLE?.quantity) || 0
+      const sodium = await Math.floor(nutritionMacros.NA.quantity) || 0
+      const calcium = await Math.floor(nutritionMacros.CA.quantity) || 0
+      const magnesium = await Math.floor(nutritionMacros.MG.quantity) || 0
+      const potassium = await Math.floor(nutritionMacros.K.quantity) || 0
+      const iron = await Math.floor(nutritionMacros.FE.quantity) || 0
+      const zinc = await Math.floor(nutritionMacros.ZN.quantity) || 0
+      const phosphorus = await Math.floor(nutritionMacros.P.quantity) || 0
+      const vitA = await Math.floor(nutritionMacros?.VITA_RAE?.quantity) || 0
+      const vitC = await Math.floor(nutritionMacros?.VITC?.quantity) || 0
+      const vitB1 = await Math.floor(nutritionMacros?.THIA?.quantity) || 0
+      const vitB2 = await Math.floor(nutritionMacros?.RIBF?.quantity) || 0
+      const vitB3 = await Math.floor(nutritionMacros?.NIA?.quantity) || 0
+      const vitB6 = await Math.floor(nutritionMacros?.VITB6A?.quantity) || 0
+      const vitB9 = await Math.floor(nutritionMacros?.FOLAC?.quantity) || 0
+      const vitB12 = await Math.floor(nutritionMacros?.VITB12?.quantity) || 0
+      const vitD = await Math.floor(nutritionMacros?.VITD?.quantity) || 0
+      const vitE = await Math.floor(nutritionMacros?.TOCPHA?.quantity) || 0
+      const vitK = await Math.floor(nutritionMacros?.VITK1?.quantity) || 0
 
-    const sanitizedNutrition = [
-      calories,
-      fat,
-      satFat,
-      transFat,
-      fatMono,
-      fatPoly,
-      carbs,
-      fiber,
-      sugar,
-      protein,
-      cholesterol,
-      sodium,
-      calcium,
-      magnesium,
-      potassium,
-      iron,
-      zinc,
-      phosphorus,
-      vitA,
-      vitC,
-      vitB1,
-      vitB2,
-      vitB3,
-      vitB6,
-      vitB9,
-      vitB12,
-      vitD,
-      vitE,
-      vitK,
-      req.params.id
-    ]
+      const sanitizedNutrition = [
+        calories,
+        fat,
+        satFat,
+        transFat,
+        fatMono,
+        fatPoly,
+        carbs,
+        fiber,
+        sugar,
+        protein,
+        cholesterol,
+        sodium,
+        calcium,
+        magnesium,
+        potassium,
+        iron,
+        zinc,
+        phosphorus,
+        vitA,
+        vitC,
+        vitB1,
+        vitB2,
+        vitB3,
+        vitB6,
+        vitB9,
+        vitB12,
+        vitD,
+        vitE,
+        vitK,
+        req.params.id
+      ]
 
 
-    const nutritionPostResult = await pool.query(queryText, sanitizedNutrition)
-    console.log(nutritionPostResult)
+      const nutritionPostResult = await pool.query(queryText, sanitizedNutrition)
+      console.log('Did hit the api')
+    } else {
+      console.log('Didn\'t hit the api')
+    }
+
+
     await res.sendStatus(200)
   } catch (err) {
     console.log(err)

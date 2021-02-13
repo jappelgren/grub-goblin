@@ -15,8 +15,8 @@ export default function RecipeImportForm() {
         <form onSubmit={handleSubmit}>
 
             <input value={importUrl} onChange={(event) => setImportUrl(event.target.value)} type="url" placeholder="Enter Recipe URL" />
-            <button type="submit">Submit</button>
-            <button onClick={() => dispatch({ type: 'CLOSE_RECIPE_IMPORT' })} type="button">Cancel</button>
+            <button className="goblin-button" type="submit">Submit</button>
+            <button className="goblin-button" onClick={() => dispatch({ type: 'CLOSE_RECIPE_IMPORT' })} type="button">Cancel</button>
         </form>
     )
 }

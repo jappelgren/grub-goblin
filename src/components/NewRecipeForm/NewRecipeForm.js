@@ -105,8 +105,8 @@ export default function NewRecipeForm() {
                     cols="30"
                     rows="10"
                 />
-                <button type="button" onClick={recipeCancel}>Cancel</button>
-                <button type="submit" >Complete</button>
+                <button className="goblin-button" type="button" onClick={recipeCancel}>Cancel</button>
+                <button className="goblin-button" type="submit" >Complete</button>
             </form>
         </div>
     )

@@ -32,6 +32,9 @@ export default function RecipeViewModal() {
                 selectedRecipe={selectedRecipe}
                 setEditMode={setEditMode}
                 editMode={editMode}
+                handleFav={handleFav}
+                handleDelete={handleDelete}
+                faved={faved}
             /> : (
                     nutritionMode ? <RecipeNutrition /> :
                         <ViewRecipe
@@ -45,11 +48,13 @@ export default function RecipeViewModal() {
                         />)}
 
             <div className="modal-button-container">
-                {nutritionMode ? <button onClick={() => setNutritionMode(!nutritionMode)}>BACK</button> :
-                    <div>
-                        <button onClick={() => dispatch({ type: 'CLOSE_RECIPE_VIEW' })}>DONE</button>
-                        <button onClick={() => setEditMode(!editMode)}>EDIT</button>
-                    </div>
+                {nutritionMode ? <button className="goblin-button" onClick={() => setNutritionMode(!nutritionMode)}>BACK</button> :
+                    (editMode ? <></> :
+                        <div>
+                            <button className="goblin-button" onClick={() => dispatch({ type: 'CLOSE_RECIPE_VIEW' })}>DONE</button>
+                            <button className="goblin-button" onClick={() => setEditMode(!editMode)}>EDIT</button>
+                        </div>
+                    )
                 }
             </div>
         </div>

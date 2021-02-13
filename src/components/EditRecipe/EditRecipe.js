@@ -95,15 +95,21 @@ export default function EditRecipe({ selectedRecipe, setEditMode, editMode, hand
                                     name="ingredients"
                                     value={ingr.ingredient}
                                     onChange={handleIngredient(i)}
-                                    placeholder="Ingredient" />
-                                <button name="remove" onClick={handleIngredient(i)} type="button">-</button>
+                                    placeholder="Ingredient"
+                                />
+
+                                <img
+                                    name="remove"
+                                    onClick={handleIngredient(i)}
+                                    className="plus-minus-icon"
+                                    src="images/iconmonstr-minus-5.svg"
+                                    alt="A green circle with a white minus symbol in the center"
+                                />
 
                             </div>
                         )
                 })}
-                <button name="add" onClick={handleIngredient()} type="button">
-                    <img className="plus-minus-icon" src="images/iconmonstr-plus-5.svg" alt="" />
-                </button>
+                <img name="add" onClick={handleIngredient()} className="plus-minus-icon" src="images/iconmonstr-plus-5.svg" alt="" />
                 <input
                     name="photo"
                     value={newRecipe.photo}

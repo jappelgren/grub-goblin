@@ -54,6 +54,11 @@ function* deleteRecipe(action) {
     yield put({ type: 'FETCH_RECIPES' })
 }
 
+function* editRecipe(action) {
+    console.log(action.payload)
+    yield axios.put(`/api/recipes/${action.payload.recipes_id}`, action.payload)
+}
+
 
 
 export default function* recipeSaga() {
@@ -62,4 +67,5 @@ export default function* recipeSaga() {
     yield takeLatest('FETCH_RECIPES', fetchRecipes)
     yield takeLatest('DELETE_RECIPE', deleteRecipe)
     yield takeLatest('FAV_RECIPE', favRecipe)
+    yield takeLatest('EDIT_RECIPE', editRecipe)
 }

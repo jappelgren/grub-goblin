@@ -17,11 +17,11 @@ export default function EditRecipe({ selectedRecipe, setEditMode, editMode }) {
     const handleIngredient = index => event => {
         let tempArr = [...ingredientArr];
         if (event.target.name === 'remove') {
-            tempArr.splice(index, 1)
+            tempArr[index] = { ...tempArr[index], delete: true, update: true }
         } else if (event.target.name === 'add') {
-            tempArr.push('')
+            tempArr.push({ id: null, quantity: null, measure: null, ingredient: '', delete: false, recipe_id: selectedRecipe.recipe_id, update: true })
         } else if (event.target.name === 'ingredients') {
-            tempArr[index] = event.target.value
+            tempArr[index] = { ...tempArr[index], ingredient: event.target.value, recipe_id: selectedRecipe.recipe_id, update: true }
         }
 
         setIngredientArr(tempArr)
@@ -30,14 +30,13 @@ export default function EditRecipe({ selectedRecipe, setEditMode, editMode }) {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        dispatch({ type: 'ADD_RECIPE', payload: newRecipe })
+        dispatch({ type: 'EDIT_RECIPE', payload: newRecipe })
         recipeCancel()
-        setNewRecipe(newRecipeDefaultState);
     }
 
     const recipeCancel = () => {
         dispatch({ type: 'CLOSE_RECIPE_ENTRY' })
-        setNewRecipe(newRecipeDefaultState);
+        // setNewRecipe({});
     }
 
     console.log(newRecipe)
@@ -57,20 +56,24 @@ export default function EditRecipe({ selectedRecipe, setEditMode, editMode }) {
                     onChange={handleChange}
                     value={newRecipe.recipe_name}
                     placeholder="Recipe Name" />
-                {newRecipe.ingredient.map((ingr, i) => (
-                    <div key={i}>
-                        <input
+                {newRecipe.ingredient.map((ingr, i) => {
+                    if (!ingr.delete)
+                        return (
 
-                            required
-                            type="text"
-                            name="ingredients"
-                            value={ingr.ingredient}
-                            onChange={handleIngredient(i)}
-                            placeholder="Ingredient" />
-                        {i === newRecipe.ingredient.length - 1 ? <button name="add" onClick={handleIngredient(i)} type="button">+</button> : <button name="remove" onClick={handleIngredient(i)} type="button">-</button>}
+                            <div key={i}>
+                                <input
 
-                    </div>
-                ))}
+                                    required
+                                    type="text"
+                                    name="ingredients"
+                                    value={ingr.ingredient}
+                                    onChange={handleIngredient(i)}
+                                    placeholder="Ingredient" />
+                                {i === newRecipe.ingredient.length - 1 ? <button name="add" onClick={handleIngredient(i)} type="button">+</button> : <button name="remove" onClick={handleIngredient(i)} type="button">-</button>}
+
+                            </div>
+                        )
+                })}
                 <input
                     name="photo"
                     value={newRecipe.photo}
@@ -107,6 +110,7 @@ export default function EditRecipe({ selectedRecipe, setEditMode, editMode }) {
                 />
                 <button type="button" onClick={() => setEditMode(!editMode)}>Cancel</button>
                 <button type="submit" >Complete</button>
+
             </form>
         </div >
     )

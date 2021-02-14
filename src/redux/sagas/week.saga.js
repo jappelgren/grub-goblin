@@ -30,10 +30,20 @@ function* removeMeal(action) {
     }
 }
 
+function* updateMeal(action) {
+    try {
+        yield axios.put(`/api/plan/${action.payload.week_id}`, action.payload)
+        yield put({ type: 'FETCH_WEEK' })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 function* weekSaga() {
     yield takeLatest('FETCH_WEEK', fetchWeek)
     yield takeLatest('SET_MEAL', setMeal)
     yield takeLatest('REMOVE_MEAL', removeMeal)
+    yield takeLatest('UPDATE_MEAL', updateMeal)
 }
 
 export default weekSaga;

@@ -4,15 +4,29 @@ import { useSelector, useDispatch } from "react-redux"
 import RecipeItem from '../RecipeItem/RecipeItem.js'
 
 export default function MealItem({ meal, dayIndex, mealIndex }) {
-
+    const dailyNutritionCalc = useSelector(state => state.dailyNutritionCalc)
     const weekReducer = useSelector(state => state.weekReducer)
     const recipeSelectedId = useSelector(state => state.recipeSelectedId)
     const dispatch = useDispatch()
 
 
-
     const moveRecipe = () => {
-        dispatch({ type: 'SET_MEAL', payload: { meal_index: mealIndex, day_index: dayIndex, recipe_id: recipeSelectedId } })
+        if (dailyNutritionCalc[dayIndex][mealIndex].week_id) {
+            dispatch({
+                type: 'UPDATE_MEAL', payload: {
+                    week_id: dailyNutritionCalc[dayIndex][mealIndex].week_id,
+                    meal_index: mealIndex,
+                    day_index: dayIndex,
+                    recipe_id: recipeSelectedId
+                }
+            })
+
+        } else {
+            dispatch({ type: 'SET_MEAL', payload: { meal_index: mealIndex, day_index: dayIndex, recipe_id: recipeSelectedId } })
+
+
+        }
+
     }
 
     //called when a recipe is dropped.  Calls moveRecipe above

@@ -1,7 +1,7 @@
 import { useDrag } from "react-dnd"
 import { useDispatch } from "react-redux"
 
-export default function RecipeItem({ recipe, index }) {
+export default function RecipeItem({ recipe, index, assigned }) {
     const dispatch = useDispatch()
 
     //Sets the recipe as a draggable item, gives it a type of recipe
@@ -21,6 +21,7 @@ export default function RecipeItem({ recipe, index }) {
         dispatch({ type: 'OPEN_RECIPE_VIEW' })
     }
 
+
     return (
 
         <div
@@ -28,11 +29,11 @@ export default function RecipeItem({ recipe, index }) {
             ref={drag}
             style={{ border: '1px solid black', backgroundColor: 'white' }}
             onMouseDown={handleMouseDown}
-            className="recipe-card"
+            className={`recipe-card ${assigned}`}
         >
             <h3 onClick={handleClick}>{recipe?.recipe_name}</h3>
             <p>Calories: {Math.round(recipe?.cal / recipe?.servings)}</p>
             <p>Carbs: {Math.round(recipe?.carb / recipe?.servings)}</p>
-        </div>
+        </div >
     )
 }

@@ -239,6 +239,11 @@ ul {
   height: 160px;
 }
 
+.assigned-recipe {
+  height: 100px;
+  width: 184px;
+}
+
 /* Nutrition display Style */
 
 .nutrition-view {
@@ -323,3 +328,71 @@ ul {
   height: 25px;
 }
 /* end Nutrition Info */
+
+/* Dashboard Styles */
+
+.day-labels {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  margin: 6px;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  border: none;
+  background: var(--gob-green);
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.day-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 6px;
+  border-radius: 20px;
+}
+
+.meal-container {
+  width: 184px;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.day-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gob-green);
+  width: 184px;
+  height: 32px;
+  text-align: center;
+  font-size: 20px;
+  color: white;
+}
+
+.Breakfast > .day-banner {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.Breakfast,
+.Lunch,
+.Dinner {
+  background-color: white;
+}
+
+.Dinner {
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.Breakfast {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}

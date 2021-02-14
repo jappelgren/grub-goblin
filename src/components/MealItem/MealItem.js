@@ -46,25 +46,19 @@ export default function MealItem({ meal, dayIndex, mealIndex }) {
 
     return (
         <div
-            className={meal.meal}
             ref={drop}
-            style={{
-                border: '2px solid black',
-                width: '225px',
-                height: '225px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-            }}>
-            <h4>{meal.meal}</h4>
-            <h4>Day Index: {dayIndex}</h4>
-            <h4>Day Index: {mealIndex}</h4>
+            className={`meal-container ${meal.meal}`}
+        >
+            <div className="day-banner">
+                <h4>{(meal.meal).toUpperCase()}</h4>
+            </div>
+
             {weekReducer.map((meal, index) => {
                 // RecipeItem is passed meal (breakfast, lunch, dinner) as recipe, so recipeItem can be reused.
                 if (dayIndex == meal.day_index && mealIndex == meal.meal_index) {
                     return (
                         <div key={index}>
-                            <RecipeItem onMouseDown={handleClick} recipe={meal} />
+                            <RecipeItem assigned={'assigned-recipe'} onMouseDown={handleClick} recipe={meal} />
                             <button onClick={() => handleClick(meal.week_id)}>Remove Recipe</button>
                         </div>
                     )

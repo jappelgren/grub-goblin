@@ -1,11 +1,9 @@
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import MealItem from '../MealItem/MealItem.js'
 
 export default function DayItem({ day, index }) {
     const meals = [{ id: 1, meal: 'Breakfast' }, { id: 2, meal: 'Lunch' }, { id: 3, meal: 'Dinner' }]
     const dailyNutritionCalc = useSelector(state => state.dailyNutritionCalc)
-    const dispatch = useDispatch()
 
 
     let nutritionTotals = (nutrient) => {
@@ -23,8 +21,8 @@ export default function DayItem({ day, index }) {
 
 
     return (
-        <div>
-            <div style={{ border: '2px solid black', textAlign: 'center' }}>{day}</div>
+        <div className="day-container">
+            <div className="day-labels" >{day}</div>
             {meals?.map((meal, mealIndex) => (
                 < MealItem meal={meal} dayIndex={index} mealIndex={mealIndex} key={meal.id} />
             ))}

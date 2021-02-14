@@ -1,8 +1,8 @@
-import { useDrag } from "react-dnd"
-import { useDispatch } from "react-redux"
+import { useDrag } from "react-dnd";
+import { useDispatch } from "react-redux";
 
 export default function RecipeItem({ recipe, index, assigned }) {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     //Sets the recipe as a draggable item, gives it a type of recipe
     const [{ isDragging }, drag] = useDrag({
@@ -10,16 +10,16 @@ export default function RecipeItem({ recipe, index, assigned }) {
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging()
         })
-    })
+    });
     //handleMouseDown sends the index of the recipe selected in drag to a reducer
     const handleMouseDown = () => {
-        dispatch({ type: 'SET_MEAL_ID', payload: recipe.recipes_id })
-    }
+        dispatch({ type: 'SET_MEAL_ID', payload: recipe.recipes_id });
+    };
 
     const handleClick = () => {
-        dispatch({ type: 'VIEW_SELECTED_RECIPE', payload: recipe })
-        dispatch({ type: 'OPEN_RECIPE_VIEW' })
-    }
+        dispatch({ type: 'VIEW_SELECTED_RECIPE', payload: recipe });
+        dispatch({ type: 'OPEN_RECIPE_VIEW' });
+    };
 
 
     return (
@@ -35,5 +35,5 @@ export default function RecipeItem({ recipe, index, assigned }) {
             <p>Calories: {Math.round(recipe?.cal / recipe?.servings)}</p>
             <p>Carbs: {Math.round(recipe?.carb / recipe?.servings)}</p>
         </div >
-    )
+    );
 }

@@ -1,15 +1,15 @@
-import { useState } from "react"
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 export default function RecipeImportForm() {
     const [importUrl, setImportUrl] = useState('');
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        dispatch({ type: 'IMPORT_RECIPE', payload: importUrl })
-        dispatch({ type: 'CLOSE_RECIPE_IMPORT' })
-    }
+        dispatch({ type: 'IMPORT_RECIPE', payload: importUrl });
+        dispatch({ type: 'CLOSE_RECIPE_IMPORT' });
+    };
 
     return (
         <form onSubmit={handleSubmit}>
@@ -18,5 +18,5 @@ export default function RecipeImportForm() {
             <button className="goblin-button" type="submit">Submit</button>
             <button className="goblin-button" onClick={() => dispatch({ type: 'CLOSE_RECIPE_IMPORT' })} type="button">Cancel</button>
         </form>
-    )
+    );
 }

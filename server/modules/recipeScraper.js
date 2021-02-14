@@ -8,7 +8,7 @@ async function scraper(url) {
     const element = await page.$('script[type="application/ld+json"]');
     const text = await page.evaluate((element) => element.innerText, element);
     const JSONparsedText = JSON.parse(text);
-    console.log(JSONparsedText)
+    console.log(JSONparsedText);
     await browser.close();
     return JSONparsedText;
 }

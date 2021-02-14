@@ -1,10 +1,10 @@
 const recipeReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_RECIPES':
-            return action.payload
+            return action.payload;
         default:
-            return state
+            return state;
     }
-}
+};
 
-export default recipeReducer
+export default recipeReducer;

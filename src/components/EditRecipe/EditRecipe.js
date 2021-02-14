@@ -1,14 +1,14 @@
-import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ModalHeader from "../ModalHeader/ModalHeader";
 
 export default function EditRecipe({ setEditMode, editMode, handleFav, handleDelete, faved }) {
-    const selectedRecipe = useSelector(state => state.viewRecipeReducer)
+    const selectedRecipe = useSelector(state => state.viewRecipeReducer);
     const [ingredientArr, setIngredientArr] = useState(selectedRecipe.ingredient);
     const [newRecipe, setNewRecipe] = useState(selectedRecipe);
-    const [addBtnPosition, setAddBtnPosition] = useState(selectedRecipe.ingredient.length - 1)
+    const [addBtnPosition, setAddBtnPosition] = useState(selectedRecipe.ingredient.length - 1);
     const dispatch = useDispatch();
-    console.log(addBtnPosition)
+    console.log(addBtnPosition);
 
     const handleChange = (event) => {
         if (event.target.name === 'servings') {
@@ -16,36 +16,36 @@ export default function EditRecipe({ setEditMode, editMode, handleFav, handleDel
         } else {
             setNewRecipe({ ...newRecipe, [event.target.name]: event.target.value });
         }
-    }
+    };
 
     const handleIngredient = index => event => {
         let tempArr = [...ingredientArr];
         if (event.target.name === 'remove') {
-            tempArr[index] = { ...tempArr[index], delete: true }
-            setAddBtnPosition(addBtnPosition - 1)
+            tempArr[index] = { ...tempArr[index], delete: true };
+            setAddBtnPosition(addBtnPosition - 1);
         } else if (event.target.name === 'add') {
-            tempArr.push({ id: null, quantity: null, measure: null, ingredient: '', delete: false, recipe_id: selectedRecipe.recipe_id })
-            setAddBtnPosition(addBtnPosition + 1)
+            tempArr.push({ id: null, quantity: null, measure: null, ingredient: '', delete: false, recipe_id: selectedRecipe.recipe_id });
+            setAddBtnPosition(addBtnPosition + 1);
         } else if (event.target.name === 'ingredients') {
-            tempArr[index] = { ...tempArr[index], ingredient: event.target.value, recipe_id: selectedRecipe.recipe_id }
+            tempArr[index] = { ...tempArr[index], ingredient: event.target.value, recipe_id: selectedRecipe.recipe_id };
         }
 
-        setIngredientArr(tempArr)
-        setNewRecipe({ ...newRecipe, ingredient: tempArr, update: true })
-    }
+        setIngredientArr(tempArr);
+        setNewRecipe({ ...newRecipe, ingredient: tempArr, update: true });
+    };
 
     const handleSubmit = (event) => {
-        event.preventDefault()
-        dispatch({ type: 'EDIT_RECIPE', payload: newRecipe })
-        recipeCancel()
-    }
+        event.preventDefault();
+        dispatch({ type: 'EDIT_RECIPE', payload: newRecipe });
+        recipeCancel();
+    };
 
     const recipeCancel = () => {
-        dispatch({ type: 'CLOSE_RECIPE_VIEW' })
+        dispatch({ type: 'CLOSE_RECIPE_VIEW' });
         // setNewRecipe({});
-    }
+    };
 
-    console.log(newRecipe)
+    console.log(newRecipe);
     return (
         <div className="recipe-form">
             <ModalHeader faved={faved} handleFav={handleFav} handleDelete={handleDelete} />
@@ -80,7 +80,7 @@ export default function EditRecipe({ setEditMode, editMode, handleFav, handleDel
                                 />
 
                             </div>
-                        )
+                        );
                 })}
                 <img name="add" onClick={handleIngredient()} className="plus-minus-icon" src="images/iconmonstr-plus-5.svg" alt="" />
                 <input
@@ -122,5 +122,5 @@ export default function EditRecipe({ setEditMode, editMode, handleFav, handleDel
 
             </form>
         </div >
-    )
+    );
 }

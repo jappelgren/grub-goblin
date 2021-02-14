@@ -1,10 +1,10 @@
 
-import { useSelector } from 'react-redux'
-import IngredientItem from '../IngredientItem/IngredientItem.js'
-import ModalHeader from '../ModalHeader/ModalHeader.js'
+import { useSelector } from 'react-redux';
+import IngredientItem from '../IngredientItem/IngredientItem.js';
+import ModalHeader from '../ModalHeader/ModalHeader.js';
 
 export default function ViewRecipe({ faved, handleFav, handleDelete, nutritionMode, setNutritionMode }) {
-    const selectedRecipe = useSelector(state => state.viewRecipeReducer)
+    const selectedRecipe = useSelector(state => state.viewRecipeReducer);
     return (
         <div>
             <ModalHeader faved={faved} handleFav={handleFav} handleDelete={handleDelete} />
@@ -39,7 +39,7 @@ export default function ViewRecipe({ faved, handleFav, handleDelete, nutritionMo
                 </div>
             </main>
         </div>
-    )
+    );
 }
 
 

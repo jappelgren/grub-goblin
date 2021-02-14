@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import Modal from 'react-modal'
+import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import NewRecipeForm from '../NewRecipeForm/NewRecipeForm.js'
-import RecipeImportForm from '../RecipeImportForm/RecipeImportForm.js'
+import NewRecipeForm from '../NewRecipeForm/NewRecipeForm.js';
+import RecipeImportForm from '../RecipeImportForm/RecipeImportForm.js';
 import RecipeViewModal from '../ViewEditNutrition/ViewEditNutrition.js';
 
 const customStyles = {
@@ -25,8 +25,8 @@ const customStyles = {
 
 
 export default function Dashboard() {
-    const dispatch = useDispatch()
-    const modalState = useSelector(state => state?.modalReducer)
+    const dispatch = useDispatch();
+    const modalState = useSelector(state => state?.modalReducer);
 
 
     return (
@@ -68,5 +68,5 @@ export default function Dashboard() {
             </Modal>
 
         </div>
-    )
+    );
 }

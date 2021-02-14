@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux"
-import ModalHeader from "../ModalHeader/ModalHeader"
+import { useSelector } from "react-redux";
+import ModalHeader from "../ModalHeader/ModalHeader";
 
 export default function RecipeNutrition({ faved, handleFav, handleDelete }) {
-    const viewRecipeReducer = useSelector(state => state.viewRecipeReducer)
+    const viewRecipeReducer = useSelector(state => state.viewRecipeReducer);
     return (
         <div>
             <ModalHeader faved={faved} handleFav={handleFav} handleDelete={handleDelete} />
@@ -58,11 +58,11 @@ export default function RecipeNutrition({ faved, handleFav, handleDelete }) {
                         <p className="thin-line">Vitamin E {Math.round(viewRecipeReducer.vit_e / viewRecipeReducer.servings)}mg</p>
                         <p className="thin-line">Vitamin K {Math.round(viewRecipeReducer.vit_k / viewRecipeReducer.servings)}μg</p>
                         <p className="thin-line">Zinc {Math.round(viewRecipeReducer.zinc / viewRecipeReducer.servings)}mg</p>
-                        
+
                     </div>
                 </div>
             </div>
 
         </div>
-    )
+    );
 }

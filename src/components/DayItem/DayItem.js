@@ -1,22 +1,22 @@
-import { useSelector } from "react-redux"
-import MealItem from '../MealItem/MealItem.js'
+import { useSelector } from "react-redux";
+import MealItem from '../MealItem/MealItem.js';
 
 export default function DayItem({ day, index }) {
-    const meals = [{ id: 1, meal: 'Breakfast' }, { id: 2, meal: 'Lunch' }, { id: 3, meal: 'Dinner' }]
-    const dailyNutritionCalc = useSelector(state => state.dailyNutritionCalc)
+    const meals = [{ id: 1, meal: 'Breakfast' }, { id: 2, meal: 'Lunch' }, { id: 3, meal: 'Dinner' }];
+    const dailyNutritionCalc = useSelector(state => state.dailyNutritionCalc);
 
 
     let nutritionTotals = (nutrient) => {
-        let total = 0
+        let total = 0;
         dailyNutritionCalc[index]?.map((recipe) => {
             if (recipe[nutrient]) {
-                total += (Math.round(recipe[nutrient] / recipe.servings))
+                total += (Math.round(recipe[nutrient] / recipe.servings));
             } else {
-                total += 0
+                total += 0;
             }
-        })
-        return total
-    }
+        });
+        return total;
+    };
 
 
 
@@ -33,5 +33,5 @@ export default function DayItem({ day, index }) {
             Daily Total Carbs: {nutritionTotals('carb')}
             </div>
         </div>
-    )
+    );
 }

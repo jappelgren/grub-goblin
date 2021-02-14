@@ -2,9 +2,9 @@ export default (state = [], { type, payload }) => {
     switch (type) {
 
         case 'SET_WEEK':
-            return payload
+            return payload;
 
         default:
-            return state
+            return state;
     }
-}
+};

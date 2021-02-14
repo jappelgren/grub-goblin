@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 
 export default function ModalHeader({ faved, handleFav, handleDelete }) {
-    const selectedRecipe = useSelector(state => state.viewRecipeReducer)
+    const selectedRecipe = useSelector(state => state.viewRecipeReducer);
 
     return (
         <header className="recipe-header">
@@ -36,5 +36,5 @@ export default function ModalHeader({ faved, handleFav, handleDelete }) {
                 </div>
             </nav>
         </header>
-    )
+    );
 }

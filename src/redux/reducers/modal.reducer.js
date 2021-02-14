@@ -1,21 +1,21 @@
 const modalReducer = (state = { recipeEntry: false, recipeImport: false, recipeView: false }, action) => {
     switch (action.type) {
         case 'OPEN_RECIPE_ENTRY':
-            return { ...state, recipeEntry: true }
+            return { ...state, recipeEntry: true };
         case 'CLOSE_RECIPE_ENTRY':
-            return { ...state, recipeEntry: false }
+            return { ...state, recipeEntry: false };
         case 'OPEN_RECIPE_IMPORT':
-            return { ...state, recipeImport: true }
+            return { ...state, recipeImport: true };
         case 'CLOSE_RECIPE_IMPORT':
-            return { ...state, recipeImport: false }
+            return { ...state, recipeImport: false };
         case 'OPEN_RECIPE_VIEW':
-            return { ...state, recipeView: true }
+            return { ...state, recipeView: true };
         case 'CLOSE_RECIPE_VIEW':
-            return { ...state, recipeView: false }
+            return { ...state, recipeView: false };
         default:
-            return state
+            return state;
     }
 
-}
+};
 
-export default modalReducer
+export default modalReducer;

@@ -1,21 +1,21 @@
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import DayItem from "../DayItem/DayItem"
-import RecipeItem from "../RecipeItem/RecipeItem.js"
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import DayItem from "../DayItem/DayItem";
+import RecipeItem from "../RecipeItem/RecipeItem.js";
 
 export default function Spike() {
-    const dispatch = useDispatch()
-    const recipes = useSelector(state => state.recipeReducer)
+    const dispatch = useDispatch();
+    const recipes = useSelector(state => state.recipeReducer);
 
-    const week = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN']
+    const week = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
     useEffect(() => {
-        dispatch({ type: 'FETCH_RECIPES' })
-        dispatch({ type: 'FETCH_WEEK' })
-    }, [])
+        dispatch({ type: 'FETCH_RECIPES' });
+        dispatch({ type: 'FETCH_WEEK' });
+    }, []);
 
     return (
-        <div style={{ display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
 
             {/* This map iterates over the days of the week and sets them next to the recipe container */}
             {week.map((day, index) => (
@@ -31,5 +31,5 @@ export default function Spike() {
             </div>
 
         </div >
-    )
+    );
 }

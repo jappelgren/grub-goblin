@@ -1,13 +1,13 @@
-import { useState } from "react"
-import { useDrop } from "react-dnd"
-import { useSelector, useDispatch } from "react-redux"
-import RecipeItem from '../RecipeItem/RecipeItem.js'
+import { useState } from "react";
+import { useDrop } from "react-dnd";
+import { useSelector, useDispatch } from "react-redux";
+import RecipeItem from '../RecipeItem/RecipeItem.js';
 
 export default function MealItem({ meal, dayIndex, mealIndex }) {
-    const dailyNutritionCalc = useSelector(state => state.dailyNutritionCalc)
-    const weekReducer = useSelector(state => state.weekReducer)
-    const recipeSelectedId = useSelector(state => state.recipeSelectedId)
-    const dispatch = useDispatch()
+    const dailyNutritionCalc = useSelector(state => state.dailyNutritionCalc);
+    const weekReducer = useSelector(state => state.weekReducer);
+    const recipeSelectedId = useSelector(state => state.recipeSelectedId);
+    const dispatch = useDispatch();
 
 
     const moveRecipe = () => {
@@ -19,15 +19,15 @@ export default function MealItem({ meal, dayIndex, mealIndex }) {
                     day_index: dayIndex,
                     recipe_id: recipeSelectedId
                 }
-            })
+            });
 
         } else {
-            dispatch({ type: 'SET_MEAL', payload: { meal_index: mealIndex, day_index: dayIndex, recipe_id: recipeSelectedId } })
+            dispatch({ type: 'SET_MEAL', payload: { meal_index: mealIndex, day_index: dayIndex, recipe_id: recipeSelectedId } });
 
 
         }
 
-    }
+    };
 
     //called when a recipe is dropped.  Calls moveRecipe above
     const [{ isOver }, drop] = useDrop({
@@ -36,13 +36,13 @@ export default function MealItem({ meal, dayIndex, mealIndex }) {
         collect: (monitor) => ({
             isOver: !!monitor.isOver()
         })
-    })
+    });
 
     const handleClick = (id) => {
-        console.log('event', event)
-        dispatch({ type: 'REMOVE_MEAL', payload: { meal_index: mealIndex, day_index: dayIndex, id: id } })
+        console.log('event', event);
+        dispatch({ type: 'REMOVE_MEAL', payload: { meal_index: mealIndex, day_index: dayIndex, id: id } });
 
-    }
+    };
 
     return (
         <div
@@ -61,9 +61,9 @@ export default function MealItem({ meal, dayIndex, mealIndex }) {
                             <RecipeItem assigned={'assigned-recipe'} onMouseDown={handleClick} recipe={meal} />
                             <button onClick={() => handleClick(meal.week_id)}>Remove Recipe</button>
                         </div>
-                    )
+                    );
                 }
             })}
         </div>
-    )
+    );
 }

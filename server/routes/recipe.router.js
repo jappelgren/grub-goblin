@@ -1,9 +1,9 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
-const { rejectUnauthenticated } = require('../modules/authentication-middleware')
-const axios = require('axios')
-require('dotenv').config()
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+const axios = require('axios');
+require('dotenv').config();
 
 
 router.get('/', rejectUnauthenticated, (req, res) => {
@@ -16,22 +16,22 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     JOIN "nutrition_info" ON "recipes".id = "nutrition_info".recipes_id 
     WHERE "recipes".user_id = $1
     GROUP BY "recipes".id, "nutrition_info".id;
-  `
+  `;
   pool.query(queryText, [req.user.id])
     .then((result) => {
-      res.send(result)
+      res.send(result);
     })
     .catch((err) => {
-      console.log(err)
-      res.sendStatus(500)
-    })
+      console.log(err);
+      res.sendStatus(500);
+    });
 
 });
 
 
 router.post('/', rejectUnauthenticated, async (req, res) => {
   try {
-    console.log(req.body)
+    console.log(req.body);
     const recipeQueryText = `
     INSERT INTO "recipes" ("recipe_name", "photo", "directions", "servings", "meal", "user_id")
     VALUES ($1, $2, $3, $4, $5, $6)
@@ -47,33 +47,33 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       req.user.id
     ];
 
-    const recipeResult = await pool.query(recipeQueryText, queryVariables)
+    const recipeResult = await pool.query(recipeQueryText, queryVariables);
 
-    const newRecipeId = recipeResult.rows[0].id
+    const newRecipeId = recipeResult.rows[0].id;
 
     const ingredientQueryText = `
       INSERT INTO "ingredients" ("ingredient", "recipe_id")
       VALUES ($1, $2)
-      `
+      `;
 
     req.body.ingredients.forEach(async (ingredient) => {
-      const ingredientResult = await pool.query(ingredientQueryText, [ingredient, newRecipeId])
+      const ingredientResult = await pool.query(ingredientQueryText, [ingredient, newRecipeId]);
 
-    })
+    });
 
     const recipeToAnalyze = {
       title: req.body.recipe_name,
       yield: req.body.servings,
       ingr: req.body.ingredients
-    }
+    };
 
     const nutritionResult = await axios.post(
       `https://api.edamam.com/api/nutrition-details?app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`,
       recipeToAnalyze
-    )
+    );
 
 
-    const nutritionMacros = nutritionResult.data.totalNutrients
+    const nutritionMacros = nutritionResult.data.totalNutrients;
     const queryText = `
           INSERT INTO "nutrition_info"(
               "cal",
@@ -109,37 +109,37 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 
                   $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, 
                   $21, $22, $23, $24, $25, $26, $27, $28, $29, $30)
-      `
+      `;
 
-    const calories = await nutritionMacros?.ENERC_KCAL?.quantity || 0
-    const fat = await nutritionMacros?.FAT?.quantity || 0
-    const satFat = await nutritionMacros?.FASAT?.quantity || 0
-    const transFat = await nutritionMacros?.FATRN?.quantity || 0
-    const fatMono = await nutritionMacros.FAMS.quantity || 0
-    const fatPoly = await nutritionMacros.FAPU.quantity || 0
-    const carbs = await nutritionMacros.CHOCDF.quantity || 0
-    const fiber = await nutritionMacros.FIBTG.quantity || 0
-    const sugar = await nutritionMacros.SUGAR.quantity || 0
-    const protein = await nutritionMacros.PROCNT.quantity || 0
-    const cholesterol = await nutritionMacros?.CHOLE?.quantity || 0
-    const sodium = await nutritionMacros.NA.quantity || 0
-    const calcium = await nutritionMacros.CA.quantity || 0
-    const magnesium = await nutritionMacros.MG.quantity || 0
-    const potassium = await nutritionMacros.K.quantity || 0
-    const iron = await nutritionMacros.FE.quantity || 0
-    const zinc = await nutritionMacros.ZN.quantity || 0
-    const phosphorus = await nutritionMacros.P.quantity || 0
-    const vitA = await nutritionMacros?.VITA_RAE?.quantity || 0
-    const vitC = await nutritionMacros?.VITC?.quantity || 0
-    const vitB1 = await nutritionMacros?.THIA?.quantity || 0
-    const vitB2 = await nutritionMacros?.RIBF?.quantity || 0
-    const vitB3 = await nutritionMacros?.NIA?.quantity || 0
-    const vitB6 = await nutritionMacros?.VITB6A?.quantity || 0
-    const vitB9 = await nutritionMacros?.FOLAC?.quantity || 0
-    const vitB12 = await nutritionMacros?.VITB12?.quantity || 0
-    const vitD = await nutritionMacros?.VITD?.quantity || 0
-    const vitE = await nutritionMacros?.TOCPHA?.quantity || 0
-    const vitK = await nutritionMacros?.VITK1?.quantity || 0
+    const calories = await nutritionMacros?.ENERC_KCAL?.quantity || 0;
+    const fat = await nutritionMacros?.FAT?.quantity || 0;
+    const satFat = await nutritionMacros?.FASAT?.quantity || 0;
+    const transFat = await nutritionMacros?.FATRN?.quantity || 0;
+    const fatMono = await nutritionMacros.FAMS.quantity || 0;
+    const fatPoly = await nutritionMacros.FAPU.quantity || 0;
+    const carbs = await nutritionMacros.CHOCDF.quantity || 0;
+    const fiber = await nutritionMacros.FIBTG.quantity || 0;
+    const sugar = await nutritionMacros.SUGAR.quantity || 0;
+    const protein = await nutritionMacros.PROCNT.quantity || 0;
+    const cholesterol = await nutritionMacros?.CHOLE?.quantity || 0;
+    const sodium = await nutritionMacros.NA.quantity || 0;
+    const calcium = await nutritionMacros.CA.quantity || 0;
+    const magnesium = await nutritionMacros.MG.quantity || 0;
+    const potassium = await nutritionMacros.K.quantity || 0;
+    const iron = await nutritionMacros.FE.quantity || 0;
+    const zinc = await nutritionMacros.ZN.quantity || 0;
+    const phosphorus = await nutritionMacros.P.quantity || 0;
+    const vitA = await nutritionMacros?.VITA_RAE?.quantity || 0;
+    const vitC = await nutritionMacros?.VITC?.quantity || 0;
+    const vitB1 = await nutritionMacros?.THIA?.quantity || 0;
+    const vitB2 = await nutritionMacros?.RIBF?.quantity || 0;
+    const vitB3 = await nutritionMacros?.NIA?.quantity || 0;
+    const vitB6 = await nutritionMacros?.VITB6A?.quantity || 0;
+    const vitB9 = await nutritionMacros?.FOLAC?.quantity || 0;
+    const vitB12 = await nutritionMacros?.VITB12?.quantity || 0;
+    const vitD = await nutritionMacros?.VITD?.quantity || 0;
+    const vitE = await nutritionMacros?.TOCPHA?.quantity || 0;
+    const vitK = await nutritionMacros?.VITK1?.quantity || 0;
 
     const sanitizedNutrition = [
       calories,
@@ -172,43 +172,43 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       vitE,
       vitK,
       newRecipeId
-    ]
+    ];
 
 
-    const nutritionPostResult = await pool.query(queryText, sanitizedNutrition)
+    const nutritionPostResult = await pool.query(queryText, sanitizedNutrition);
 
-    await res.sendStatus(201)
+    await res.sendStatus(201);
 
 
   } catch (err) {
-    console.log(err)
-    res.sendStatus(500)
+    console.log(err);
+    res.sendStatus(500);
   }
 
 
 });
 
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
-  const id = req.params.id
-  console.log(req.params.id)
+  const id = req.params.id;
+  console.log(req.params.id);
 
   const queryText = `
     DELETE FROM "recipes"
     WHERE "id" = $1 AND "user_id" = $2
-  `
+  `;
   pool.query(queryText, [req.params.id, req.user.id])
     .then((result) => {
-      res.sendStatus(200)
-      console.log(result)
+      res.sendStatus(200);
+      console.log(result);
     })
     .catch((err) => {
-      console.log(err)
-      res.sendStatus(500)
-    })
-})
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
 
 router.put('/:id', rejectUnauthenticated, async (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   const recipeQueryText = `
     UPDATE "recipes"
     SET "recipe_name" = $1, "photo" = $2, "directions" = $3, "servings" = $4, "meal" = $5
@@ -224,17 +224,17 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
     req.user.id
   ];
 
-  const recipeResult = await pool.query(recipeQueryText, sanitizedRecipeVariables)
+  const recipeResult = await pool.query(recipeQueryText, sanitizedRecipeVariables);
   try {
     const deleteIngrQueryText = `
     DELETE FROM "ingredients"
     WHERE "id" = $1;
-  `
+  `;
 
     const newIngredientQueryText = `
     INSERT INTO "ingredients" ("ingredient", "recipe_id")
     VALUES ($1, $2)
-  `
+  `;
 
     const updateIngredientQueryText = `
     UPDATE "ingredients"
@@ -244,9 +244,9 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
 
     req.body.ingredient.forEach(async (ingredient) => {
       if (ingredient.delete) {
-        await pool.query(deleteIngrQueryText, [ingredient.id])
+        await pool.query(deleteIngrQueryText, [ingredient.id]);
       } else if (!ingredient.id) {
-        await pool.query(newIngredientQueryText, [ingredient.ingredient, req.params.id,])
+        await pool.query(newIngredientQueryText, [ingredient.ingredient, req.params.id,]);
       } else {
         const sanitizedIngredients = [
           ingredient.quantity,
@@ -256,27 +256,27 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
           ingredient.id
         ];
 
-        await pool.query(updateIngredientQueryText, sanitizedIngredients)
+        await pool.query(updateIngredientQueryText, sanitizedIngredients);
       }
 
-    })
+    });
 
     if (await req.body.update) {
       const recipeToAnalyze = {
         title: req.body.recipe_name,
         yield: req.body.servings,
         ingr: req.body.ingredient.map((ingredient) => {
-          return ingredient.ingredient
+          return ingredient.ingredient;
         })
-      }
+      };
 
       const nutritionResult = await axios.post(
         `https://api.edamam.com/api/nutrition-details?app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`,
         recipeToAnalyze
-      )
+      );
 
 
-      const nutritionMacros = nutritionResult.data.totalNutrients
+      const nutritionMacros = nutritionResult.data.totalNutrients;
       const queryText = `
         UPDATE "nutrition_info"
         SET "cal" = $1,
@@ -310,37 +310,37 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
             "vit_k" = $29
         WHERE "recipes_id" = $30
 
-    `
+    `;
 
-      const calories = await nutritionMacros?.ENERC_KCAL?.quantity || 0
-      const fat = await nutritionMacros?.FAT?.quantity || 0
-      const satFat = await nutritionMacros?.FASAT?.quantity || 0
-      const transFat = await nutritionMacros?.FATRN?.quantity || 0
-      const fatMono = await nutritionMacros.FAMS.quantity || 0
-      const fatPoly = await nutritionMacros.FAPU.quantity || 0
-      const carbs = await nutritionMacros.CHOCDF.quantity || 0
-      const fiber = await nutritionMacros.FIBTG.quantity || 0
-      const sugar = await nutritionMacros.SUGAR.quantity || 0
-      const protein = await nutritionMacros.PROCNT.quantity || 0
-      const cholesterol = await nutritionMacros?.CHOLE?.quantity || 0
-      const sodium = await nutritionMacros.NA.quantity || 0
-      const calcium = await nutritionMacros.CA.quantity || 0
-      const magnesium = await nutritionMacros.MG.quantity || 0
-      const potassium = await nutritionMacros.K.quantity || 0
-      const iron = await nutritionMacros.FE.quantity || 0
-      const zinc = await nutritionMacros.ZN.quantity || 0
-      const phosphorus = await nutritionMacros.P.quantity || 0
-      const vitA = await nutritionMacros?.VITA_RAE?.quantity || 0
-      const vitC = await nutritionMacros?.VITC?.quantity || 0
-      const vitB1 = await nutritionMacros?.THIA?.quantity || 0
-      const vitB2 = await nutritionMacros?.RIBF?.quantity || 0
-      const vitB3 = await nutritionMacros?.NIA?.quantity || 0
-      const vitB6 = await nutritionMacros?.VITB6A?.quantity || 0
-      const vitB9 = await nutritionMacros?.FOLAC?.quantity || 0
-      const vitB12 = await nutritionMacros?.VITB12?.quantity || 0
-      const vitD = await nutritionMacros?.VITD?.quantity || 0
-      const vitE = await nutritionMacros?.TOCPHA?.quantity || 0
-      const vitK = await nutritionMacros?.VITK1?.quantity || 0
+      const calories = await nutritionMacros?.ENERC_KCAL?.quantity || 0;
+      const fat = await nutritionMacros?.FAT?.quantity || 0;
+      const satFat = await nutritionMacros?.FASAT?.quantity || 0;
+      const transFat = await nutritionMacros?.FATRN?.quantity || 0;
+      const fatMono = await nutritionMacros.FAMS.quantity || 0;
+      const fatPoly = await nutritionMacros.FAPU.quantity || 0;
+      const carbs = await nutritionMacros.CHOCDF.quantity || 0;
+      const fiber = await nutritionMacros.FIBTG.quantity || 0;
+      const sugar = await nutritionMacros.SUGAR.quantity || 0;
+      const protein = await nutritionMacros.PROCNT.quantity || 0;
+      const cholesterol = await nutritionMacros?.CHOLE?.quantity || 0;
+      const sodium = await nutritionMacros.NA.quantity || 0;
+      const calcium = await nutritionMacros.CA.quantity || 0;
+      const magnesium = await nutritionMacros.MG.quantity || 0;
+      const potassium = await nutritionMacros.K.quantity || 0;
+      const iron = await nutritionMacros.FE.quantity || 0;
+      const zinc = await nutritionMacros.ZN.quantity || 0;
+      const phosphorus = await nutritionMacros.P.quantity || 0;
+      const vitA = await nutritionMacros?.VITA_RAE?.quantity || 0;
+      const vitC = await nutritionMacros?.VITC?.quantity || 0;
+      const vitB1 = await nutritionMacros?.THIA?.quantity || 0;
+      const vitB2 = await nutritionMacros?.RIBF?.quantity || 0;
+      const vitB3 = await nutritionMacros?.NIA?.quantity || 0;
+      const vitB6 = await nutritionMacros?.VITB6A?.quantity || 0;
+      const vitB9 = await nutritionMacros?.FOLAC?.quantity || 0;
+      const vitB12 = await nutritionMacros?.VITB12?.quantity || 0;
+      const vitD = await nutritionMacros?.VITD?.quantity || 0;
+      const vitE = await nutritionMacros?.TOCPHA?.quantity || 0;
+      const vitK = await nutritionMacros?.VITK1?.quantity || 0;
 
       const sanitizedNutrition = [
         calories,
@@ -373,21 +373,21 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
         vitE,
         vitK,
         req.params.id
-      ]
+      ];
 
 
-      const nutritionPostResult = await pool.query(queryText, sanitizedNutrition)
-      console.log('Did hit the api')
+      const nutritionPostResult = await pool.query(queryText, sanitizedNutrition);
+      console.log('Did hit the api');
     } else {
-      console.log('Didn\'t hit the api')
+      console.log('Didn\'t hit the api');
     }
 
 
-    await res.sendStatus(200)
+    await res.sendStatus(200);
   } catch (err) {
-    console.log(err)
-    res.sendStatus(500)
+    console.log(err);
+    res.sendStatus(500);
   }
 
-})
+});
 module.exports = router;

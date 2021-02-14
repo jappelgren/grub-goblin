@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 export default function NewRecipeForm() {
     const [ingredientArr, setIngredientArr] = useState(['']);
@@ -13,35 +13,35 @@ export default function NewRecipeForm() {
         } else {
             setNewRecipe({ ...newRecipe, [event.target.name]: event.target.value });
         }
-    }
+    };
 
     const handleIngredient = index => event => {
         let tempArr = [...ingredientArr];
         if (event.target.name === 'remove') {
-            tempArr.splice(index, 1)
+            tempArr.splice(index, 1);
         } else if (event.target.name === 'add') {
-            tempArr.push('')
+            tempArr.push('');
         } else if (event.target.name === 'ingredients') {
-            tempArr[index] = event.target.value
+            tempArr[index] = event.target.value;
         }
 
-        setIngredientArr(tempArr)
-        setNewRecipe({ ...newRecipe, ingredients: tempArr })
-    }
+        setIngredientArr(tempArr);
+        setNewRecipe({ ...newRecipe, ingredients: tempArr });
+    };
 
     const handleSubmit = (event) => {
-        event.preventDefault()
-        dispatch({ type: 'ADD_RECIPE', payload: newRecipe })
-        recipeCancel()
+        event.preventDefault();
+        dispatch({ type: 'ADD_RECIPE', payload: newRecipe });
+        recipeCancel();
         setNewRecipe(newRecipeDefaultState);
-    }
+    };
 
     const recipeCancel = () => {
-        dispatch({ type: 'CLOSE_RECIPE_ENTRY' })
+        dispatch({ type: 'CLOSE_RECIPE_ENTRY' });
         setNewRecipe(newRecipeDefaultState);
-    }
+    };
 
-    console.log(newRecipe)
+    console.log(newRecipe);
     return (
         <div className="recipe-form">
             <header className="recipe-header edit-header">
@@ -56,8 +56,9 @@ export default function NewRecipeForm() {
                     value={newRecipe.recipe_name}
                     placeholder="Recipe Name" />
                 {newRecipe.ingredients.map((ingr, i) => (
-                    <>
+                    <div key={i}>
                         <input
+
                             required
                             type="text"
                             name="ingredients"
@@ -66,7 +67,7 @@ export default function NewRecipeForm() {
                             placeholder="Ingredient" />
                         {i === newRecipe.ingredients.length - 1 ? <button name="add" onClick={handleIngredient(i)} type="button">+</button> : <button name="remove" onClick={handleIngredient(i)} type="button">-</button>}
 
-                    </>
+                    </div>
                 ))}
                 <input
                     name="photo"
@@ -106,5 +107,5 @@ export default function NewRecipeForm() {
                 <button className="goblin-button" type="submit" >Complete</button>
             </form>
         </div>
-    )
+    );
 }

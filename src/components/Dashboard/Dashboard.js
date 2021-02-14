@@ -33,6 +33,7 @@ export default function Dashboard() {
         <div>
             <button onClick={() => dispatch({ type: 'OPEN_RECIPE_ENTRY' })}>Recipe Entry</button>
             <button onClick={() => dispatch({ type: 'OPEN_RECIPE_IMPORT' })}>Import Recipe</button>
+            <button onClick={() => dispatch({ type: 'CLEAR_WEEK' })}>Clear Week</button>
             <Modal
                 ariaHideApp={false}
                 isOpen={modalState.recipeEntry}

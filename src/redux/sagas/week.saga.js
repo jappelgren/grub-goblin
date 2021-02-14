@@ -39,11 +39,21 @@ function* updateMeal(action) {
     }
 }
 
+function* clearWeek() {
+    try {
+        yield axios.delete('/api/clearweek')
+        yield put({ type: 'FETCH_WEEK' })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 function* weekSaga() {
     yield takeLatest('FETCH_WEEK', fetchWeek)
     yield takeLatest('SET_MEAL', setMeal)
     yield takeLatest('REMOVE_MEAL', removeMeal)
     yield takeLatest('UPDATE_MEAL', updateMeal)
+    yield takeLatest('CLEAR_WEEK', clearWeek)
 }
 
 export default weekSaga;

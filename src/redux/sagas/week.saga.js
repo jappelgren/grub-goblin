@@ -42,6 +42,7 @@ function* updateMeal(action) {
 function* clearWeek() {
     try {
         yield axios.delete('/api/clearweek')
+        yield put({ type: 'EMPTY_WEEK_REDUCER' })
         yield put({ type: 'FETCH_WEEK' })
     } catch (err) {
         console.log(err)

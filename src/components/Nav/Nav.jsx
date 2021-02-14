@@ -20,7 +20,7 @@ function Nav() {
   return (
     <div className="nav">
       <Link to="/home">
-        <h2 className="nav-title">Prime Solo Project</h2>
+        <img className="logo-nav" src="images/logo.png" alt="" />
       </Link>
       <div>
         <Link className="navLink" to={'/spike'}>
@@ -35,7 +35,6 @@ function Nav() {
             <LogOutButton className="navLink" />
           </>
         )}
-
       </div>
     </div>
   );

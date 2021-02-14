@@ -1,6 +1,9 @@
 :root {
   --gob-green: #3bb54a;
+  --bkg: #ececec;
+  --dark: #3b3b3b;
 }
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,6 +15,7 @@ html,
 body,
 #react-root {
   height: 100%;
+  background-color: var(--bkg);
 }
 
 p {
@@ -20,6 +24,10 @@ p {
 
 a {
   cursor: pointer;
+}
+
+.logo-nav {
+  height: 129px;
 }
 
 /* --------------------------------------------------------------------------------
@@ -230,3 +238,88 @@ ul {
   width: 160px;
   height: 160px;
 }
+
+/* Nutrition display Style */
+
+.nutrition-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.nutrition-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 360px;
+  height: 700px;
+  border: 2px solid var(--gob-green);
+  margin: 1rem;
+  overflow: scroll;
+}
+
+.nutrition-h1 {
+  font-size: 44px;
+  font-weight: bolder;
+  letter-spacing: 2px;
+}
+
+.thin-line {
+  border-top: 1px solid var(--gob-green);
+  width: 342px;
+  font-size: 20px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.fat-line {
+  border-top: 16px solid var(--gob-green);
+  width: 342px;
+}
+
+.nutrition-info-container {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  font-size: 25px;
+  font-weight: lighter;
+  margin: 5px;
+}
+
+.per-serving {
+  font-weight: bolder;
+  font-size: 17px;
+  letter-spacing: 2px;
+}
+
+.calorie-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.calories,
+.calorie-number {
+  font-weight: 600;
+  font-size: 40px;
+}
+
+.medium-line {
+  border-top: 8px solid var(--gob-green);
+  width: 342px;
+}
+
+.bold-nutrient-container {
+  display: flex;
+}
+
+.bold-nutrient {
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.twenty-five-pixels {
+  height: 25px;
+}
+/* end Nutrition Info */

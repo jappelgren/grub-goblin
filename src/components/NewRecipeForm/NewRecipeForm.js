@@ -44,11 +44,8 @@ export default function NewRecipeForm() {
     console.log(newRecipe)
     return (
         <div className="recipe-form">
-            <header className="recipe-header">
+            <header className="recipe-header edit-header">
                 <h1>ADD RECIPE</h1>
-                <nav className="fav-trash">
-                    ❤️ 🗑️
-                </nav>
             </header>
             <form onSubmit={handleSubmit}>
                 <input

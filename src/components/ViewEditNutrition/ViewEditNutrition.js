@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import EditRecipe from "../EditRecipe/EditRecipe.js"
 import RecipeNutrition from "../RecipeNutrition/RecipeNutrition.js"
 import ViewRecipe from "../ViewRecipe/ViewRecipe.js"
+import { useSpring, animated as a } from 'react-spring'
 
 export default function RecipeViewModal() {
     const selectedRecipe = useSelector(state => state?.viewRecipeReducer)
@@ -25,6 +26,8 @@ export default function RecipeViewModal() {
     }
 
 
+
+
     return (
 
         <div className="recipe-view-modal">
@@ -35,7 +38,12 @@ export default function RecipeViewModal() {
                 handleDelete={handleDelete}
                 faved={faved}
             /> : (
-                    nutritionMode ? <RecipeNutrition /> :
+                    nutritionMode ?
+                        <RecipeNutrition
+                            faved={faved}
+                            handleFav={handleFav}
+                            handleDelete={handleDelete}
+                        /> :
                         <ViewRecipe
                             faved={faved}
                             setfaved={setfaved}

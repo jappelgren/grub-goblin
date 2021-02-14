@@ -16,11 +16,6 @@ export default function RecipeItem({ recipe, index }) {
         dispatch({ type: 'SET_MEAL_ID', payload: recipe.recipes_id })
     }
 
-    const handleDelete = (id) => {
-        console.log(id)
-        dispatch({ type: 'DELETE_RECIPE', payload: id })
-    }
-
     const handleClick = () => {
         dispatch({ type: 'VIEW_SELECTED_RECIPE', payload: recipe })
         dispatch({ type: 'OPEN_RECIPE_VIEW' })
@@ -38,8 +33,6 @@ export default function RecipeItem({ recipe, index }) {
             <h3 onClick={handleClick}>{recipe?.recipe_name}</h3>
             <p>Calories: {Math.round(recipe?.cal / recipe?.servings)}</p>
             <p>Carbs: {Math.round(recipe?.carb / recipe?.servings)}</p>
-
-            <button onClick={() => handleDelete(recipe.recipes_id)}>Delete recipe</button>
         </div>
     )
 }

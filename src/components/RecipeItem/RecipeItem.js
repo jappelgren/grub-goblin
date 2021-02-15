@@ -1,5 +1,9 @@
 import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
+import { useSpring, animated } from 'react-spring';
+
+const calc = (x, y) => [-(y - window.innerHeight / 2) / 30, (x - window.innerWidth / 2) / 30, 1.1];
+const trans = (x, y, s) => `perspective(2000px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
 
 export default function RecipeItem({ recipe, index, assigned }) {
     const dispatch = useDispatch();
@@ -21,19 +25,24 @@ export default function RecipeItem({ recipe, index, assigned }) {
         dispatch({ type: 'OPEN_RECIPE_VIEW' });
     };
 
+    const [props, set] = useSpring(() => ({ xys: [2, 2, 1], config: { mass: 30, tension: 300, friction: 100 } }));
+
 
     return (
 
-        <div
+        <animated.div
             // ref={drag} initiates the div as draggable.
             ref={drag}
-            style={{ border: '1px solid black', backgroundColor: 'white' }}
             onMouseDown={handleMouseDown}
-            className={`recipe-card ${assigned}`}
+            className={`${assigned}`}
+            onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
+            onMouseLeave={() => set({ xys: [1, 1, 1] })}
+            style={{ transform: props.xys.interpolate(trans), backgroundImage: `url(${recipe?.photo})` }}
         >
-            <h3 onClick={handleClick}>{recipe?.recipe_name}</h3>
-            <p>Calories: {Math.round(recipe?.cal / recipe?.servings)}</p>
-            <p>Carbs: {Math.round(recipe?.carb / recipe?.servings)}</p>
-        </div >
+
+            <div className="recipe-card-banner">
+                    <h3 onClick={handleClick}>{recipe?.recipe_name}</h3>
+            </div>
+        </animated.div >
     );
 }

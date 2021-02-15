@@ -52,22 +52,29 @@ export default function Spike() {
     }, [recipes.length]);
 
     return (
-        <div style={{ display: 'flex' }}>
+        <div className="dashboard-container" style={{ display: 'flex' }}>
+
 
             {/* This map iterates over the days of the week and sets them next to the recipe container */}
             {week.map((day, index) => (
                 // Passing the recipes, day of the week and index of the day of the week
                 <DayItem recipes={recipes} day={day} index={index} key={index} />
             ))}
-            <div className={`recipe-container ${scroll}`}>
-                {/* This map iterates over the recipes and puts them into a container */}
-                {recipes?.map((recipe, index) => (
-                    // Passing recipe from recipes, index of the recipe
-                    <RecipeItem assigned={'recipe-card'} recipe={recipe} index={index} key={recipe.id} style={{ display: 'flex', flexDirection: 'column' }} />
-                ))}
 
-                {emptyBoxes}
+            <div className="recipe-container-container" >
+                <div className="recipe-container-banner">
+                    <h3>RECIPES</h3>
+                </div>
+                <div className={`recipe-container ${scroll}`}>
+                    {/* This map iterates over the recipes and puts them into a container */}
+                    {recipes?.map((recipe, index) => (
+                        // Passing recipe from recipes, index of the recipe
+                        <RecipeItem assigned={'recipe-card'} recipe={recipe} index={index} key={recipe.id} style={{ display: 'flex', flexDirection: 'column' }} />
+                    ))}
+                    {emptyBoxes}
+                </div>
             </div>
+
 
         </div >
     );

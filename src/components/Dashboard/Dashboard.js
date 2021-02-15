@@ -7,7 +7,7 @@ import RecipeViewModal from '../ViewEditNutrition/ViewEditNutrition.js';
 
 const customStyles = {
     overlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.31)'
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
     },
     content: {
         top: '50%',

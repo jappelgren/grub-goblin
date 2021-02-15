@@ -2,8 +2,8 @@ import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { useSpring, animated } from 'react-spring';
 
-const calc = (x, y) => [-(y - window.innerHeight / 2) / 30, (x - window.innerWidth / 2) / 30, 1.1];
-const trans = (x, y, s) => `perspective(2000px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
+const calc = (x, y) => [-(y - window.innerHeight / 2) / 70, (x - window.innerWidth / 2) / 70, 1.1];
+const trans = (x, y, s) => `perspective(500px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
 
 export default function RecipeItem({ recipe, index, assigned }) {
     const dispatch = useDispatch();
@@ -25,7 +25,7 @@ export default function RecipeItem({ recipe, index, assigned }) {
         dispatch({ type: 'OPEN_RECIPE_VIEW' });
     };
 
-    const [props, set] = useSpring(() => ({ xys: [2, 2, 1], config: { mass: 30, tension: 300, friction: 100 } }));
+    const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 2, tension: 400, friction: 20 } }));
 
 
     return (
@@ -36,12 +36,14 @@ export default function RecipeItem({ recipe, index, assigned }) {
             onMouseDown={handleMouseDown}
             className={`${assigned}`}
             onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
-            onMouseLeave={() => set({ xys: [1, 1, 1] })}
+            onMouseLeave={() => set({ xys: [0, 0, 1] })}
             style={{ transform: props.xys.interpolate(trans), backgroundImage: `url(${recipe?.photo})` }}
+            onClick={handleClick}
         >
+            {recipe?.fav && <img className="card-fav" src="images/iconmonstr-favorite-3.svg" alt="" />}
 
             <div className="recipe-card-banner">
-                    <h3 onClick={handleClick}>{recipe?.recipe_name}</h3>
+                <h3 onClick={handleClick}>{recipe?.recipe_name}</h3>
             </div>
         </animated.div >
     );

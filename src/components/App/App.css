@@ -19,6 +19,15 @@ body,
   background-color: var(--bkg);
 }
 
+body {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 p {
   white-space: pre-wrap;
 }
@@ -66,6 +75,12 @@ input {
   margin-bottom: 10px;
 }
 
+.dashboard-container {
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
 .recipe-view-modal {
   height: 894px;
   width: 804px;
@@ -99,7 +114,6 @@ ul {
   color: white;
   height: 71px;
   font-size: 0.75vw;
-  /* font-weight: 800; */
   padding: 1rem;
 }
 
@@ -194,8 +208,6 @@ ul {
 
 .fav-trash {
   display: flex;
-  justify-content: flex-end;
-  /* position: relative; */
   width: 100px;
   right: 1rem;
 }
@@ -250,10 +262,40 @@ ul {
   box-shadow: 0px 30px 100px -10px rgba(0, 0, 0, 0.4);
 }
 
-.assigned-recipe .recipe-card {
-  height: 100px;
+.card-fav {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.assigned-recipe {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: 0.2s ease-in-out;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center center;
+  box-shadow: 0px 10px 30px -5px rgba(0, 0, 0, 0.3);
+  transition: box-shadow 0.5s;
+  will-change: transform;
+  height: 107px;
   width: 184px;
-  margin: none;
+  border-radius: 0;
+}
+
+.assigned-recipe > img {
+  visibility: hidden;
+}
+
+.assigned-recipe > div {
+  border-radius: 0;
+  font-size: 12px;
+  display: none;
+}
+
+.assigned-recipe:hover > div {
+  display: flex;
 }
 
 .recipe-card-banner {
@@ -286,11 +328,35 @@ ul {
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: flex-start;
-  width: 470px;
-  max-height: 80vh;
+  min-width: 470px;
+  max-width: 470px;
+  max-height: 78vh;
   background-color: white;
-  border-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   font-size: 12px;
+  margin-left: 1rem;
+  position: relative;
+}
+
+.recipe-container-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recipe-container-banner {
+  background-color: var(--gob-green);
+  display: flex;
+  align-items: center;
+  width: 469px;
+  height: 32px;
+  color: white;
+  font-size: 20px;
+  padding-left: 1rem;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin-left: 1rem;
 }
 
 .recipe-container-scroll {
@@ -428,7 +494,7 @@ ul {
   align-items: center;
   background-color: var(--gob-green);
   width: 184px;
-  height: 32px;
+  min-height: 32px;
   text-align: center;
   font-size: 20px;
   color: white;

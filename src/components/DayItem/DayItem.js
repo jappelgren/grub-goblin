@@ -27,10 +27,17 @@ export default function DayItem({ day, index }) {
                 < MealItem meal={meal} dayIndex={index} mealIndex={mealIndex} key={meal.id} />
             ))}
 
-            <div>
+            <div className="daily-nutrition-container">
+                <div className="daily-nutrition-banner">
+                <h3>{day} TOTALS</h3>
+                </div>
                 Daily Total Calories: {nutritionTotals('cal')}
                 <br />
-            Daily Total Carbs: {nutritionTotals('carb')}
+                Daily Total Carbs: {nutritionTotals('carb')}
+                <br />
+                Daily Total Sugar: {nutritionTotals('sugar')}
+                <br />
+                Daily Total Fiber: {nutritionTotals('fiber')}
             </div>
         </div>
     );

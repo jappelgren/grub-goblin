@@ -624,3 +624,22 @@ ul {
   justify-content: flex-end;
   width: 335px;
 }
+
+.daily-nutrition-container {
+  background-color: white;
+  height: 200px;
+  border-radius: 20px;
+  margin: 20px 0;
+}
+
+.daily-nutrition-banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gob-green);
+  color: white;
+  height: 32px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 0 10px;
+}

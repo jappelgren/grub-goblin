@@ -51,15 +51,21 @@ export default function MealItem({ meal, dayIndex, mealIndex }) {
         >
             <div className="day-banner">
                 <h4>{(meal.meal).toUpperCase()}</h4>
+                {dailyNutritionCalc[dayIndex][mealIndex].week_id &&
+                    <img
+                        className="remove-meal-icon"
+                        src="images/iconmonstr-minus-5-white.svg"
+                        alt=""
+                        onClick={() => handleClick(dailyNutritionCalc[dayIndex][mealIndex].week_id)} />}
             </div>
 
             {weekReducer.map((meal, index) => {
                 // RecipeItem is passed meal (breakfast, lunch, dinner) as recipe, so recipeItem can be reused.
                 if (dayIndex == meal.day_index && mealIndex == meal.meal_index) {
                     return (
-                        <div key={index}>
+                        <div className="assigned-container" key={index}>
                             <RecipeItem assigned={'assigned-recipe'} onMouseDown={handleClick} recipe={meal} />
-                            <button onClick={() => handleClick(meal.week_id)}>Remove Recipe</button>
+
                         </div>
                     );
                 }

@@ -8,6 +8,7 @@ export default function Spike() {
     const dispatch = useDispatch();
     const recipes = useSelector(state => state.recipeReducer);
     const [scroll, setScroll] = useState('');
+    const [favFilter, setFavFilter] = useState(false);
 
     const week = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
@@ -39,6 +40,13 @@ export default function Spike() {
     }
     //end div generation code.
 
+    let switchPosition;
+
+    if (favFilter) {
+        switchPosition = 'switchOn';
+    }
+
+
 
 
     useEffect(() => {
@@ -64,13 +72,40 @@ export default function Spike() {
             <div className="recipe-container-container" >
                 <div className="recipe-container-banner">
                     <h3>RECIPES</h3>
+                    <div className="fav-filter-container">
+                        <p>FAVORITES</p>
+                        <div className={`switch-body ${switchPosition}-body`} onClick={() => setFavFilter(!favFilter)}>
+                            <div className={`switch-circle ${switchPosition}`}></div>
+                        </div>
+                    </div>
                 </div>
                 <div className={`recipe-container ${scroll}`}>
                     {/* This map iterates over the recipes and puts them into a container */}
-                    {recipes?.map((recipe, index) => (
+                    {recipes?.map((recipe, index) => {
                         // Passing recipe from recipes, index of the recipe
-                        <RecipeItem assigned={'recipe-card'} recipe={recipe} index={index} key={recipe.id} style={{ display: 'flex', flexDirection: 'column' }} />
-                    ))}
+                        if (favFilter) {
+                            if (recipe.fav) {
+                                return (
+                                    <RecipeItem
+                                        assigned={'recipe-card'}
+                                        recipe={recipe}
+                                        index={index}
+                                        key={recipe.id}
+                                    />
+                                );
+                            }
+                        } else {
+                            return (
+                                <RecipeItem
+                                    assigned={'recipe-card'}
+                                    recipe={recipe}
+                                    index={index}
+                                    key={recipe.id}
+                                />
+                            );
+                        }
+
+                    })}
                     {emptyBoxes}
                 </div>
             </div>

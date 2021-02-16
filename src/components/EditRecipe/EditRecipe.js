@@ -50,76 +50,84 @@ export default function EditRecipe({ setEditMode, editMode, handleFav, handleDel
         <div className="recipe-form">
             <ModalHeader faved={faved} handleFav={handleFav} handleDelete={handleDelete} />
             <form onSubmit={handleSubmit}>
-                <input
-                    required
-                    name="recipe_name"
-                    type="text"
-                    onChange={handleChange}
-                    value={newRecipe.recipe_name}
-                    placeholder="Recipe Name" />
-                {newRecipe.ingredient.map((ingr, i) => {
-                    if (!ingr.delete)
-                        return (
-
-                            <div key={i}>
-                                <input
-                                    required
-                                    type="text"
-                                    name="ingredients"
-                                    value={ingr.ingredient}
-                                    onChange={handleIngredient(i)}
-                                    placeholder="Ingredient"
-                                />
-
-                                <img
-                                    name="remove"
-                                    onClick={handleIngredient(i)}
-                                    className="plus-minus-icon"
-                                    src="images/iconmonstr-minus-5.svg"
-                                    alt="A green circle with a white minus symbol in the center"
-                                />
-
+                <main className="recipe-modal-main edit-main">
+                    <div className="ingr-pic-meal-tag-container">
+                        <div className="recipe-modal-ingredients">
+                            <input
+                                required
+                                name="recipe_name"
+                                type="text"
+                                onChange={handleChange}
+                                value={newRecipe.recipe_name}
+                                placeholder="Recipe Name" />
+                            {newRecipe.ingredient.map((ingr, i) => {
+                                if (!ingr.delete)
+                                    return (
+                                        <div className="ingredient-minus-container" key={i}>
+                                            <input
+                                                required
+                                                type="text"
+                                                name="ingredients"
+                                                value={ingr.ingredient}
+                                                onChange={handleIngredient(i)}
+                                                placeholder="Ingredient"
+                                            />
+                                            <img
+                                                name="remove"
+                                                onClick={handleIngredient(i)}
+                                                className="plus-minus-icon"
+                                                src="images/iconmonstr-minus-5.svg"
+                                                alt="A green circle with a white minus symbol in the center"
+                                            />
+                                        </div>
+                                    );
+                            })}
+                            <div className="plus-container">
+                                <img name="add" onClick={handleIngredient()} className="plus-minus-icon plus-icon" src="images/iconmonstr-plus-5.svg" alt="" />
                             </div>
-                        );
-                })}
-                <img name="add" onClick={handleIngredient()} className="plus-minus-icon" src="images/iconmonstr-plus-5.svg" alt="" />
-                <input
-                    name="photo"
-                    value={newRecipe.photo}
-                    onChange={handleChange}
-                    type="text"
-                    placeholder="Image URL" />
-                <input
-                    required
-                    name="servings"
-                    value={newRecipe.servings}
-                    onChange={handleChange}
-                    type="number"
-                    placeholder="Servings" />
-                <select
-                    required
-                    name="meal"
-                    // value={newRecipe.meal}
-                    onChange={handleChange}
-                    defaultValue={newRecipe.meal}
-                    id="meal">
-                    <option disabled value="">Select Meal</option>
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Lunch">Lunch</option>
-                    <option value="Dinner">Dinner</option>
-                </select>
-                <textarea
-                    required
-                    onChange={handleChange}
-                    value={newRecipe.directions}
-                    name="directions"
-                    id="directions"
-                    cols="30"
-                    rows="10"
-                />
-                <button className="goblin-button" type="button" onClick={() => setEditMode(!editMode)}>CANCEL</button>
-                <button className="goblin-button" type="submit" >COMPLETE</button>
-
+                        </div>
+                        <div className="recipe-modal-photo-nutrition">
+                            <input
+                                name="photo"
+                                value={newRecipe.photo}
+                                onChange={handleChange}
+                                type="text"
+                                placeholder="Image URL" />
+                            <input
+                                required
+                                name="servings"
+                                value={newRecipe.servings}
+                                onChange={handleChange}
+                                type="number"
+                                placeholder="Servings" />
+                            <select
+                                required
+                                name="meal"
+                                // value={newRecipe.meal}
+                                onChange={handleChange}
+                                defaultValue={newRecipe.meal}
+                                id="meal">
+                                <option disabled value="">Select Meal</option>
+                                <option value="Breakfast">Breakfast</option>
+                                <option value="Lunch">Lunch</option>
+                                <option value="Dinner">Dinner</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="text-area-directions">
+                        <textarea
+                            required
+                            onChange={handleChange}
+                            value={newRecipe.directions}
+                            name="directions"
+                            id="directions"
+                        />
+                    </div>
+                    <div className="modal-button-container">
+                        <button className="goblin-button" type="button" onClick={() => setEditMode(!editMode)}>CANCEL</button>
+                        <button className="goblin-button" type="submit" >COMPLETE</button>
+                    </div>
+                </main>
             </form>
         </div >
     );

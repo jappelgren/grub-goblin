@@ -13,7 +13,7 @@ export default function ViewRecipe({ faved, handleFav, handleDelete, nutritionMo
                     <div className="recipe-modal-ingredients">
                         <div className="chip">
                             INGREDIENTS
-        </div>
+                        </div>
                         <ul>
                             {selectedRecipe.ingredient.map((ingredient, i) => (
                                 <IngredientItem key={i} ingredient={ingredient} />

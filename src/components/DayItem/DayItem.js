@@ -49,7 +49,7 @@ export default function DayItem({ day, index }) {
                     </Spring>
                 </div>
                 <div className="nutrient-value">
-                    <p>Sugar:</p>
+                    <p>    Sugar:</p>
                     <Spring
                         from={{ number: 0 }}
                         to={{ number: nutritionTotals('sugar') }}>
@@ -57,7 +57,7 @@ export default function DayItem({ day, index }) {
                     </Spring>
                 </div>
                 <div className="nutrient-value">
-                    <p>Fiber:</p>
+                    <p>    Fiber:</p>
                     <Spring
                         from={{ number: 0 }}
                         to={{ number: nutritionTotals('fiber') }}>

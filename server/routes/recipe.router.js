@@ -34,9 +34,9 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
   try {
     console.log(req.body);
     const recipeQueryText = `
-    INSERT INTO "recipes" ("recipe_name", "photo", "directions", "servings", "meal", "user_id")
-    VALUES ($1, $2, $3, $4, $5, $6)
-    RETURNING "id";
+      INSERT INTO "recipes" ("recipe_name", "photo", "directions", "servings", "meal", "user_id")
+      VALUES ($1, $2, $3, $4, $5, $6)
+      RETURNING "id";
   `;
 
     const queryVariables = [

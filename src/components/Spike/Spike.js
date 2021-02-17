@@ -8,6 +8,8 @@ import RecipeItem from "../RecipeItem/RecipeItem.js";
 export default function Spike() {
     const dispatch = useDispatch();
     const recipes = useSelector(state => state.recipeReducer);
+    const [searchText, setSearchText] = useState('');
+    const [searchResults, setSearchResults] = useState(recipes);
     const [scroll, setScroll] = useState('');
     const [favFilter, setFavFilter] = useState(false);
 
@@ -17,6 +19,28 @@ export default function Spike() {
     // when there are less than 6 recipes.
     const emptyBoxesNumber = 6 - recipes.length;
     const emptyBoxes = [];
+
+    const re = new RegExp(`${searchText}`, 'gi');
+
+
+    let sss = () => {
+        let resultArr = [];
+        for (let recipe of recipes) {
+            if (re.test(recipe?.recipe_name)) {
+                resultArr.push(recipe);
+            } else {
+                for (let ingr of recipe.ingredient) {
+                    if (re.test(ingr.ingredient)) {
+                        resultArr.push(recipe);
+                        break;
+                    }
+                }
+            }
+        }
+        setSearchResults(resultArr);
+    };
+
+    console.log('!SEARCH RESULTS!', searchResults);
 
 
     //controls whether the recipe container scrolls.  When there are empty boxes it doesn't
@@ -57,12 +81,15 @@ export default function Spike() {
 
     useEffect(() => {
         scrollStatus();
-
     }, [recipes.length]);
+
+    useEffect(() => {
+        sss();
+    }, [searchText]);
 
     return (
         <>
-            <Nav />
+            <Nav searchText={searchText} setSearchText={setSearchText} sss={sss} />
             <div className="dashboard-container" style={{ display: 'flex' }}>
 
                 {/* This map iterates over the days of the week and sets them next to the recipe container */}
@@ -83,7 +110,7 @@ export default function Spike() {
                     </div>
                     <div className={`recipe-container ${scroll}`}>
                         {/* This map iterates over the recipes and puts them into a container */}
-                        {recipes?.map((recipe, index) => {
+                        {searchResults?.map((recipe, index) => {
                             // Passing recipe from recipes, index of the recipe
                             if (favFilter) {
                                 if (recipe.fav) {
@@ -92,7 +119,7 @@ export default function Spike() {
                                             assigned={'recipe-card'}
                                             recipe={recipe}
                                             index={index}
-                                            key={recipe.id}
+                                            key={Math.floor(Math.random(1, 1001))}
                                         />
                                     );
                                 }

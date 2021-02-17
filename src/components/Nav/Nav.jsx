@@ -5,7 +5,7 @@ import './Nav.css';
 import { useSelector } from 'react-redux';
 import Dashboard from '../Dashboard/Dashboard';
 
-function Nav() {
+function Nav({ searchText, setSearchText, sss }) {
   const user = useSelector((store) => store.user);
 
   let loginLinkData = {
@@ -26,6 +26,14 @@ function Nav() {
       <div>
         {user.id && (
           <>
+            <input
+              type="text"
+              onChange={(event) => {
+                setSearchText(event.target.value);
+                sss();
+              }}
+              value={searchText}
+            />
             <Dashboard />
             <Link className="navLink" to={loginLinkData.path}>
               {loginLinkData.text}

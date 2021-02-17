@@ -6,7 +6,7 @@ export default function RecipeNutrition({ faved, handleFav, handleDelete }) {
     return (
         <div>
             <ModalHeader faved={faved} handleFav={handleFav} handleDelete={handleDelete} />
-            <div className="nutrition-view">
+            <div className="nutrition-view modal-fade">
                 <div className="nutrition-container">
                     <p className="nutrition-h1">Nutrition Facts</p>
                     <div className="thin-line"></div>

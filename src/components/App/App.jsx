@@ -36,16 +36,15 @@ function App() {
     <Router>
       <DndProvider backend={HTML5Backend}>
         <div>
-          <Nav />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
 
             {/* Visiting localhost:3000/about will show the about page. */}
 
-            <Route exact path="/spike">
+            <ProtectedRoute exact path="/spike">
               <Spike />
-            </Route>
+            </ProtectedRoute>
 
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -104,7 +103,6 @@ function App() {
               <h1>404</h1>
             </Route>
           </Switch>
-          <Dashboard />
         </div>
       </DndProvider>
     </Router>

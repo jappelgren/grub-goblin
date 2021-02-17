@@ -15,7 +15,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     JOIN "ingredients" ON "recipes".id = "ingredients".recipe_id
     JOIN "nutrition_info" ON "recipes".id = "nutrition_info".recipes_id 
     WHERE "recipes".user_id = $1
-    GROUP BY "recipes".id, "nutrition_info".id;
+    GROUP BY "recipes".id, "nutrition_info".id
+    ORDER BY "recipes".recipe_name;
   `;
   pool.query(queryText, [req.user.id])
     .then((result) => {

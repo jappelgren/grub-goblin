@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { Spring } from "react-spring/renderprops";
 import MealItem from '../MealItem/MealItem.js';
 
 export default function DayItem({ day, index }) {
@@ -29,15 +30,40 @@ export default function DayItem({ day, index }) {
 
             <div className="daily-nutrition-container">
                 <div className="daily-nutrition-banner">
-                <h3>{day} TOTALS</h3>
+                    <h3>{day} TOTALS</h3>
                 </div>
-                Daily Total Calories: {nutritionTotals('cal')}
-                <br />
-                Daily Total Carbs: {nutritionTotals('carb')}
-                <br />
-                Daily Total Sugar: {nutritionTotals('sugar')}
-                <br />
-                Daily Total Fiber: {nutritionTotals('fiber')}
+                <div className="nutrient-value">
+                    <p>Calories:</p>
+                    <Spring
+                        from={{ number: 0 }}
+                        to={{ number: nutritionTotals('cal') }}>
+                        {props => <div>{props.number.toFixed(0)}</div>}
+                    </Spring>
+                </div>
+                <div className="nutrient-value">
+                    <p>Carbs:</p>
+                    <Spring
+                        from={{ number: 0 }}
+                        to={{ number: nutritionTotals('carb') }}>
+                        {props => <div>{props.number.toFixed(0)}</div>}
+                    </Spring>
+                </div>
+                <div className="nutrient-value">
+                    <p>Sugar:</p>
+                    <Spring
+                        from={{ number: 0 }}
+                        to={{ number: nutritionTotals('sugar') }}>
+                        {props => <div>{props.number.toFixed(0)}</div>}
+                    </Spring>
+                </div>
+                <div className="nutrient-value">
+                    <p>Fiber:</p>
+                    <Spring
+                        from={{ number: 0 }}
+                        to={{ number: nutritionTotals('fiber') }}>
+                        {props => <div>{props.number.toFixed(0)}</div>}
+                    </Spring>
+                </div>
             </div>
         </div>
     );

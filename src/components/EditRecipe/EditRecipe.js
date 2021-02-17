@@ -50,7 +50,7 @@ export default function EditRecipe({ setEditMode, editMode, handleFav, handleDel
         <div className="recipe-form">
             <ModalHeader faved={faved} handleFav={handleFav} handleDelete={handleDelete} />
             <form onSubmit={handleSubmit}>
-                <main className="recipe-modal-main edit-main">
+                <main className="recipe-modal-main edit-main modal-fade">
                     <div className="ingr-pic-meal-tag-container">
                         <div className="recipe-modal-ingredients">
                             <input

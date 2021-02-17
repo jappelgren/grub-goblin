@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
+import Dashboard from '../Dashboard/Dashboard';
 
 function Nav() {
   const user = useSelector((store) => store.user);
@@ -19,19 +20,16 @@ function Nav() {
 
   return (
     <div className="nav">
-      <Link to="/home">
+      <Link to="/spike">
         <img className="logo-nav" src="images/logo.png" alt="" />
       </Link>
       <div>
-        <Link className="navLink" to={'/spike'}>
-          Spike
-        </Link>
-        <Link className="navLink" to={loginLinkData.path}>
-          {loginLinkData.text}
-        </Link>
-
         {user.id && (
           <>
+            <Dashboard />
+            <Link className="navLink" to={loginLinkData.path}>
+              {loginLinkData.text}
+            </Link>
             <LogOutButton className="navLink" />
           </>
         )}

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import NewRecipeForm from '../NewRecipeForm/NewRecipeForm.js';
@@ -41,6 +40,7 @@ export default function Dashboard() {
                 onRequestClose={() => dispatch({ type: 'CLOSE_RECIPE_ENTRY' })}
                 style={customStyles}
                 contentLabel="New Recipe"
+                closeTimeoutMS={300}
             >
                 <NewRecipeForm />
             </Modal>
@@ -52,6 +52,7 @@ export default function Dashboard() {
                 onRequestClose={() => dispatch({ type: 'CLOSE_RECIPE_IMPORT' })}
                 style={customStyles}
                 contentLabel="Import New Recipe"
+                closeTimeoutMS={300}
             >
                 <RecipeImportForm />
             </Modal>
@@ -63,10 +64,10 @@ export default function Dashboard() {
                 onRequestClose={() => dispatch({ type: 'CLOSE_RECIPE_VIEW' })}
                 style={customStyles}
                 contentLabel="Import New Recipe"
+                closeTimeoutMS={300}
             >
                 <RecipeViewModal />
             </Modal>
-
         </div>
     );
 }

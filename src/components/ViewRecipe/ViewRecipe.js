@@ -1,4 +1,3 @@
-
 import { useSelector } from 'react-redux';
 import IngredientItem from '../IngredientItem/IngredientItem.js';
 import ModalHeader from '../ModalHeader/ModalHeader.js';
@@ -8,7 +7,7 @@ export default function ViewRecipe({ faved, handleFav, handleDelete, nutritionMo
     return (
         <div>
             <ModalHeader faved={faved} handleFav={handleFav} handleDelete={handleDelete} />
-            <main className="recipe-modal-main">
+            <main className="recipe-modal-main modal-fade">
                 <div className="ingr-pic-meal-tag-container">
                     <div className="recipe-modal-ingredients">
                         <div className="chip">

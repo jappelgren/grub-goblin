@@ -3,28 +3,32 @@ import axios from 'axios';
 
 function* addRecipe(action) {
     try {
+        yield put({ type: 'TOGGLE_SPINNER' });
         yield axios.post('/api/recipes', action.payload);
         yield put({ type: 'FETCH_RECIPES' });
         yield put({ type: 'FETCH_WEEK' });
+        yield put({ type: 'TOGGLE_SPINNER' });
     } catch (err) {
-        if (err == 500) {
-            console.log(err);
-            alert('Error adding recipe, please try again.');
-        } else if (err == 555) {
-            alert('Recipe does not contain enough information to be analyzed.');
-        }
+        console.log(err);
+        yield put({ type: 'TOGGLE_SPINNER' });
+        alert('Error adding recipe, please try again.');
+
+
+
 
     }
 }
 
 function* importRecipe(action) {
     try {
+        yield put({ type: 'TOGGLE_SPINNER' });
         const response = yield axios.get(`/api/scrape?url=${action.payload}`);
-        console.log(response);
         yield axios.post('/api/recipes', response.data);
         yield put({ type: 'FETCH_RECIPES' });
+        yield put({ type: 'TOGGLE_SPINNER' });
     } catch (err) {
         console.log(err);
+        yield put({ type: 'TOGGLE_SPINNER' });
         alert('Unable to auto import recipe.  Time to click on add recipe and flex your copy and past skills');
     }
 }
@@ -58,10 +62,17 @@ function* deleteRecipe(action) {
 }
 
 function* editRecipe(action) {
-    console.log(action.payload);
-    yield axios.put(`/api/recipes/${action.payload.recipes_id}`, action.payload);
-    yield put({ type: 'FETCH_RECIPES' });
-    yield put({ type: 'FETCH_WEEK' });
+    try {
+        console.log(action.payload);
+        yield put({ type: 'TOGGLE_SPINNER' });
+        yield axios.put(`/api/recipes/${action.payload.recipes_id}`, action.payload);
+        yield put({ type: 'FETCH_RECIPES' });
+        yield put({ type: 'FETCH_WEEK' });
+        yield put({ type: 'TOGGLE_SPINNER' });
+    } catch (err) {
+        console.log(err);
+        yield put({ type: 'TOGGLE_SPINNER' });
+    }
 }
 
 

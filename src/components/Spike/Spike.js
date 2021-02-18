@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DayItem from "../DayItem/DayItem";
 import Nav from "../Nav/Nav";
@@ -20,29 +20,25 @@ export default function Spike() {
     const emptyBoxesNumber = 6 - recipes.length;
     const emptyBoxes = [];
 
-    const re = new RegExp(`${searchText}`, 'gi');
-
-
-    let search = () => {
-        setTimeout(() => {
-            let resultArr = [];
-            for (let recipe of recipes) {
-                if (re.test(recipe?.recipe_name)) {
-                    resultArr.push(recipe);
-                } else {
-                    for (let ingr of recipe.ingredient) {
-                        if (re.test(ingr.ingredient)) {
-                            resultArr.push(recipe);
-                            break;
-                        }
+    const search = () => {
+        const re = new RegExp(`${searchText}`, 'gi');
+        let resultArr = [];
+        for (let recipe of recipes) {
+            if (re.test(recipe?.recipe_name)) {
+                resultArr.push(recipe);
+            } else {
+                for (let ingr of recipe.ingredient) {
+                    if (re.test(ingr.ingredient)) {
+                        resultArr.push(recipe);
+                        break;
                     }
                 }
             }
-            setSearchResults(resultArr);
-        }, 500);
+        }
+        setSearchResults(resultArr);
+
     };
 
-    console.log('!SEARCH RESULTS!', searchResults);
 
 
     //controls whether the recipe container scrolls.  When there are empty boxes it doesn't
@@ -73,12 +69,10 @@ export default function Spike() {
         switchPosition = 'switchOn';
     }
 
-
-
-
     useEffect(() => {
         dispatch({ type: 'FETCH_RECIPES' });
         dispatch({ type: 'FETCH_WEEK' });
+
     }, []);
 
     useEffect(() => {
@@ -86,8 +80,13 @@ export default function Spike() {
     }, [recipes.length]);
 
     useEffect(() => {
+        setSearchResults(recipes);
+    }, [recipes]);
+
+    useEffect(() => {
         search();
     }, [searchText]);
+
 
     return (
         <>
@@ -141,8 +140,6 @@ export default function Spike() {
                         {emptyBoxes}
                     </div>
                 </div>
-
-
             </div >
         </>
     );

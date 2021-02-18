@@ -2,6 +2,7 @@ import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import NewRecipeForm from '../NewRecipeForm/NewRecipeForm.js';
 import RecipeImportForm from '../RecipeImportForm/RecipeImportForm.js';
+import Spinner from '../Spinner/Spinner.js';
 import RecipeViewModal from '../ViewEditNutrition/ViewEditNutrition.js';
 
 const customStyles = {

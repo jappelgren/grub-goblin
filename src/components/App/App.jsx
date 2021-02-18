@@ -1,32 +1,27 @@
-import React, { useEffect } from 'react';
-import {
-  HashRouter as Router,
-  Route,
-  Redirect,
-  Switch,
-} from 'react-router-dom';
-
-import { useDispatch } from 'react-redux';
-
-import Nav from '../Nav/Nav';
-
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
-import UserPage from '../UserPage/UserPage';
-import LandingPage from '../LandingPage/LandingPage';
-import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
-import Spike from '../Spike/Spike';
+import React, { useEffect, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  HashRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom';
+import LoginPage from '../LoginPage/LoginPage';
+import Nav from '../Nav/Nav';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import RegisterPage from '../RegisterPage/RegisterPage';
+import Spike from '../Spike/Spike';
+import Spinner from '../Spinner/Spinner';
+import UserPage from '../UserPage/UserPage';
 import './App.css';
-import Dashboard from '../Dashboard/Dashboard';
 
 Nav.setAppElement;
 
 function App() {
   const dispatch = useDispatch();
+  const spinnerReducer = useSelector((state) => state.spinnerReducer);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
@@ -36,6 +31,8 @@ function App() {
     <Router>
       <DndProvider backend={HTML5Backend}>
         <div>
+          <div className={spinnerReducer ? 'disable-dom' : ''}></div>
+          {spinnerReducer && <Spinner />}
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />

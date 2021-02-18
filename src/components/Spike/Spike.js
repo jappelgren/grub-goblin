@@ -23,21 +23,23 @@ export default function Spike() {
     const re = new RegExp(`${searchText}`, 'gi');
 
 
-    let sss = () => {
-        let resultArr = [];
-        for (let recipe of recipes) {
-            if (re.test(recipe?.recipe_name)) {
-                resultArr.push(recipe);
-            } else {
-                for (let ingr of recipe.ingredient) {
-                    if (re.test(ingr.ingredient)) {
-                        resultArr.push(recipe);
-                        break;
+    let search = () => {
+        setTimeout(() => {
+            let resultArr = [];
+            for (let recipe of recipes) {
+                if (re.test(recipe?.recipe_name)) {
+                    resultArr.push(recipe);
+                } else {
+                    for (let ingr of recipe.ingredient) {
+                        if (re.test(ingr.ingredient)) {
+                            resultArr.push(recipe);
+                            break;
+                        }
                     }
                 }
             }
-        }
-        setSearchResults(resultArr);
+            setSearchResults(resultArr);
+        }, 500);
     };
 
     console.log('!SEARCH RESULTS!', searchResults);
@@ -84,12 +86,13 @@ export default function Spike() {
     }, [recipes.length]);
 
     useEffect(() => {
-        sss();
+        search();
     }, [searchText]);
 
     return (
         <>
-            <Nav searchText={searchText} setSearchText={setSearchText} sss={sss} />
+            <Nav searchText={searchText} setSearchText={setSearchText} search={search} />
+
             <div className="dashboard-container" style={{ display: 'flex' }}>
 
                 {/* This map iterates over the days of the week and sets them next to the recipe container */}
@@ -119,7 +122,7 @@ export default function Spike() {
                                             assigned={'recipe-card'}
                                             recipe={recipe}
                                             index={index}
-                                            key={Math.floor(Math.random(1, 1001))}
+                                            key={recipe.id}
                                         />
                                     );
                                 }

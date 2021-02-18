@@ -5,7 +5,7 @@ import './Nav.css';
 import { useSelector } from 'react-redux';
 import Dashboard from '../Dashboard/Dashboard';
 
-function Nav({ searchText, setSearchText, sss }) {
+function Nav({ searchText, setSearchText, search }) {
   const user = useSelector((store) => store.user);
 
   let loginLinkData = {
@@ -18,6 +18,12 @@ function Nav({ searchText, setSearchText, sss }) {
     loginLinkData.text = 'Home';
   }
 
+  const sanitizedSearchText = (event) => {
+    const re = new RegExp('[^a-zA-Z0-9\\s]', 'gi');
+    let sanitizedText = event.replace(re, '');
+    setSearchText(sanitizedText);
+  };
+
   return (
     <div className="nav">
       <Link to="/spike">
@@ -27,11 +33,8 @@ function Nav({ searchText, setSearchText, sss }) {
         {user.id && (
           <>
             <input
-              type="text"
-              onChange={(event) => {
-                setSearchText(event.target.value);
-                sss();
-              }}
+              type="search"
+              onChange={(event) => sanitizedSearchText(event.target.value)}
               value={searchText}
             />
             <Dashboard />

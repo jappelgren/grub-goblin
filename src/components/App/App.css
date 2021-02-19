@@ -16,9 +16,8 @@
   position: fixed;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
-  
 }
 
 html,
@@ -224,6 +223,11 @@ ul {
 .trash-icon {
   fill: white;
 }
+.unfaved-icon:hover,
+.faved-icon:hover,
+.trash-icon:hover {
+  cursor: pointer;
+}
 
 .icon-container {
   margin-right: 1rem;
@@ -240,6 +244,10 @@ ul {
 
 .plus-icon {
   align-self: flex-end;
+}
+
+.plus-minus-icon:hover {
+  cursor: pointer;
 }
 
 .recipe-card {
@@ -261,6 +269,7 @@ ul {
 
 .recipe-card:hover {
   box-shadow: 0px 30px 100px -10px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
 }
 
 .card-fav {
@@ -271,6 +280,10 @@ ul {
 
 .assigned-container {
   position: relative;
+}
+
+.assigned-container:hover {
+  cursor: pointer;
 }
 
 .assigned-recipe {
@@ -300,6 +313,7 @@ ul {
 
 .assigned-recipe:hover > div {
   display: flex;
+  cursor: hover;
 }
 
 .recipe-card-banner {
@@ -627,7 +641,6 @@ ul {
 
 .daily-nutrition-container {
   background-color: white;
-  height: 200px;
   width: 184px;
   border-radius: 20px;
   margin: 20px 0;
@@ -645,10 +658,18 @@ ul {
   padding: 0 10px;
 }
 
+.nutrition-banner:hover {
+  cursor: pointer;
+}
+
 .nutrient-value {
   display: flex;
   justify-content: space-between;
-  padding: 2px 10px;
+  padding: 3px 10px;
+}
+
+.nutrition-margin {
+  padding: 10px 0;
 }
 
 .ReactModal__Overlay {
@@ -676,4 +697,76 @@ ul {
 .modal-fade {
   animation-name: modalFade;
   animation-duration: 1s;
+}
+
+/* Drop Down Styles */
+
+.hamburger {
+  width: 50px;
+}
+
+.hamburger:hover {
+  width: 50px;
+  cursor: pointer;
+}
+
+.menu-closed {
+  display: none;
+}
+
+.menu-open {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  animation-name: modalFade;
+  animation-duration: 0.5s;
+}
+.menu-open > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 269px;
+  margin: 2rem;
+  padding: 10px;
+  position: absolute;
+  top: 101px;
+  background-color: white;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  box-shadow: 0px 5px 15px rgb(97, 97, 97);
+}
+
+.menu-open > div > button {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0.5rem;
+  color: var(--banner);
+  width: 100%;
+}
+
+.menu-open > div > button > img {
+  height: 50px;
+  margin-right: 1rem;
+}
+
+.menu-open > div > button:hover {
+  background-image: linear-gradient(to right, white, var(--banner));
+  color: white;
+  animation-name: modalFade;
+  animation-duration: 0.5s;
+  cursor: pointer;
 }

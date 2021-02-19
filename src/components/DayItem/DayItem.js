@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Spring } from "react-spring/renderprops";
 import MealItem from '../MealItem/MealItem.js';
@@ -19,6 +20,8 @@ export default function DayItem({ day, index }) {
         return total;
     };
 
+    useEffect(() => {
+    }, [dailyNutritionCalc]);
 
 
     return (
@@ -32,37 +35,87 @@ export default function DayItem({ day, index }) {
                 <div className="daily-nutrition-banner">
                     <h3>{day} TOTALS</h3>
                 </div>
-                <div className="nutrient-value">
-                    <p>Calories:</p>
-                    <Spring
-                        from={{ number: 0 }}
-                        to={{ number: nutritionTotals('cal') }}>
-                        {props => <div>{props.number.toFixed(0)}</div>}
-                    </Spring>
-                </div>
-                <div className="nutrient-value">
-                    <p>Carbs:</p>
-                    <Spring
-                        from={{ number: 0 }}
-                        to={{ number: nutritionTotals('carb') }}>
-                        {props => <div>{props.number.toFixed(0)}</div>}
-                    </Spring>
-                </div>
-                <div className="nutrient-value">
-                    <p>    Sugar:</p>
-                    <Spring
-                        from={{ number: 0 }}
-                        to={{ number: nutritionTotals('sugar') }}>
-                        {props => <div>{props.number.toFixed(0)}</div>}
-                    </Spring>
-                </div>
-                <div className="nutrient-value">
-                    <p>    Fiber:</p>
-                    <Spring
-                        from={{ number: 0 }}
-                        to={{ number: nutritionTotals('fiber') }}>
-                        {props => <div>{props.number.toFixed(0)}</div>}
-                    </Spring>
+                <div className="nutrition-margin">
+                    <div className="nutrient-value">
+                        <p>Calories:</p>
+                        <Spring
+                            from={{ number: 0 }}
+                            to={{ number: nutritionTotals('cal') }}>
+                            {props => <div>{props.number.toFixed(0)}</div>}
+                        </Spring>
+                    </div>
+                    <div className="nutrient-value">
+                        <p>Total Fat:</p>
+                        <Spring
+                            from={{ number: 0 }}
+                            to={{ number: nutritionTotals('fat') }}>
+                            {props => <div>{props.number.toFixed(0)}g</div>}
+                        </Spring>
+                    </div>
+                    <div className="nutrient-value">
+                        <p>   Saturated Fat:</p>
+                        <Spring
+                            from={{ number: 0 }}
+                            to={{ number: nutritionTotals('sat_fat') }}>
+                            {props => <div>{props.number.toFixed(0)}g</div>}
+                        </Spring>
+                    </div>
+                    <div className="nutrient-value">
+                        <p>   Trans Fat:</p>
+                        <Spring
+                            from={{ number: 0 }}
+                            to={{ number: nutritionTotals('trans_fat') }}>
+                            {props => <div>{props.number.toFixed(2)}g</div>}
+                        </Spring>
+                    </div>
+                    <div className="nutrient-value">
+                        <p>Cholestoral:</p>
+                        <Spring
+                            from={{ number: 0 }}
+                            to={{ number: nutritionTotals('chol') }}>
+                            {props => <div>{props.number.toFixed(0)}mg</div>}
+                        </Spring>
+                    </div>
+                    <div className="nutrient-value">
+                        <p>Sodium:</p>
+                        <Spring
+                            from={{ number: 0 }}
+                            to={{ number: nutritionTotals('sodium') }}>
+                            {props => <div>{props.number.toFixed(0)}mg</div>}
+                        </Spring>
+                    </div>
+                    <div className="nutrient-value">
+                        <p>Carbohydrates:</p>
+                        <Spring
+                            from={{ number: 0 }}
+                            to={{ number: nutritionTotals('carb') }}>
+                            {props => <div>{props.number.toFixed(0)}g</div>}
+                        </Spring>
+                    </div>
+                    <div className="nutrient-value">
+                        <p>   Fiber:</p>
+                        <Spring
+                            from={{ number: 0 }}
+                            to={{ number: nutritionTotals('fiber') }}>
+                            {props => <div>{props.number.toFixed(0)}g</div>}
+                        </Spring>
+                    </div>
+                    <div className="nutrient-value">
+                        <p>   Sugar:</p>
+                        <Spring
+                            from={{ number: 0 }}
+                            to={{ number: nutritionTotals('sugar') }}>
+                            {props => <div>{props.number.toFixed(0)}g</div>}
+                        </Spring>
+                    </div>
+                    <div className="nutrient-value">
+                        <p>Protein:</p>
+                        <Spring
+                            from={{ number: 0 }}
+                            to={{ number: nutritionTotals('protein') }}>
+                            {props => <div>{props.number.toFixed(0)}g</div>}
+                        </Spring>
+                    </div>
                 </div>
             </div>
         </div>

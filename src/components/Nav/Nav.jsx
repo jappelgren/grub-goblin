@@ -7,6 +7,7 @@ import Dashboard from '../Dashboard/Dashboard';
 
 function Nav({ searchText, setSearchText, search }) {
   const user = useSelector((store) => store.user);
+  
 
   let loginLinkData = {
     path: '/login',
@@ -37,11 +38,7 @@ function Nav({ searchText, setSearchText, search }) {
               onChange={(event) => sanitizedSearchText(event.target.value)}
               value={searchText}
             />
-            <Dashboard />
-            <Link className="navLink" to={loginLinkData.path}>
-              {loginLinkData.text}
-            </Link>
-            <LogOutButton className="navLink" />
+            <Dashboard className="navLink" />
           </>
         )}
       </div>

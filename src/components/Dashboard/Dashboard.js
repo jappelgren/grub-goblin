@@ -40,7 +40,6 @@ export default function Spike() {
     };
 
 
-
     //controls whether the recipe container scrolls.  When there are empty boxes it doesn't
     //when there more than 6 recipes it does.
     const scrollStatus = () => {

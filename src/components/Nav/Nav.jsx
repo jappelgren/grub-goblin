@@ -2,7 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import DropDown from '../DropDown/DropDown';
-import './Nav.css';
 
 function Nav({ searchText, setSearchText, search }) {
   const user = useSelector((store) => store.user);

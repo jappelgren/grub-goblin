@@ -35,6 +35,10 @@ a {
   cursor: pointer;
 }
 
+input:focus {
+  outline: none;
+}
+
 .logo-nav {
   height: 129px;
 }
@@ -174,6 +178,28 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.edit-buttons {
+  position: absolute;
+  bottom: 0px;
+}
+
+.meal-select {
+  border-radius: 15px;
+  height: 50px;
+  width: 300px;
+}
+
+.input-label-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--banner);
+  margin-left: 20px;
 }
 
 .recipe-modal-photo-nutrition {
@@ -630,6 +656,8 @@ ul {
   width: 40vw;
   height: 300px;
   resize: none;
+  border-radius: 20px;
+  padding: 1rem;
 }
 
 .ingredient-minus-container {
@@ -647,6 +675,7 @@ ul {
   display: flex;
   justify-content: flex-end;
   width: 335px;
+  margin: 25px 0;
 }
 
 .daily-nutrition-container {

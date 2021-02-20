@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const login = (event) => {
     event.preventDefault();
@@ -26,39 +28,53 @@ function LoginForm() {
 
   return (
     <form autocomplete="off" className="formPanel" onSubmit={login}>
-      <h2>Login</h2>
+      <img src="images/logo.png" alt="The Grub Goblin logo." />
       {errors.loginMessage && (
         <h3 className="alert" role="alert">
           {errors.loginMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="username">
+      <div className="input-label-container">
+        <label htmlFor="username" className="label">
           Username:
-          <input
-            type="text"
-            name="username"
-            required
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
         </label>
+        <input
+          type="text"
+          name="username"
+          required
+          value={username}
+          onChange={(event) => setUsername(event.target.value)}
+        />
       </div>
-      <div>
-        <label htmlFor="password">
+      <div className="input-label-container">
+        <label htmlFor="password" className="label">
           Password:
-          <input
-            type="password"
-            name="password"
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
         </label>
+        <input
+          type="password"
+          name="password"
+          required
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
+        <input
+          className="goblin-button"
+          type="submit"
+          name="submit"
+          value="Log In"
+        />
       </div>
+      <button
+        type="button"
+        className="button-link"
+        onClick={() => {
+          history.push('/registration');
+        }}
+      >
+        Create a New Account
+      </button>
     </form>
   );
 }

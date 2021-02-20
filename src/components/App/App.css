@@ -861,3 +861,21 @@ ul {
   display: flex;
   flex-direction: row-reverse;
 }
+
+.import-form {
+  width: 400px;
+  height: 150px;
+}
+
+.import-input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+}
+
+.import-input-container > input {
+  font-size: 25px;
+  color: var(--banner);
+}

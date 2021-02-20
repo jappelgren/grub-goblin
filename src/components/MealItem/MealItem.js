@@ -9,8 +9,12 @@ export default function MealItem({ meal, dayIndex, mealIndex }) {
     const recipeSelectedId = useSelector(state => state.recipeSelectedId);
     const dispatch = useDispatch();
 
-
+    //Sets a recipe to the slot on the calendar on which it was dropped
     const moveRecipe = () => {
+        //checks to see if the slot already contains a recipe.  If it does, this will switch the recipe for the most
+        //recently dropped.  Without this logic, multiple recipes can be dropped on a single meal.
+        //I like the idea of having more than one recipe on a meal but, it would change a significant amount of the app
+        //This is on my list of features to add in the future.
         if (dailyNutritionCalc[dayIndex][mealIndex].week_id) {
             dispatch({
                 type: 'UPDATE_MEAL', payload: {
@@ -38,8 +42,8 @@ export default function MealItem({ meal, dayIndex, mealIndex }) {
         })
     });
 
+    //handleClick, removes meal from slot.
     const handleClick = (id) => {
-        console.log('event', event);
         dispatch({ type: 'REMOVE_MEAL', payload: { meal_index: mealIndex, day_index: dayIndex, id: id } });
 
     };
@@ -51,6 +55,8 @@ export default function MealItem({ meal, dayIndex, mealIndex }) {
         >
             <div className="day-banner">
                 <h4>{(meal.meal).toUpperCase()}</h4>
+                {/* Conditional rendering of the remove icon on the day header.  The icon will only appear
+                when there is a meal assigned to the corresponding day. */}
                 {dailyNutritionCalc[dayIndex][mealIndex].week_id &&
                     <img
                         className="remove-meal-icon"

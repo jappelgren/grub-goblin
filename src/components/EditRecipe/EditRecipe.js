@@ -6,10 +6,11 @@ export default function EditRecipe({ setEditMode, editMode, handleFav, handleDel
     const selectedRecipe = useSelector(state => state.viewRecipeReducer);
     const [ingredientArr, setIngredientArr] = useState(selectedRecipe.ingredient);
     const [newRecipe, setNewRecipe] = useState(selectedRecipe);
+
     const [addBtnPosition, setAddBtnPosition] = useState(selectedRecipe.ingredient.length - 1);
     const dispatch = useDispatch();
-    console.log(addBtnPosition);
 
+    //handleChange handles the changing all aspects of the recipe except fot the ingredients
     const handleChange = (event) => {
         if (event.target.name === 'servings') {
             setNewRecipe({ ...newRecipe, [event.target.name]: Number(event.target.value) });
@@ -18,8 +19,13 @@ export default function EditRecipe({ setEditMode, editMode, handleFav, handleDel
         }
     };
 
+    //handleIngredient handles the editing of the ingredients.  Since ingredients can be added, removed and edited,
+    //more logic is required to change them.
     const handleIngredient = index => event => {
         let tempArr = [...ingredientArr];
+        //if ingredients are deleted they are just marked as needing to be delete and given the delete value
+        //This hides the ingredient from the dom and when the recipe is submitted to the server it will be deleted.
+        //If the user cancels after deleting ingredients it wont be dispatched to the server and will persist 
         if (event.target.name === 'remove') {
             tempArr[index] = { ...tempArr[index], delete: true };
             setAddBtnPosition(addBtnPosition - 1);
@@ -42,7 +48,6 @@ export default function EditRecipe({ setEditMode, editMode, handleFav, handleDel
 
     const recipeCancel = () => {
         dispatch({ type: 'CLOSE_RECIPE_VIEW' });
-        // setNewRecipe({});
     };
 
     console.log(newRecipe);

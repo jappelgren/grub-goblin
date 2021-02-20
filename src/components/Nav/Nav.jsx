@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Dashboard from '../DropDown/DropDown';
+import DropDown from '../DropDown/DropDown';
 import './Nav.css';
 
 function Nav({ searchText, setSearchText, search }) {
@@ -56,7 +56,7 @@ function Nav({ searchText, setSearchText, search }) {
                 </svg>
               </div>
             </div>
-            <Dashboard className="navLink" />
+            <DropDown className="navLink" />
           </div>
         )}
       </div>

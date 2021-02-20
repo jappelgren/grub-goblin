@@ -12,7 +12,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import Nav from '../Nav/Nav';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import Spike from '../Dashboard/Dashboard';
+import Dashboard from '../Dashboard/Dashboard';
 import Spinner from '../Spinner/Spinner';
 import UserPage from '../UserPage/UserPage';
 import './App.css';
@@ -39,8 +39,8 @@ function App() {
 
             {/* Visiting localhost:3000/about will show the about page. */}
 
-            <ProtectedRoute exact path="/spike">
-              <Spike />
+            <ProtectedRoute exact path="/home">
+              <Dashboard />
             </ProtectedRoute>
 
             {/* For protected routes, the view could show one of several things on the same route.

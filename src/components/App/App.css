@@ -189,6 +189,8 @@ ul {
   border-radius: 15px;
   height: 50px;
   width: 300px;
+  color: var(--banner);
+  border-color: var(--banner);
 }
 
 .input-label-container {

@@ -1,12 +1,11 @@
 import React from 'react';
-
-import { useHistory } from 'react-router-dom';
+import PhotoGallery from '../PhotoGallery/PhotoGallery';
 import RegisterForm from '../RegisterForm/RegisterForm';
 
 function RegisterPage() {
-
   return (
     <div className="login-container">
+      <PhotoGallery />
       <RegisterForm />
     </div>
   );

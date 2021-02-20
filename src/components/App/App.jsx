@@ -20,6 +20,7 @@ Nav.setAppElement;
 
 function App() {
   const dispatch = useDispatch();
+  //spinnerReducer is a boolean indicating if something loading or not.  Which triggers the spinner.
   const spinnerReducer = useSelector((state) => state.spinnerReducer);
 
   useEffect(() => {
@@ -66,21 +67,6 @@ function App() {
             >
               <RegisterPage />
             </ProtectedRoute>
-
-            {/* <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows LandingPage at "/home"
-            exact
-            path="/home"
-            authRedirect="/user"
-          >
-            <LandingPage />
-          </ProtectedRoute> */}
-            {/* 
-          <ProtectedRoute exact path="/login" authRedirect="/home">
-            
-          </ProtectedRoute> */}
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route>

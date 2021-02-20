@@ -7,7 +7,8 @@ export default function DayItem({ day, index }) {
     const meals = [{ id: 1, meal: 'Breakfast' }, { id: 2, meal: 'Lunch' }, { id: 3, meal: 'Dinner' }];
     const dailyNutritionCalc = useSelector(state => state.dailyNutritionCalc);
 
-
+    //nutritionTotals takes the nutrient to total as an argument and returns the daily total for that particular
+    //nutrient
     let nutritionTotals = (nutrient) => {
         let total = 0;
         dailyNutritionCalc[index]?.map((recipe) => {
@@ -20,6 +21,8 @@ export default function DayItem({ day, index }) {
         return total;
     };
 
+    //rerenders the page if the nutrient total changes, ie. recipes are added or deleted from a space on the 
+    //calendar
     useEffect(() => {
     }, [dailyNutritionCalc]);
 
@@ -38,6 +41,7 @@ export default function DayItem({ day, index }) {
                 <div className="nutrition-margin">
                     <div className="nutrient-value">
                         <p>Calories:</p>
+                        {/* the Spring component (part of the react-spring library) here makes the numbers count up or down. */}
                         <Spring
                             from={{ number: 0 }}
                             to={{ number: nutritionTotals('cal') }}>

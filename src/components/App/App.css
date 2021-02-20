@@ -95,6 +95,7 @@ Form Treatment
   border-radius: 15px;
   border: 1px solid rgb(0, 0, 0, 0.4);
   padding: 10px;
+  font-size: 25px;
 }
 
 .button-link {
@@ -122,7 +123,6 @@ Form Treatment
   will-change: opacity;
   /* z-index: -1; */
 }
-
 
 input {
   margin: 5px;

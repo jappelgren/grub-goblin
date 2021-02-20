@@ -20,6 +20,9 @@ export default function Spike() {
     const emptyBoxesNumber = 6 - recipes.length;
     const emptyBoxes = [];
 
+    //search takes searchText from the nav component and uses a regular expression to see if it exists.
+    //First checking the recipe's name and then each of it's ingredients.  Breaking if it finds one, which
+    //makes it so doubles aren't displayed in the results.
     const search = () => {
         const re = new RegExp(`${searchText}`, 'gi');
         let resultArr = [];
@@ -50,7 +53,7 @@ export default function Spike() {
         }
     };
 
-
+    //decides how many empty divs should be appended to the recipe list if there are less than 6 recipes
     for (let i = 0; i < emptyBoxesNumber; i++) {
         emptyBoxes.push(<div key={i} className="empty-box"></div>);
     }

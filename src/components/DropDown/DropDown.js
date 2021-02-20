@@ -6,6 +6,8 @@ import RecipeViewModal from '../ViewEditNutrition/ViewEditNutrition.js';
 import LogOutButton from '../LogOutButton/LogOutButton.jsx';
 import { useState } from 'react';
 
+//customStyles is the style for all modals used throughout the app, except the actual dropdown,
+//which is styled in the App.css file.
 const customStyles = {
     overlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)'
@@ -30,7 +32,7 @@ export default function Dashboard() {
     const modalState = useSelector(state => state?.modalReducer);
     const [menuOpen, setMenuOpen] = useState(false);
 
-
+    //changes the class for the dropdown menu. Hiding it or revealing it.
     const handleMenuClick = () => {
         if (menuOpen) {
             return 'menu-open';
@@ -46,6 +48,7 @@ export default function Dashboard() {
             <div className={handleMenuClick()} onClick={() => setMenuOpen(!menuOpen)}>
 
                 <div>
+                    {/* clicking on any button dispatches to a modal reducer which tells the app which modal to open or close */}
                     <button onClick={() => dispatch({ type: 'OPEN_RECIPE_ENTRY' })}> <img src="images/iconmonstr-plus-5.svg" alt="" /> <p>Recipe Entry</p></button>
                     <button onClick={() => dispatch({ type: 'OPEN_RECIPE_IMPORT' })}> <img src="images/iconmonstr-plus-5.svg" alt="" /> <p>Import Recipe</p></button>
                     <button onClick={() => dispatch({ type: 'CLEAR_WEEK' })}> <img src="images/iconmonstr-eraser-1.svg" alt="Green Eraser icon" /> <p>Clear Week</p></button>
@@ -56,7 +59,6 @@ export default function Dashboard() {
             <Modal
                 ariaHideApp={false}
                 isOpen={modalState.recipeEntry}
-                // onAfterOpen={afterRecipeOpenModal}
                 onRequestClose={() => dispatch({ type: 'CLOSE_RECIPE_ENTRY' })}
                 style={customStyles}
                 contentLabel="New Recipe"
@@ -68,7 +70,6 @@ export default function Dashboard() {
             <Modal
                 ariaHideApp={false}
                 isOpen={modalState.recipeImport}
-                // onAfterOpen={afterImportOpenModal}
                 onRequestClose={() => dispatch({ type: 'CLOSE_RECIPE_IMPORT' })}
                 style={customStyles}
                 contentLabel="Import New Recipe"
@@ -80,7 +81,6 @@ export default function Dashboard() {
             <Modal
                 ariaHideApp={false}
                 isOpen={modalState.recipeView}
-                // onAfterOpen={afterImportOpenModal}
                 onRequestClose={() => dispatch({ type: 'CLOSE_RECIPE_VIEW' })}
                 style={customStyles}
                 contentLabel="Import New Recipe"

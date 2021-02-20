@@ -1,93 +1,146 @@
-import Modal from 'react-modal';
-import { useDispatch, useSelector } from 'react-redux';
-import NewRecipeForm from '../NewRecipeForm/NewRecipeForm.js';
-import RecipeImportForm from '../RecipeImportForm/RecipeImportForm.js';
-import RecipeViewModal from '../ViewEditNutrition/ViewEditNutrition.js';
-import LogOutButton from '../LogOutButton/LogOutButton.jsx';
-import { useState } from 'react';
-
-const customStyles = {
-    overlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
-    },
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        borderRadius: '20px',
-        margin: '0',
-        padding: '0',
-        border: 'none'
-    }
-};
+import { useEffect, useLayoutEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import DayItem from "../DayItem/DayItem";
+import Nav from "../Nav/Nav";
+import RecipeItem from "../RecipeItem/RecipeItem.js";
 
 
-export default function Dashboard() {
+export default function Spike() {
     const dispatch = useDispatch();
-    const modalState = useSelector(state => state?.modalReducer);
-    const [menuOpen, setMenuOpen] = useState(false);
+    const recipes = useSelector(state => state.recipeReducer);
+    const [searchText, setSearchText] = useState('');
+    const [searchResults, setSearchResults] = useState(recipes);
+    const [scroll, setScroll] = useState('');
+    const [favFilter, setFavFilter] = useState(false);
+
+    const week = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+
+    //Generates empty divs to fill the recipe container on dashboard.  The empty divs make everything spaced correctly even
+    // when there are less than 6 recipes.
+    const emptyBoxesNumber = 6 - recipes.length;
+    const emptyBoxes = [];
+
+    const search = () => {
+        const re = new RegExp(`${searchText}`, 'gi');
+        let resultArr = [];
+        for (let recipe of recipes) {
+            if (re.test(recipe?.recipe_name)) {
+                resultArr.push(recipe);
+            } else {
+                for (let ingr of recipe.ingredient) {
+                    if (re.test(ingr.ingredient)) {
+                        resultArr.push(recipe);
+                        break;
+                    }
+                }
+            }
+        }
+        setSearchResults(resultArr);
+
+    };
 
 
-    const handleMenuClick = () => {
-        if (menuOpen) {
-            return 'menu-open';
+
+    //controls whether the recipe container scrolls.  When there are empty boxes it doesn't
+    //when there more than 6 recipes it does.
+    const scrollStatus = () => {
+        if (recipes.length > 6) {
+            setScroll('recipe-container-scroll');
         } else {
-            return 'menu-closed';
+            setScroll('recipe-container-hidden');
         }
     };
 
 
+    for (let i = 0; i < emptyBoxesNumber; i++) {
+        emptyBoxes.push(<div key={i} className="empty-box"></div>);
+    }
+
+    //checks if there is an odd amount of recipes and makes an extra div so the last recipe stays justified to the left of 
+    //the container.
+    if (emptyBoxesNumber < 0 && recipes.length % 2 === 1) {
+        emptyBoxes.push(<div key="one box" className="empty-box"></div>);
+    }
+    //end div generation code.
+
+    let switchPosition;
+
+    if (favFilter) {
+        switchPosition = 'switchOn';
+    }
+
+    useEffect(() => {
+        dispatch({ type: 'FETCH_RECIPES' });
+        dispatch({ type: 'FETCH_WEEK' });
+
+    }, []);
+
+    useEffect(() => {
+        scrollStatus();
+    }, [recipes.length]);
+
+    useEffect(() => {
+        setSearchResults(recipes);
+    }, [recipes]);
+
+    useEffect(() => {
+        search();
+    }, [searchText]);
+
+
     return (
-        <div>
-            <img onClick={() => setMenuOpen(!menuOpen)} className="hamburger" src="images/iconmonstr-menu-5.svg" alt="A green circular menu button" />
-            <div className={handleMenuClick()} onClick={() => setMenuOpen(!menuOpen)}>
+        <>
+            <Nav searchText={searchText} setSearchText={setSearchText} search={search} />
 
-                <div>
-                    <button onClick={() => dispatch({ type: 'OPEN_RECIPE_ENTRY' })}> <img src="images/iconmonstr-plus-5.svg" alt="" /> <p>Recipe Entry</p></button>
-                    <button onClick={() => dispatch({ type: 'OPEN_RECIPE_IMPORT' })}> <img src="images/iconmonstr-plus-5.svg" alt="" /> <p>Import Recipe</p></button>
-                    <button onClick={() => dispatch({ type: 'CLEAR_WEEK' })}> <img src="images/iconmonstr-eraser-1.svg" alt="Green Eraser icon" /> <p>Clear Week</p></button>
-                    <LogOutButton />
+            <div className="dashboard-container" style={{ display: 'flex' }}>
+
+                {/* This map iterates over the days of the week and sets them next to the recipe container */}
+                {week.map((day, index) => (
+                    // Passing the recipes, day of the week and index of the day of the week
+                    <DayItem recipes={recipes} day={day} index={index} key={index} />
+                ))}
+
+                <div className="recipe-container-container" >
+                    <div className="recipe-container-banner">
+                        <h3>RECIPES</h3>
+                        <div className="fav-filter-container">
+                            <p className={`${switchPosition}-title`} onClick={() => setFavFilter(!favFilter)}>FAVORITES</p>
+                            <div className={`switch-body ${switchPosition}-body`} onClick={() => setFavFilter(!favFilter)}>
+                                <div className={`switch-circle ${switchPosition}`}></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={`recipe-container ${scroll}`}>
+                        {/* This map iterates over the recipes and puts them into a container */}
+                        {searchResults?.map((recipe, index) => {
+                            // Passing recipe from recipes, index of the recipe
+                            if (favFilter) {
+                                if (recipe.fav) {
+                                    return (
+                                        <RecipeItem
+                                            assigned={'recipe-card'}
+                                            recipe={recipe}
+                                            index={index}
+                                            key={recipe.id}
+                                        />
+                                    );
+                                }
+                            } else {
+                                return (
+                                    <RecipeItem
+                                        assigned={'recipe-card'}
+                                        recipe={recipe}
+                                        index={index}
+                                        key={recipe.id}
+                                    />
+                                );
+                            }
+
+                        })}
+                        {emptyBoxes}
+                    </div>
                 </div>
-
-            </div>
-            <Modal
-                ariaHideApp={false}
-                isOpen={modalState.recipeEntry}
-                // onAfterOpen={afterRecipeOpenModal}
-                onRequestClose={() => dispatch({ type: 'CLOSE_RECIPE_ENTRY' })}
-                style={customStyles}
-                contentLabel="New Recipe"
-                closeTimeoutMS={300}
-            >
-                <NewRecipeForm />
-            </Modal>
-
-            <Modal
-                ariaHideApp={false}
-                isOpen={modalState.recipeImport}
-                // onAfterOpen={afterImportOpenModal}
-                onRequestClose={() => dispatch({ type: 'CLOSE_RECIPE_IMPORT' })}
-                style={customStyles}
-                contentLabel="Import New Recipe"
-                closeTimeoutMS={300}
-            >
-                <RecipeImportForm />
-            </Modal>
-
-            <Modal
-                ariaHideApp={false}
-                isOpen={modalState.recipeView}
-                // onAfterOpen={afterImportOpenModal}
-                onRequestClose={() => dispatch({ type: 'CLOSE_RECIPE_VIEW' })}
-                style={customStyles}
-                contentLabel="Import New Recipe"
-                closeTimeoutMS={300}
-            >
-                <RecipeViewModal />
-            </Modal>
-        </div>
+            </div >
+        </>
     );
 }

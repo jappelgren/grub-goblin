@@ -729,6 +729,7 @@ ul {
   animation-name: modalFade;
   animation-duration: 0.5s;
 }
+
 .menu-open > div {
   display: flex;
   flex-direction: column;
@@ -767,6 +768,6 @@ ul {
   background-image: linear-gradient(to right, white, var(--banner));
   color: white;
   animation-name: modalFade;
-  animation-duration: 0.5s;
+  animation-duration: 1s;
   cursor: pointer;
 }

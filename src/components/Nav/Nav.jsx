@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
-import Dashboard from '../Dashboard/Dashboard';
+import Dashboard from '../DropDown/DropDown';
 
 function Nav({ searchText, setSearchText, search }) {
   const user = useSelector((store) => store.user);

@@ -12,7 +12,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import Nav from '../Nav/Nav';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import Spike from '../Spike/Spike';
+import Spike from '../Dashboard/Dashboard';
 import Spinner from '../Spinner/Spinner';
 import UserPage from '../UserPage/UserPage';
 import './App.css';

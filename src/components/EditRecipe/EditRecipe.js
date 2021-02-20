@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import ModalHeader from "../ModalHeader/ModalHeader";
 
 export default function EditRecipe({ setEditMode, editMode, handleFav, handleDelete, faved }) {
+        //most of this component is very similar to the NewRecipeForm component in function.
+
     const selectedRecipe = useSelector(state => state.viewRecipeReducer);
     const [ingredientArr, setIngredientArr] = useState(selectedRecipe.ingredient);
     const [newRecipe, setNewRecipe] = useState(selectedRecipe);

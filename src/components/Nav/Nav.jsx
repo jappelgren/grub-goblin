@@ -16,6 +16,8 @@ function Nav({ searchText, setSearchText, search }) {
     loginLinkData.text = 'Home';
   }
 
+  //This function strips out characters that will break the regular expression used for searching.
+  //only characters a-z, A-Z and numbers 0-9, plus white space characters are allowed.
   const sanitizedSearchText = (event) => {
     const re = new RegExp('[^a-zA-Z0-9\\s]', 'gi');
     let sanitizedText = event.replace(re, '');
@@ -39,6 +41,7 @@ function Nav({ searchText, setSearchText, search }) {
               />
 
               <div className="search-icon-container">
+                {/* hamburger icon */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

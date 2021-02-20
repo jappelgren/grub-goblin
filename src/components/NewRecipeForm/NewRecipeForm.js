@@ -2,11 +2,17 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 export default function NewRecipeForm() {
+    //most of this component is very similar to the EditRecipe component in function.
+
+    //ingredientArr starts with two empty strings. This is used as default state for the 
+    // newRecipeDefaultState.  The recipe form will map over this array to create
+    //the inputs for the form.
     const [ingredientArr, setIngredientArr] = useState(['', '']);
     const newRecipeDefaultState = { recipe_name: '', photo: '', directions: '', servings: '', meal: '', ingredients: ingredientArr };
     const [newRecipe, setNewRecipe] = useState(newRecipeDefaultState);
     const dispatch = useDispatch();
 
+    //handleChange handles the changing all aspects of the recipe except fot the ingredients
     const handleChange = (event) => {
         if (event.target.name === 'servings') {
             setNewRecipe({ ...newRecipe, [event.target.name]: Number(event.target.value) });
@@ -15,6 +21,8 @@ export default function NewRecipeForm() {
         }
     };
 
+    //handleIngredient handles the editing of the ingredients.  Since ingredients can be added, removed and edited,
+    //more logic is required to change them.
     const handleIngredient = index => event => {
         let tempArr = [...ingredientArr];
         if (event.target.name === 'remove') {

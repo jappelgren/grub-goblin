@@ -2,7 +2,9 @@ import { useSelector } from "react-redux";
 
 export default function ModalHeader({ faved, handleFav, handleDelete }) {
     const selectedRecipe = useSelector(state => state.viewRecipeReducer);
-
+    //the main reason this is it's own component, aside from it being used for multiple modals, is to hide the 
+    //big nasty svg path information.  Using svgs with an img tag takes away the ability to style the svg with css
+    // used just for svgs like fill.
     return (
         <header className="recipe-header">
             <h1>{(selectedRecipe.recipe_name).toUpperCase()}</h1>

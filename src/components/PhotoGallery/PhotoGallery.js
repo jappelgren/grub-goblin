@@ -1,11 +1,12 @@
 
 
 export default function PhotoGallery() {
-
+    //This was originally going to be a gallery that transitioned photos evert 30 seconds, but I like
+    // the first photo I used so were sticking with that.
     return (
         <div
             class="bg"
-            style={{ backgroundImage: `url('https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260')` }}
+            style={{ backgroundImage: `url('images/pexels-ella-olsson-1640777.jpg')` }}
         />
     );
 

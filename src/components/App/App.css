@@ -103,6 +103,13 @@ Form Treatment
   cursor: pointer;
 }
 
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 input {
   margin: 5px;
   margin-bottom: 10px;

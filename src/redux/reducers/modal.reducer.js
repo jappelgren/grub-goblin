@@ -1,4 +1,5 @@
 const modalReducer = (state = { recipeEntry: false, recipeImport: false, recipeView: false }, action) => {
+    //Sets which modal should be displayed or closed.
     switch (action.type) {
         case 'OPEN_RECIPE_ENTRY':
             return { ...state, recipeEntry: true };

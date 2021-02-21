@@ -10,10 +10,14 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
 
     try {
         const scrapeResult = await scraper(req.query.url);
-        // await res.send(result);
-        // console.log('!!hey!!', scrapeResult)
+
         let newRecipe;
 
+        //The results from the scraper vary.  Most often the result is an object, it can be an array of a few objects
+        //This logic attempts to parse that fact, but it is inefficient.  The scraping recipe works about 40% of the time.
+        //I would definitely like to focus on making this a little more consistent int he future.
+
+        //We are also packaging up the result information into an object the nutrition api can work with.
         if (scrapeResult.length) {
             newRecipe = await {
                 recipe_name: scrapeResult[scrapeResult.length - 1]?.name,

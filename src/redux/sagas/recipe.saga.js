@@ -19,7 +19,7 @@ function* addRecipe(action) {
 }
 
 //Identical to the addRecipe function, but gets the recipe information from server side
-//web scraper.
+//web scraper and when that response comes back it posts it back to the server..
 function* importRecipe(action) {
     try {
         yield put({ type: 'TOGGLE_SPINNER' });

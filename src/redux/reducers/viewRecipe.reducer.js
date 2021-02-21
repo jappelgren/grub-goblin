@@ -1,6 +1,5 @@
 const viewRecipeReducer = (state = {}, action) => {
-    console.log('action.payload', action.payload);
-
+//Stores the information of the recipe that was selected to be viewed.
     switch (action.type) {
         case 'VIEW_SELECTED_RECIPE':
             return action.payload;

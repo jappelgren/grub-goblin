@@ -3,7 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const { rejectUnauthenticated } = require('../modules/authentication-middleware.js');
 
-
+//all routes in this file are related to the weekly meal grid on the dashboard and are very straightforward 
 router.get('/', rejectUnauthenticated, (req, res) => {
 
     const queryText = `

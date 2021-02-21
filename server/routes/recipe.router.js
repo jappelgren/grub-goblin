@@ -29,7 +29,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 });
 
-
+//This post is a doozy
 router.post('/', rejectUnauthenticated, async (req, res) => {
   try {
     console.log(req.body);
@@ -48,6 +48,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       req.user.id
     ];
 
+    //Our first query sends all information about the recipe to the recipes table.  Except for the 
+    //ingredients, which is handled in the next query.
     const recipeResult = await pool.query(recipeQueryText, queryVariables);
 
     const newRecipeId = recipeResult.rows[0].id;
@@ -57,17 +59,21 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       VALUES ($1, $2)
       `;
 
+      //A query is made for each individual ingredient in the recipe object.  The recipe is returned from
+      //the previous query which we assign to each ingredient.
     req.body.ingredients.forEach(async (ingredient) => {
       const ingredientResult = await pool.query(ingredientQueryText, [ingredient, newRecipeId]);
 
     });
 
+    //data from the recipe object is repackaged into an object that our api will accept.
     const recipeToAnalyze = {
       title: req.body.recipe_name,
       yield: req.body.servings,
       ingr: req.body.ingredients
     };
 
+    //The newly created recipe object is sent to the api for nutrition analysis.
     const nutritionResult = await axios.post(
       `https://api.edamam.com/api/nutrition-details?app_id=${process.env.APP_ID}&app_key=${process.env.APP_KEY}`,
       recipeToAnalyze
@@ -75,6 +81,7 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
 
     const nutritionMacros = nutritionResult.data.totalNutrients;
+
     const queryText = `
           INSERT INTO "nutrition_info"(
               "cal",
@@ -112,6 +119,9 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
                   $21, $22, $23, $24, $25, $26, $27, $28, $29, $30)
       `;
 
+      //each nutrient is made into a variable.  We do this because there is a chance if the 
+      //nutrient is 0 that the api wont include that key in the object response.
+      //if the nutrient key doesn't exist we set it to a default value of 0
     const calories = await nutritionMacros?.ENERC_KCAL?.quantity || 0;
     const fat = await nutritionMacros?.FAT?.quantity || 0;
     const satFat = await nutritionMacros?.FASAT?.quantity || 0;
@@ -175,7 +185,8 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
       newRecipeId
     ];
 
-
+//after the response is parsed and our variables are created we make a query to the database
+//to record the nutrition information.  
     const nutritionPostResult = await pool.query(queryText, sanitizedNutrition);
 
     await res.sendStatus(201);
@@ -209,6 +220,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
 });
 
 router.put('/:id', rejectUnauthenticated, async (req, res) => {
+  //this put is very similar to the post above.  I will note the differences.
   console.log(req.body);
   const recipeQueryText = `
     UPDATE "recipes"
@@ -225,6 +237,8 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
     req.user.id
   ];
 
+  //because the nature of our edit form allows the user to add or delete ingredients from a recipe
+  //logic is built in to see if we need to delete, add, or update any ingredients
   const recipeResult = await pool.query(recipeQueryText, sanitizedRecipeVariables);
   try {
     const deleteIngrQueryText = `
@@ -244,8 +258,11 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
   `;
 
     req.body.ingredient.forEach(async (ingredient) => {
+      //checks if the delete key exists and is true.  If so that ingredient is deleted from the database.
       if (ingredient.delete) {
         await pool.query(deleteIngrQueryText, [ingredient.id]);
+        //checks if the ingredient id is not present.  If the id is not present this means
+        //the ingredient has never been on the database and is added as a new ingredient.
       } else if (!ingredient.id) {
         await pool.query(newIngredientQueryText, [ingredient.ingredient, req.params.id,]);
       } else {
@@ -256,12 +273,14 @@ router.put('/:id', rejectUnauthenticated, async (req, res) => {
           req.params.id,
           ingredient.id
         ];
-
+        //if the ingredient doesn't doesn't need to be deleted or isn't new it needs to be updated.
         await pool.query(updateIngredientQueryText, sanitizedIngredients);
       }
 
     });
-
+    //if the update key value pair has been added to the recipe object this means an ingredient has changed,
+    //added, or deleted, which means we will send it to the api to recalculate the nutrition. If no changes
+    //have been made to the ingredients we will not hit the API.
     if (await req.body.update) {
       const recipeToAnalyze = {
         title: req.body.recipe_name,

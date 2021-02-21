@@ -1,6 +1,8 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+//Starts spinner, posts to server the new recipe, then fetches the recipes and week,
+//stops spinner
 function* addRecipe(action) {
     try {
         yield put({ type: 'TOGGLE_SPINNER' });
@@ -13,12 +15,11 @@ function* addRecipe(action) {
         yield put({ type: 'TOGGLE_SPINNER' });
         alert('Error adding recipe, please try again.');
 
-
-
-
     }
 }
 
+//Identical to the addRecipe function, but gets the recipe information from server side
+//web scraper.
 function* importRecipe(action) {
     try {
         yield put({ type: 'TOGGLE_SPINNER' });
@@ -33,6 +34,7 @@ function* importRecipe(action) {
     }
 }
 
+//Gets all recipes from database.
 function* fetchRecipes() {
     try {
         const response = yield axios.get('/api/recipes');
@@ -43,6 +45,7 @@ function* fetchRecipes() {
     }
 }
 
+//A put that changes if a recipe is favorited or not.
 function* favRecipe(action) {
     console.log(action.payload.fav);
     try {

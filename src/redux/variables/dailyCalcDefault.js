@@ -1,3 +1,5 @@
+//This 2d array is where the assigned meals live.  
+
 export const defaultState = [
     [{ }, { }, { }], //MONDAY
     [{ }, { }, { }], //TUESDAY

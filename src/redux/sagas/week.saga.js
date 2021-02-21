@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
+//Gets all assigned recipes from database
 function* fetchWeek() {
     try {
         const weekResult = yield axios.get('/api/plan');
@@ -11,6 +12,7 @@ function* fetchWeek() {
     }
 }
 
+//Assigns dropped recipe to its meal/day
 function* setMeal(action) {
     try {
         yield axios.post('/api/plan', action.payload);
@@ -20,6 +22,8 @@ function* setMeal(action) {
     }
 }
 
+//removes the meal from its assigned day/meal on database and removes its
+//nutritional information from the reducer that holds that information
 function* removeMeal(action) {
     try {
         yield axios.delete(`/api/plan/${action.payload.id}`);
@@ -30,6 +34,7 @@ function* removeMeal(action) {
     }
 }
 
+//Changes assigned recipe to the most recently dropped.
 function* updateMeal(action) {
     try {
         yield axios.put(`/api/plan/${action.payload.week_id}`, action.payload);

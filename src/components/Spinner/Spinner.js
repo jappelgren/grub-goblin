@@ -1,9 +1,12 @@
-import { Spring } from "react-spring/renderprops";
-import { Modal } from 'react-modal';
-
 import React, { useEffect, useState } from 'react';
+import { Spring } from "react-spring/renderprops";
 
+//A spinner component, it deactivates dom interaction and features a repeated animation of a goblin head icon
+//growing in the middle of the screen.  This is most prominently displayed during importing a recipe, which can be
+//a little lengthy.
 export default function Spinner() {
+
+    //Style for the spinner
     const style = ({ props }) => ({
         borderRadius: "100%",
         height: props.diameter,
@@ -25,8 +28,8 @@ export default function Spinner() {
             <Spring
                 reset
                 config={{ tension: 180, friction: 12 }}
-                from={{ diameter: 0, transform: 'rotate(0deg)' }}
-                to={{ diameter: 100, transform: 'rotate(180deg)' }}
+                from={{ diameter: 0 }}
+                to={{ diameter: 100 }}
                 onRest={() => setReset(!reset)}
             >
                 {(props) => (

@@ -3,6 +3,8 @@ import ModalHeader from "../ModalHeader/ModalHeader";
 
 export default function RecipeNutrition({ faved, handleFav, handleDelete }) {
     const viewRecipeReducer = useSelector(state => state.viewRecipeReducer);
+    //This is all the nutrition information a recipe can have.  This is so div heavy because i wanted to style
+    //the card as close to a real nutrition label as I could.
     return (
         <div>
             <ModalHeader faved={faved} handleFav={handleFav} handleDelete={handleDelete} />

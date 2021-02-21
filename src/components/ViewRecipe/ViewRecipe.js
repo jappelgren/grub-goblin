@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import IngredientItem from '../IngredientItem/IngredientItem.js';
 import ModalHeader from '../ModalHeader/ModalHeader.js';
 
+//shows the currently selected recipe.
 export default function ViewRecipe({ faved, handleFav, handleDelete, nutritionMode, setNutritionMode }) {
     const selectedRecipe = useSelector(state => state.viewRecipeReducer);
     return (

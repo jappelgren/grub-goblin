@@ -2,10 +2,12 @@ import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { useSpring, animated } from 'react-spring';
 
+//These two variables are related to the mouse position on the page and are used by the Spring library to calculate the 
+// angle at which the recipe cards tilt based on that mouse position information.
 const calc = (x, y) => [-(y - window.innerHeight / 2) / 70, (x - window.innerWidth / 2) / 70, 1.1];
 const trans = (x, y, s) => `perspective(500px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
 
-export default function RecipeItem({ recipe, index, assigned }) {
+export default function RecipeItem({ recipe, assigned }) {
     const dispatch = useDispatch();
 
     //Sets the recipe as a draggable item, gives it a type of recipe
@@ -25,6 +27,8 @@ export default function RecipeItem({ recipe, index, assigned }) {
         dispatch({ type: 'OPEN_RECIPE_VIEW' });
     };
 
+    //The useSpring hook is used to configure the initial appearance of the recipe cards.  
+    //Mass, tension, and friction configure the behaviour of the cards when they are hovered over
     const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 2, tension: 400, friction: 20 } }));
 
 
@@ -40,6 +44,7 @@ export default function RecipeItem({ recipe, index, assigned }) {
             style={{ transform: props.xys.interpolate(trans), backgroundImage: `url(${recipe?.photo})` }}
             onClick={handleClick}
         >
+            {/* If a recipe is a favorite, the heart icon will appear on the card to signify this. */}
             {recipe?.fav && <img className="card-fav" src="images/iconmonstr-favorite-3.svg" alt="" />}
 
             <div className="recipe-card-banner">

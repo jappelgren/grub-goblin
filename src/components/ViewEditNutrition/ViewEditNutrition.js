@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import EditRecipe from "../EditRecipe/EditRecipe.js";
 import RecipeNutrition from "../RecipeNutrition/RecipeNutrition.js";
 import ViewRecipe from "../ViewRecipe/ViewRecipe.js";
-import { useSpring, animated as a } from 'react-spring';
 
+//This component controls which information is displayed in the view/edit/nutrition modal
 export default function RecipeViewModal() {
     const selectedRecipe = useSelector(state => state?.viewRecipeReducer);
     const [editMode, setEditMode] = useState(false);
@@ -31,6 +31,7 @@ export default function RecipeViewModal() {
     return (
 
         <div className="recipe-view-modal">
+            {/* A nested ternary, checks if edit mode is on first... */}
             {editMode ? <EditRecipe
                 setEditMode={setEditMode}
                 editMode={editMode}
@@ -39,11 +40,13 @@ export default function RecipeViewModal() {
                 faved={faved}
             /> : (
                     nutritionMode ?
+                    // then checks to see if nutrition mode is on.
                         <RecipeNutrition
                             faved={faved}
                             handleFav={handleFav}
                             handleDelete={handleDelete}
                         /> :
+                        // else displays the recipe itself.
                         <ViewRecipe
                             faved={faved}
                             setfaved={setfaved}

@@ -1,6 +1,6 @@
 # GRUB GOBLIN
 
-![alt text](public/images/logo.png =308x 'The Grub Goblin Logo')
+<img src="public/images/logo.png" alt="The Grub Goblin Logo" width="308"/>
 
 ## Description
 

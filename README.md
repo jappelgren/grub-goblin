@@ -1,6 +1,6 @@
 # GRUB GOBLIN
 
-![alt text](public/images/logo.png 'The Grub Goblin Logo')
+![alt text](public/images/logo.png =308x 'The Grub Goblin Logo')
 
 ## Description
 

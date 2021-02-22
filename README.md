@@ -18,6 +18,8 @@ To get the app up and running on your machine follow these steps.
 7. In your browser go to [localhost:3000](http://localhost:3000/).
 8. Create a new account using the "Create a New Account" link on login box.
 9. After creating an account you are able to run the ```INSERT``` queries in database.sql if you would like some recipes to play with right away.  Otherwise you will be using the app with a clean slate and can add recipes from the add recipe form or import from a url.
+10. For nutrition analysis of recipes you will need an API key for the Edamam Nutrition Analysis API.  Register for a free account with 200 calls a month [Here](https://developer.edamam.com/).
+11. Once you have the API Key and App Id from Edamam, create a .env file in the root directory of the project and add ```APP_KEY=<Your Key>``` and ```APP_ID=<Your ID>``` to it..
 
 ## Usage
 
@@ -32,3 +34,7 @@ To get the app up and running on your machine follow these steps.
 - [Node](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
 - [React-Router](https://reactrouter.com/)
+- [React-DnD](https://react-dnd.github.io/react-dnd/about)
+- [React-Spring](https://www.react-spring.io/)
+- [Puppeteer](https://pptr.dev/)
+- [Edamam API](https://developer.edamam.com/)

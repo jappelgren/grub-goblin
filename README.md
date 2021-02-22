@@ -1,5 +1,7 @@
 # GRUB GOBLIN
 
+![alt text](public/images/logo.png 'The Grub Goblin Logo')
+
 ## Description
 
 ## Installation

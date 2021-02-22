@@ -91,7 +91,8 @@ CREATE TABLE "user_settings" (
 	"user_id" int REFERENCES "user" ON DELETE CASCADE NOT NULL
 );
 
---RUN ALL BELOW INSERT STATEMENTS AFTER YOU HAVE CREATED AN ACCOUNT IN THE APP
+-- **RUN ALL BELOW INSERT STATEMENTS AFTER YOU HAVE CREATED AN ACCOUNT IN THE APP**
+-- **All dummy data is tied to user 1**
 
 INSERT INTO "public"."recipes"("recipe_name","fav","photo","directions","servings","meal","user_id")
 VALUES

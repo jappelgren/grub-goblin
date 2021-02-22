@@ -1,7 +1,6 @@
 import { defaultState } from '../variables/dailyCalcDefault.js';
 
 const dailyNutritionCalc = (state = defaultState, action) => {
-    console.log('defaultState', defaultState);
     switch (action.type) {
         case 'UPDATE_NUTRITION':
 

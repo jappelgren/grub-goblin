@@ -26,9 +26,7 @@ function Nav({ searchText, setSearchText, search }) {
 
   return (
     <div className="nav">
-      <Link to="/spike">
         <img className="logo-nav" src="images/logo.png" alt="" />
-      </Link>
       <div>
         {user.id && (
           <div className="search-hamburger-container">

@@ -4,13 +4,11 @@
 
 ## Description
 
-<center>
-    <a href="http://www.youtube.com/watch?feature=player_embedded&v=hHvcLQsFrpw
-    " target="_blank"><img src="http://img.youtube.com/vi/hHvcLQsFrpw/0.jpg"
-    alt="Grub Goblin Youtube Preview" width="240" height="180" border="10" /></a>
-    <br/>
-    <sub>Demonstration video</sub>
-</center>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=hHvcLQsFrpw
+" target="_blank"><img src="http://img.youtube.com/vi/hHvcLQsFrpw/0.jpg" 
+alt="Grub Goblin Youtube Preview" width="240" height="180" border="10" /></a>
+<br/>
+<sub>Demonstration video</sub>
 
 Grub Goblin is a meal planning app with an emphasis on nutrition. Grub Goblin is designed so that a user can have an entire weeks worth of meals laid out in one easy to ready week long view. All Days are broken down into three meal slots and when food is added to the slots the nutrition is added together and displayed at the under the corresponding day.
 
@@ -35,8 +33,26 @@ To get the app up and running on your machine follow these steps.
 11. Once you have the API Key and App Id from Edamam, create a .env file in the root directory of the project and add `APP_KEY=<Your Key>` and `APP_ID=<Your ID>` to it..
 
 ## Usage
+Grub Goblin is not responsive.  It looks best on a 1920x1080 display.  If the entire app doesn't fit in the browser frame, press cmd + - until it does.  Responsive design is on my list of features to implement in the future.
 
-![alt text](documentation/images/gg-login.png 'The Grub Goblin Login Page')
+![Screenshot of Grub Goblin Login page](documentation/images/gg-login.png 'The Grub Goblin Login Page')
+Before using Grub Goblin, you will need to register an account.  Clicking the create new account link will take you to a registration form.  AFter registering a user will automatically be logged in and taken to the Grub Goblin dashboard.  This is the only view in the app.  All recipe entry, nutrition details, etc will appear in modals on top of this view.
+
+![Screenshot of Grub Goblin dashboard view](documentation/images/gg-dashboard.png 'Grub Goblin dashboard view')
+
+Recipes can be entered into the app in one of two ways.  Both ways are accessed in the hamburger menu located in the top right of the screen. The first method is recipe entry.  A form for the user to fill out will appear in a modal.  Recipes need a title, image, ingredients, servings, directions and meal type (Breakfat, Lunch or Dinner).  Servings will determine how the nutrition will be divided.  All daily nutrition is based on 1 serving.
+
+The second method is importing a recipe from another website.  Enter the url of the page that contains the recipe you're looking to import and Grub Goblin's experimental web scraping technology will attempt to import the recipe.  This feature is unreliable at the moment but has very good success with a lot of blogs and foodandwine.com recipes.
+
+![Screenshot of Grub Goblin recipe modal](documentation/images/gg-recipe.png 'Grub Goblin recipe modal')
+
+Once a recipe is in the app and the nutrition is analyzed the recipe will appear in the recipes container at the right side of the screen.  Clicking on a recipe will bring up a recipe details modal.  In this modal a user can view the recipe itself, the nutrition and are also able to edit the recipe.  Any changes to the ingredients of any recipe will trigger Grub Goblin to recalculate the nutrition.  Recipes can be favorited and deleted from this view as well.
+
+![Screenshot of Grub Goblin nutrition modal](documentation/images/gg-nutrition.png 'Grub Goblin nutrition modal')
+
+
+
+
 
 ## Built With
 

@@ -4,7 +4,7 @@
 
 ## Description
 
-<div style="display:flex; flex-direction:column; justify-content:center">
+<div style="display: flex; flex-direction: column; justify-content: center;">
     <a href="http://www.youtube.com/watch?feature=player_embedded&v=hHvcLQsFrpw
     " target="_blank"><img src="http://img.youtube.com/vi/hHvcLQsFrpw/0.jpg"
     alt="Grub Goblin Youtube Preview" width="240" height="180" border="10" /></a>

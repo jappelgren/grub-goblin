@@ -4,6 +4,12 @@
 
 ## Description
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hHvcLQsFrpw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Grub Goblin is a meal planning app with an emphasis on nutrition. Grub Goblin is designed so that a user can have an entire weeks worth of meals laid out in one easy to ready week long view. All Days are broken down into three meal slots and when food is added to the slots the nutrition is added together and displayed at the under the corresponding day.
+
+Grub Goblin works off of user submitted recipes. Users have the option of entering their own or using an import from URL feature. Whichever way the user chooses the recipe is sent to a third party api and the nutrition information is analyzed.
+
 ## Installation
 
 To get the app up and running on your machine follow these steps.

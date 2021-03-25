@@ -4,13 +4,11 @@
 
 ## Description
 
-<div style="display: flex; flex-direction: column; justify-content: center;">
-    <a href="http://www.youtube.com/watch?feature=player_embedded&v=hHvcLQsFrpw
-    " target="_blank"><img src="http://img.youtube.com/vi/hHvcLQsFrpw/0.jpg"
-    alt="Grub Goblin Youtube Preview" width="240" height="180" border="10" /></a>
-    <br/>
-    <sub>Demonstration video</sub>
-</div>
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=hHvcLQsFrpw
+" target="_blank"><img src="http://img.youtube.com/vi/hHvcLQsFrpw/0.jpg" 
+alt="Grub Goblin Youtube Preview" width="240" height="180" border="10" /></a>
+<br/>
+<sub>Demonstration video</sub>
 
 Grub Goblin is a meal planning app with an emphasis on nutrition. Grub Goblin is designed so that a user can have an entire weeks worth of meals laid out in one easy to ready week long view. All Days are broken down into three meal slots and when food is added to the slots the nutrition is added together and displayed at the under the corresponding day.
 
